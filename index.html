@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>St Sola — Loyalty Over Everything</title>
-  <meta name="description" content="St Sola — Builder. Saint. Creator. Web3, security, art, and street-level software." />
+  <meta name="description" content="St Sola — Builder. Saint. Creator." />
   <meta property="og:title" content="St Sola" />
   <meta property="og:description" content="Builder. Saint. Creator." />
   <meta property="og:image" content="assets/img1.jpg" />
@@ -16,399 +16,427 @@
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&family=Cinzel:wght@700;900&display=swap" rel="stylesheet" />
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth;scroll-snap-type:y mandatory;overflow-y:scroll;background:#080808}
-    body{font-family:'VT323',monospace;color:#e8e8e8;background:#080808}
-    a{color:inherit;text-decoration:none}
 
-    /* ── SECTIONS ── */
-    section{
-      scroll-snap-align:start;
-      min-height:100vh;
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      overflow:hidden;
-      padding:60px 24px;
+    /* ── FIXED CHARACTER BACKGROUND ── */
+    html, body { min-height:100%; }
+    body {
+      font-family:'VT323',monospace;
+      color:#fff;
+      /* Character locked behind everything */
+      background: #080808;
     }
+
+    /* Fixed full-viewport character */
+    .bg-char {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 0;
+      filter: brightness(0.55);
+    }
+
+    /* Subtle dark overlay so text is readable */
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(8,0,0,0.25) 0%,
+        rgba(8,0,0,0.15) 40%,
+        rgba(8,0,0,0.55) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* All content scrolls above the fixed bg */
+    .scroll-root {
+      position: relative;
+      z-index: 2;
+    }
+
+    a { color: inherit; text-decoration: none; }
 
     /* ── HERO ── */
-    #hero{background:#080808;gap:32px}
-
-    .hero-logo{
-      width:min(320px,80vw);
-      border-radius:8px;
-      box-shadow:0 0 40px rgba(255,58,0,.4);
-      animation:logoIn 1.5s ease both;
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px 80px;
+      text-align: center;
+      gap: 32px;
     }
-    @keyframes logoIn{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+
+    /* NAME CUTOUT — gothic text, background-clip reveals red behind */
+    .name-cutout {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: clamp(72px, 18vw, 180px);
+      line-height: 1;
+      /* Clip the red bg image through the text */
+      background: url('assets/hero-bg.jpg') center top / cover;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(255,58,0,0.6)) drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+      animation: nameIn 1.5s ease both;
+      letter-spacing: 0.02em;
+    }
+    @keyframes nameIn {
+      from { opacity:0; transform: scale(0.92); }
+      to   { opacity:1; transform: scale(1); }
+    }
 
     /* THE CYCLING SQUARE */
-    .photo-frame{
-      position:relative;
-      width:min(440px,88vw);
-      aspect-ratio:1/1;
-      border-radius:12px;
-      overflow:hidden;
-      cursor:crosshair;
-      box-shadow:0 0 60px rgba(255,58,0,.25),0 0 120px rgba(255,58,0,.1);
-      border:1px solid rgba(255,58,0,.3);
+    .photo-frame {
+      position: relative;
+      width: min(380px, 82vw);
+      aspect-ratio: 1/1;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: crosshair;
+      /* Glass border */
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.5),
+        0 0 60px rgba(255,58,0,0.2),
+        inset 0 0 0 1px rgba(255,255,255,0.05);
+      backdrop-filter: blur(2px);
     }
-    .photo-frame img{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      opacity:0;
-      transition:opacity 0.7s ease;
+    .photo-frame img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.7s ease;
     }
-    .photo-frame img.active{opacity:1}
+    .photo-frame img.active { opacity: 1; }
 
-    /* shimmer on hover */
-    .photo-frame::after{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.04) 50%,transparent 60%);
-      opacity:0;
-      transition:opacity .3s;
-      pointer-events:none;
-      z-index:2;
-    }
-    .photo-frame:hover::after{opacity:1}
-
-    .hero-tagline{
-      font-family:'VT323',monospace;
-      font-size:clamp(1.4rem,4vw,2.2rem);
-      color:#ffd700;
-      letter-spacing:.35em;
-      text-shadow:0 0 12px rgba(255,215,0,.5);
-      text-transform:uppercase;
-      animation:logoIn 1.5s ease 1s both;
+    .hero-tagline {
+      font-family: 'VT323', monospace;
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      color: #ffd700;
+      letter-spacing: 0.4em;
+      text-shadow: 0 0 16px rgba(255,215,0,0.5);
+      text-transform: uppercase;
+      animation: nameIn 1.5s ease 1s both;
     }
 
-    /* ── SECTION TITLES ── */
-    .section-title{
-      font-family:'Cinzel',serif;
-      font-size:clamp(1.4rem,4vw,2.2rem);
-      color:#ff3a00;
-      letter-spacing:.2em;
-      text-transform:uppercase;
-      text-shadow:0 0 20px rgba(255,58,0,.4);
-      margin-bottom:40px;
-      text-align:center;
+    /* Scroll arrow */
+    .scroll-arrow {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      cursor: pointer; animation: bounce 2s ease-in-out infinite;
     }
-
-    /* ── CARDS ── */
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:20px;
-      width:100%;
-      max-width:900px;
-    }
-    .card{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,58,0,.2);
-      border-radius:10px;
-      padding:24px 20px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      transition:transform .25s,box-shadow .25s,border-color .25s;
-    }
-    .card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 8px 32px rgba(255,58,0,.25);
-      border-color:rgba(255,58,0,.6);
-    }
-    .card-name{
-      font-family:'Cinzel',serif;
-      font-size:1.15rem;
-      color:#ffd700;
-      letter-spacing:.1em;
-    }
-    .card-desc{
-      font-size:1.1rem;
-      color:#aaa;
-      line-height:1.5;
-    }
-    .card-link{
-      display:inline-block;
-      margin-top:auto;
-      padding:7px 16px;
-      background:transparent;
-      border:1px solid #ff3a00;
-      color:#ff3a00;
-      border-radius:4px;
-      font-family:'VT323',monospace;
-      font-size:1.1rem;
-      letter-spacing:.1em;
-      transition:background .2s,color .2s;
-      width:fit-content;
-    }
-    .card-link:hover{background:#ff3a00;color:#fff}
-
-    /* ── AMBASSADOR SECTION ── */
-    #ambassador{background:#080808}
-    .amb-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:20px;
-      width:100%;
-      max-width:900px;
-    }
-    .amb-card{
-      background:rgba(255,215,0,.04);
-      border:1px solid rgba(255,215,0,.2);
-      border-radius:10px;
-      padding:20px;
-      text-align:center;
-      transition:transform .25s,box-shadow .25s;
-    }
-    .amb-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 6px 24px rgba(255,215,0,.15);
-      border-color:rgba(255,215,0,.5);
-    }
-    .amb-role{
-      font-size:.95rem;
-      color:#ff3a00;
-      letter-spacing:.15em;
-      text-transform:uppercase;
-      margin-bottom:6px;
-    }
-    .amb-name{
-      font-family:'Cinzel',serif;
-      font-size:1.2rem;
-      color:#ffd700;
-    }
-
-    /* ── FOOTER ── */
-    #footer{
-      min-height:auto;
-      padding:60px 24px;
-      background:#050505;
-      border-top:1px solid rgba(255,58,0,.15);
-    }
-    .footer-inner{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:20px;
-      text-align:center;
-    }
-    .footer-logo{
-      width:min(180px,50vw);
-      border-radius:6px;
-      opacity:.8;
-    }
-    .footer-tagline{
-      font-size:1.3rem;
-      color:#444;
-      letter-spacing:.25em;
-    }
-    .footer-socials{
-      display:flex;
-      gap:20px;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-    .footer-socials a{
-      font-size:1.1rem;
-      color:#ff3a00;
-      letter-spacing:.1em;
-      border-bottom:1px solid transparent;
-      transition:border-color .2s;
-    }
-    .footer-socials a:hover{border-color:#ff3a00}
-
-    /* ── NAV DOTS ── */
-    .nav-dots{
-      position:fixed;
-      right:20px;
-      top:50%;
-      transform:translateY(-50%);
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      z-index:100;
-    }
-    .nav-dot{
-      width:8px;height:8px;
-      border-radius:50%;
-      background:rgba(255,255,255,.15);
-      border:1px solid rgba(255,58,0,.3);
-      cursor:pointer;
-      transition:background .3s,transform .3s;
-    }
-    .nav-dot.active{background:#ff3a00;transform:scale(1.4);box-shadow:0 0 8px rgba(255,58,0,.7)}
-
-    /* ── SCROLL ARROW ── */
-    .scroll-arrow{
-      position:absolute;bottom:2rem;left:50%;
-      transform:translateX(-50%);
-      display:flex;flex-direction:column;align-items:center;gap:4px;
-      animation:bounceDown 2s ease-in-out infinite;cursor:pointer;
-    }
-    .scroll-arrow span{
-      display:block;width:12px;height:12px;
-      border-right:2px solid #ff3a00;border-bottom:2px solid #ff3a00;
-      transform:rotate(45deg);opacity:0;
-      animation:arrowFade 1.5s ease infinite;
+    .scroll-arrow span {
+      display: block; width: 12px; height: 12px;
+      border-right: 2px solid rgba(255,58,0,0.8);
+      border-bottom: 2px solid rgba(255,58,0,0.8);
+      transform: rotate(45deg); opacity: 0;
+      animation: arrowFade 1.5s ease infinite;
     }
     .scroll-arrow span:nth-child(2){animation-delay:.2s}
     .scroll-arrow span:nth-child(3){animation-delay:.4s}
-    @keyframes arrowFade{0%,100%{opacity:0}50%{opacity:.8}}
-    @keyframes bounceDown{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+    @keyframes arrowFade{0%,100%{opacity:0}50%{opacity:.7}}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 80px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.3rem, 3.5vw, 2rem);
+      color: #ff3a00;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(255,58,0,0.5);
+      text-align: center;
+    }
+
+    /* ── GLASS CARDS ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .card {
+      /* CLEAR GLASS */
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform .25s, box-shadow .25s, background .25s;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 12px 40px rgba(255,58,0,0.2), inset 0 1px 0 rgba(255,255,255,0.12);
+      border-color: rgba(255,58,0,0.4);
+    }
+    .card-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: #ffd700;
+      letter-spacing: 0.1em;
+    }
+    .card-desc {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .card-link {
+      display: inline-block;
+      padding: 8px 18px;
+      background: rgba(255,58,0,0.15);
+      border: 1px solid rgba(255,58,0,0.5);
+      color: #ff3a00;
+      border-radius: 6px;
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      transition: background .2s, color .2s;
+      width: fit-content;
+      backdrop-filter: blur(4px);
+    }
+    .card-link:hover { background: #ff3a00; color: #fff; }
+
+    /* ── AMBASSADOR SECTION ── */
+    .amb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 800px;
+    }
+    .amb-card {
+      background: rgba(255,215,0,0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,215,0,0.15);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .amb-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(255,215,0,0.15);
+      border-color: rgba(255,215,0,0.4);
+    }
+    .amb-role {
+      font-size: 0.9rem;
+      color: #ff3a00;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .amb-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: #ffd700;
+    }
+
+    /* ── FOOTER ── */
+    #footer {
+      padding: 60px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+      border-top: 1px solid rgba(255,58,0,0.1);
+      /* slight dark bg for footer readability */
+      background: rgba(8,0,0,0.7);
+      backdrop-filter: blur(8px);
+    }
+    .footer-name {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: clamp(2rem, 8vw, 4rem);
+      background: url('assets/hero-bg.jpg') center top / cover;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 16px rgba(255,58,0,0.4));
+    }
+    .footer-tagline {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.3em;
+    }
+    .footer-socials {
+      display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
+    }
+    .footer-socials a {
+      font-size: 1.1rem;
+      color: #ff3a00;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s;
+    }
+    .footer-socials a:hover { border-color: #ff3a00; }
 
     /* ── NOISE ── */
-    body::after{
-      content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity:.02;
+    body::after {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .022;
     }
 
     /* ── MOBILE ── */
-    @media(max-width:640px){
-      html{scroll-snap-type:none}
-      .nav-dots{display:none}
-      .cards,.amb-grid{grid-template-columns:1fr}
-      .photo-frame{width:90vw}
+    @media(max-width:640px) {
+      .cards, .amb-grid { grid-template-columns: 1fr; }
+      .photo-frame { width: 88vw; }
+      .name-cutout { font-size: clamp(56px, 18vw, 120px); }
     }
   </style>
 </head>
 <body>
 
-  <nav class="nav-dots">
-    <div class="nav-dot active" data-section="hero"></div>
-    <div class="nav-dot" data-section="apps"></div>
-    <div class="nav-dot" data-section="tools"></div>
-    <div class="nav-dot" data-section="randoms"></div>
-    <div class="nav-dot" data-section="ambassador"></div>
-    <div class="nav-dot" data-section="footer"></div>
-  </nav>
+  <!-- FIXED CHARACTER BACKGROUND -->
+  <img src="assets/hero-bg.jpg" alt="" class="bg-char" />
+  <div class="bg-overlay"></div>
 
-  <!-- ══ HERO ══ -->
-  <section id="hero">
-    <img src="assets/stsola-logo.jpg" alt="St Sola" class="hero-logo" />
+  <!-- ALL CONTENT SCROLLS OVER CHARACTER -->
+  <div class="scroll-root">
 
-    <div class="photo-frame" id="photoFrame">
-      <img src="assets/img1.jpg" alt="" class="active" />
-      <img src="assets/img2.jpg" alt="" />
-      <img src="assets/img3.jpg" alt="" />
-      <img src="assets/img4.jpg" alt="" />
-      <img src="assets/img5.jpg" alt="" />
-      <img src="assets/photo1.jpg" alt="" />
-      <img src="assets/photo2.jpg" alt="" />
+    <!-- ══ HERO ══ -->
+    <section id="hero">
+      <h1 class="name-cutout">St Sola</h1>
+
+      <div class="photo-frame" id="photoFrame">
+        <img src="assets/img1.jpg" alt="" class="active" />
+        <img src="assets/img2.jpg" alt="" />
+        <img src="assets/img3.jpg" alt="" />
+        <img src="assets/img4.jpg" alt="" />
+        <img src="assets/img5.jpg" alt="" />
+        <img src="assets/photo1.jpg" alt="" />
+        <img src="assets/photo2.jpg" alt="" />
+      </div>
+
+      <p class="hero-tagline">Builder.&nbsp; Saint.&nbsp; Creator.</p>
+
+      <div class="scroll-arrow" onclick="document.getElementById('apps').scrollIntoView({behavior:'smooth'})">
+        <span></span><span></span><span></span>
+      </div>
+    </section>
+
+    <!-- ══ WEB APPS ══ -->
+    <div class="section" id="apps">
+      <h2 class="section-title">Built Different</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-name">Saint Watch</div>
+          <div class="card-desc">Web3 wallet security monitoring. Approval guard, drain watch, bridge watch. Your on-chain bodyguard.</div>
+          <a class="card-link" href="https://saintwatch.com" target="_blank" rel="noopener">VISIT →</a>
+        </div>
+        <div class="card">
+          <div class="card-name">Trap Wars</div>
+          <div class="card-desc">PVP trading battles on Solana. Best trader wins the pot. Squads Protocol escrow. No mercy.</div>
+          <a class="card-link" href="https://trapwars.win" target="_blank" rel="noopener">ENTER →</a>
+        </div>
+      </div>
     </div>
 
-    <p class="hero-tagline">Builder.&nbsp; Saint.&nbsp; Creator.</p>
-
-    <div class="scroll-arrow" onclick="document.getElementById('apps').scrollIntoView({behavior:'smooth'})">
-      <span></span><span></span><span></span>
-    </div>
-  </section>
-
-  <!-- ══ WEB APPS ══ -->
-  <section id="apps">
-    <h2 class="section-title">Built Different</h2>
-    <div class="cards">
-      <div class="card">
-        <div class="card-name">Saint Watch</div>
-        <div class="card-desc">Web3 wallet security monitoring. Approval guard, drain watch, bridge watch. Your on-chain bodyguard.</div>
-        <a class="card-link" href="https://saintwatch.com" target="_blank" rel="noopener">VISIT →</a>
-      </div>
-      <div class="card">
-        <div class="card-name">Trap Wars</div>
-        <div class="card-desc">PVP trading battles on Solana. Best trader wins the pot. Squads Protocol escrow. No mercy.</div>
-        <a class="card-link" href="https://trapwars.win" target="_blank" rel="noopener">ENTER →</a>
+    <!-- ══ TOOLS ══ -->
+    <div class="section" id="tools">
+      <h2 class="section-title">Tools of the Trade</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-name">Saint Shield</div>
+          <div class="card-desc">Chrome extension. AI-powered crypto scam blocker. Detects rug pulls, phishing, and fake NFT sites before you get got.</div>
+          <a class="card-link" href="https://chromewebstore.google.com/detail/saint-shield/fpkagjdfdfcngcigobfnibmfnmefbhbe" target="_blank" rel="noopener">ADD TO CHROME →</a>
+        </div>
+        <div class="card">
+          <div class="card-name">Telegram Sticker Maker</div>
+          <div class="card-desc">ClawHub skill. Turn any image into a Telegram sticker pack. Background removal, resize, animate. One command.</div>
+          <a class="card-link" href="https://clawhub.ai/skills/k976ce8" target="_blank" rel="noopener">GET SKILL →</a>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- ══ EXTENSIONS & SKILLS ══ -->
-  <section id="tools">
-    <h2 class="section-title">Tools of the Trade</h2>
-    <div class="cards">
-      <div class="card">
-        <div class="card-name">Saint Shield</div>
-        <div class="card-desc">Chrome extension. AI-powered crypto scam blocker. Detects rug pulls, phishing, and fake NFT sites before you get got.</div>
-        <a class="card-link" href="https://chromewebstore.google.com/detail/saint-shield/fpkagjdfdfcngcigobfnibmfnmefbhbe" target="_blank" rel="noopener">ADD TO CHROME →</a>
-      </div>
-      <div class="card">
-        <div class="card-name">Telegram Sticker Maker</div>
-        <div class="card-desc">ClawHub skill. Turn any image into a Telegram sticker pack. Background removal, resize, animate. One command.</div>
-        <a class="card-link" href="https://clawhub.ai/skills/k976ce8" target="_blank" rel="noopener">GET SKILL →</a>
+    <!-- ══ RANDOMS ══ -->
+    <div class="section" id="randoms">
+      <h2 class="section-title">Other Shit I Built</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-name">Saints NFT Grid</div>
+          <div class="card-desc">Visual grid of the Saints of LA collection. Browse the whole hood.</div>
+          <a class="card-link" href="https://grid.saintsola13.workers.dev/" target="_blank" rel="noopener">VIEW →</a>
+        </div>
+        <div class="card">
+          <div class="card-name">FCKOFF Radio</div>
+          <div class="card-desc">90s hip hop internet radio. West Coast. Old school. No ads. No German news.</div>
+          <a class="card-link" href="https://fckoff-radio.pages.dev/" target="_blank" rel="noopener">TUNE IN →</a>
+        </div>
+        <div class="card">
+          <div class="card-name">It Couldn't Be</div>
+          <div class="card-desc">Mystery game. You'll see.</div>
+          <a class="card-link" href="https://it-couldnt-be.netlify.app/" target="_blank" rel="noopener">PLAY →</a>
+        </div>
+        <div class="card">
+          <div class="card-name">NFT Galleria</div>
+          <div class="card-desc">NFT portfolio viewer. Multi-chain. Clean UI.</div>
+          <a class="card-link" href="https://nftgalleria.netlify.app/" target="_blank" rel="noopener">VIEW →</a>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- ══ RANDOMS ══ -->
-  <section id="randoms">
-    <h2 class="section-title">Other Shit I Built</h2>
-    <div class="cards">
-      <div class="card">
-        <div class="card-name">Saints NFT Grid</div>
-        <div class="card-desc">Visual grid of the Saints of LA collection. Browse the whole hood.</div>
-        <a class="card-link" href="https://grid.saintsola13.workers.dev/" target="_blank" rel="noopener">VIEW →</a>
-      </div>
-      <div class="card">
-        <div class="card-name">FCKOFF Radio</div>
-        <div class="card-desc">90s hip hop internet radio. West Coast. Old school. No ads. No German news.</div>
-        <a class="card-link" href="https://fckoff-radio.pages.dev/" target="_blank" rel="noopener">TUNE IN →</a>
-      </div>
-      <div class="card">
-        <div class="card-name">It Couldn't Be</div>
-        <div class="card-desc">Mystery game. You'll see.</div>
-        <a class="card-link" href="https://it-couldnt-be.netlify.app/" target="_blank" rel="noopener">PLAY →</a>
-      </div>
-      <div class="card">
-        <div class="card-name">NFT Galleria</div>
-        <div class="card-desc">NFT portfolio viewer. Multi-chain. Clean UI. See what you're holding.</div>
-        <a class="card-link" href="https://nftgalleria.netlify.app/" target="_blank" rel="noopener">VIEW →</a>
+    <!-- ══ AMBASSADOR ══ -->
+    <div class="section" id="ambassador">
+      <h2 class="section-title">In the Community</h2>
+      <div class="amb-grid">
+        <div class="amb-card">
+          <div class="amb-role">Socials</div>
+          <div class="amb-name">Saints of LA</div>
+        </div>
+        <div class="amb-card">
+          <div class="amb-role">Socials</div>
+          <div class="amb-name">STZY Ape Gang</div>
+        </div>
+        <div class="amb-card">
+          <div class="amb-role">Socials</div>
+          <div class="amb-name">Chumpz on Ape</div>
+        </div>
+        <div class="amb-card">
+          <div class="amb-role">Ambassador</div>
+          <div class="amb-name">ITIA</div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- ══ AMBASSADOR ══ -->
-  <section id="ambassador">
-    <h2 class="section-title">In the Community</h2>
-    <div class="amb-grid">
-      <div class="amb-card">
-        <div class="amb-role">Socials</div>
-        <div class="amb-name">Saints of LA</div>
-      </div>
-      <div class="amb-card">
-        <div class="amb-role">Socials</div>
-        <div class="amb-name">STZY Ape Gang</div>
-      </div>
-      <div class="amb-card">
-        <div class="amb-role">Socials</div>
-        <div class="amb-name">Chumpz on Ape</div>
-      </div>
-      <div class="amb-card">
-        <div class="amb-role">Ambassador</div>
-        <div class="amb-name">ITIA</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ FOOTER ══ -->
-  <section id="footer">
-    <div class="footer-inner">
-      <img src="assets/stsola-logo.jpg" alt="St Sola" class="footer-logo" />
+    <!-- ══ FOOTER ══ -->
+    <footer id="footer">
+      <div class="footer-name">St Sola</div>
       <p class="footer-tagline">LOYALTY OVER EVERYTHING 🧠📡</p>
       <div class="footer-socials">
         <a href="https://twitter.com/stzyapegang" target="_blank" rel="noopener">@stzyapegang</a>
         <a href="https://twitter.com/SaintsoflaNFT" target="_blank" rel="noopener">@SaintsoflaNFT</a>
         <a href="https://twitter.com/Chumpzonape" target="_blank" rel="noopener">@Chumpzonape</a>
       </div>
-    </div>
-  </section>
+    </footer>
+
+  </div><!-- /scroll-root -->
 
   <script>
     // ── CYCLING SQUARE ──────────────────────────────────────
@@ -419,17 +447,16 @@
 
     function showImg(idx) {
       imgs[current].classList.remove('active');
-      current = (idx + imgs.length) % imgs.length;
+      current = ((idx % imgs.length) + imgs.length) % imgs.length;
       imgs[current].classList.add('active');
     }
 
-    // Auto cycle every 3s
     function startAuto() {
       autoTimer = setInterval(() => showImg(current + 1), 3000);
     }
     startAuto();
 
-    // On mousemove over frame — map X position to image index
+    // Mousemove — left→right maps to images
     frame.addEventListener('mousemove', (e) => {
       clearInterval(autoTimer);
       const rect = frame.getBoundingClientRect();
@@ -437,43 +464,16 @@
       const idx = Math.floor(pct * imgs.length);
       if (idx !== current) showImg(idx);
     });
-
-    // Restart auto when mouse leaves
     frame.addEventListener('mouseleave', () => startAuto());
 
-    // Touch support — swipe through
-    let touchStartX = 0;
-    frame.addEventListener('touchstart', e => {
-      touchStartX = e.touches[0].clientX;
-      clearInterval(autoTimer);
-    }, {passive:true});
+    // Touch swipe
+    let tx = 0;
+    frame.addEventListener('touchstart', e => { tx = e.touches[0].clientX; clearInterval(autoTimer); }, {passive:true});
     frame.addEventListener('touchend', e => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dx = e.changedTouches[0].clientX - tx;
       if (Math.abs(dx) > 30) showImg(current + (dx < 0 ? 1 : -1));
       startAuto();
     }, {passive:true});
-
-    // ── NAV DOTS ────────────────────────────────────────────
-    const sections = document.querySelectorAll('section');
-    const dots = document.querySelectorAll('.nav-dot');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          dots.forEach(d => d.classList.remove('active'));
-          const id = entry.target.id;
-          const dot = document.querySelector(`.nav-dot[data-section="${id}"]`);
-          if (dot) dot.classList.add('active');
-        }
-      });
-    }, {threshold: 0.5});
-
-    sections.forEach(s => observer.observe(s));
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        document.getElementById(dot.dataset.section)?.scrollIntoView({behavior:'smooth'});
-      });
-    });
   </script>
 </body>
 </html>
