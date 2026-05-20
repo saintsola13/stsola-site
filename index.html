@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>St Sola — Loyalty Over Everything</title>
+  <meta name="description" content="St Sola — Builder. Saint. Creator. Web3, security, art, and street-level software." />
+  <meta property="og:title" content="St Sola" />
+  <meta property="og:description" content="Builder. Saint. Creator." />
+  <meta property="og:image" content="assets/hero-bg.jpg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;700;900&family=VT323&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      background: #0a0000;
+    }
+    body {
+      font-family: 'VT323', monospace;
+      color: #e8e8e8;
+      background: #0a0000;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── SECTION BASE ────────────────────────────────────── */
+    section {
+      scroll-snap-align: start;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ─── HERO ────────────────────────────────────────────── */
+    #hero {
+      background: #0a0000;
+    }
+
+    /* Ken Burns background */
+    .hero-bg {
+      position: absolute;
+      inset: -5%;
+      background: url('assets/hero-bg.jpg') center center / cover no-repeat;
+      animation: kenburns 20s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+    @keyframes kenburns {
+      from { transform: scale(1);   transform-origin: 50% 50%; }
+      to   { transform: scale(1.08); transform-origin: 55% 45%; }
+    }
+
+    /* Dark vignette over bg */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, transparent 30%, rgba(10,0,0,0.75) 100%),
+        linear-gradient(to bottom, rgba(10,0,0,0.2) 0%, rgba(10,0,0,0.65) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      animation: fadeIn 1.5s ease both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-logo {
+      width: min(480px, 88vw);
+      border-radius: 12px;
+      box-shadow:
+        0 0 40px rgba(255, 58, 0, 0.45),
+        0 0 80px rgba(255, 58, 0, 0.2);
+      opacity: 0;
+      animation: logoReveal 1.5s ease 0.4s forwards;
+    }
+    @keyframes logoReveal {
+      from { opacity: 0; transform: scale(0.94); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .hero-tagline {
+      font-family: 'VT323', monospace;
+      font-size: clamp(1.4rem, 4vw, 2.4rem);
+      color: #ffd700;
+      letter-spacing: 0.35em;
+      margin-top: 1.4rem;
+      text-shadow:
+        0 0 12px rgba(255, 215, 0, 0.6),
+        0 0 30px rgba(255, 58, 0, 0.3);
+      text-transform: uppercase;
+      animation: fadeIn 1.5s ease 1.2s both;
+    }
+
+    /* Scroll arrow */
+    .scroll-arrow {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      animation: bounceDown 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+    .scroll-arrow span {
+      display: block;
+      width: 18px;
+      height: 18px;
+      border-right: 2px solid #ffd700;
+      border-bottom: 2px solid #ffd700;
+      transform: rotate(45deg);
+      opacity: 0.8;
+    }
+    .scroll-arrow span:nth-child(2) { opacity: 0.5; margin-top: -10px; }
+    .scroll-arrow span:nth-child(3) { opacity: 0.25; margin-top: -10px; }
+    @keyframes bounceDown {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ─── SECTION SHARED STYLES ───────────────────────────── */
+    .section-inner {
+      width: 100%;
+      max-width: 1100px;
+      padding: 5rem 2rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-label {
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      color: #ff3a00;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      opacity: 0.85;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: #ffffff;
+      text-align: center;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-shadow: 0 0 30px rgba(255, 58, 0, 0.4);
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+    .section-title .accent { color: #ff3a00; }
+
+    /* ─── CARDS GRID ──────────────────────────────────────── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .card {
+      background: rgba(16, 10, 10, 0.88);
+      border: 1px solid rgba(255, 58, 0, 0.25);
+      border-radius: 8px;
+      padding: 2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 8px 30px rgba(255, 58, 0, 0.3),
+        0 0 0 1px rgba(255, 58, 0, 0.55);
+      border-color: rgba(255, 58, 0, 0.55);
+    }
+
+    .card-name {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #ffd700;
+      letter-spacing: 0.04em;
+    }
+
+    .card-desc {
+      font-family: 'VT323', monospace;
+      font-size: 1.15rem;
+      color: #b0a0a0;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      color: #ff3a00;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+      transition: color 0.2s ease;
+    }
+    .card-link::after {
+      content: '→';
+      transition: transform 0.2s ease;
+    }
+    .card:hover .card-link {
+      color: #ffd700;
+    }
+    .card:hover .card-link::after {
+      transform: translateX(4px);
+    }
+
+    /* ─── SECTION BG TEXTURES ─────────────────────────────── */
+    #apps      { background: #0a0000; }
+    #tools     { background: #07000a; }
+    #randoms   { background: #0a0400; }
+
+    /* subtle scanline texture on all content sections */
+    #apps::before, #tools::before, #randoms::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.18) 3px,
+        rgba(0,0,0,0.18) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+    #apps .section-inner,
+    #tools .section-inner,
+    #randoms .section-inner { position: relative; z-index: 1; }
+
+    /* decorative side glow */
+    #apps::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, #ff3a00, transparent);
+      opacity: 0.5;
+    }
+    #tools::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, #ffd700, transparent);
+      opacity: 0.4;
+    }
+    #randoms::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, #ff3a00, transparent);
+      opacity: 0.4;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    #footer {
+      min-height: 40vh;
+      scroll-snap-align: start;
+      background: #050000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      border-top: 1px solid rgba(255, 58, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    #footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 120%, rgba(255,58,0,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .footer-wordmark {
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: clamp(1rem, 3.5vw, 1.8rem);
+      color: #ffffff;
+      letter-spacing: 0.12em;
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow: 0 0 20px rgba(255,58,0,0.3);
+      position: relative;
+      z-index: 1;
+    }
+    .footer-wordmark .gold { color: #ffd700; }
+
+    .footer-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #ff3a00, transparent);
+      margin: 1.4rem 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .social-link {
+      font-family: 'VT323', monospace;
+      font-size: 1.3rem;
+      color: #ff3a00;
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+    .social-link:hover {
+      color: #ffd700;
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+    }
+
+    .footer-copy {
+      font-family: 'VT323', monospace;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.2);
+      margin-top: 2rem;
+      letter-spacing: 0.1em;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── SCROLL REVEAL ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+
+    /* ─── NAV DOT INDICATOR ───────────────────────────────── */
+    .nav-dots {
+      position: fixed;
+      right: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,58,0,0.4);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .nav-dot.active {
+      background: #ff3a00;
+      transform: scale(1.4);
+      box-shadow: 0 0 8px rgba(255,58,0,0.7);
+    }
+
+    /* ─── MOBILE ──────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      html { scroll-snap-type: none; }
+      .nav-dots { display: none; }
+      .hero-logo { width: 90vw; }
+      .section-inner { padding: 4rem 1.2rem 3rem; }
+      .cards { grid-template-columns: 1fr; }
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ──────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV DOTS ──────────────────────────────────────── -->
+  <nav class="nav-dots" aria-label="Section navigation">
+    <div class="nav-dot active" data-section="hero"    title="Home"></div>
+    <div class="nav-dot"        data-section="apps"    title="Web Apps"></div>
+    <div class="nav-dot"        data-section="tools"   title="Tools"></div>
+    <div class="nav-dot"        data-section="randoms" title="Randoms"></div>
+    <div class="nav-dot"        data-section="footer"  title="Footer"></div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 1 — HERO
+  ══════════════════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <img
+        src="assets/stsola-logo.jpg"
+        alt="St Sola"
+        class="hero-logo"
+      />
+      <p class="hero-tagline">Builder.&nbsp; Saint.&nbsp; Creator.</p>
+    </div>
+
+    <div class="scroll-arrow" onclick="document.getElementById('apps').scrollIntoView({behavior:'smooth'})">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 2 — WEB APPS & SECURITY
+  ══════════════════════════════════════════════════════ -->
+  <section id="apps">
+    <div class="section-inner">
+      <p class="section-label reveal">Web Apps &amp; Security</p>
+      <h2 class="section-title reveal reveal-delay-1">BUILT <span class="accent">DIFFERENT</span></h2>
+
+      <div class="cards">
+
+        <a href="https://saintwatch.com" target="_blank" rel="noopener" class="card reveal reveal-delay-2">
+          <div class="card-name">Saint Watch</div>
+          <div class="card-desc">Wallet security monitoring for Web3. Stay ahead of threats before they drain your bag.</div>
+          <span class="card-link">saintwatch.com</span>
+        </a>
+
+        <a href="https://trapwars.win" target="_blank" rel="noopener" class="card reveal reveal-delay-3">
+          <div class="card-name">Trap Wars</div>
+          <div class="card-desc">PVP trading battles on Solana. Put your skills on the line where it counts.</div>
+          <span class="card-link">trapwars.win</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 3 — EXTENSIONS & SKILLS
+  ══════════════════════════════════════════════════════ -->
+  <section id="tools">
+    <div class="section-inner">
+      <p class="section-label reveal">Extensions &amp; Skills</p>
+      <h2 class="section-title reveal reveal-delay-1">TOOLS OF THE <span class="accent">TRADE</span></h2>
+
+      <div class="cards">
+
+        <a href="https://chromewebstore.google.com/detail/saint-shield/fpkagjdfdfcngcigobfnibmfnmefbhbe"
+           target="_blank" rel="noopener" class="card reveal reveal-delay-2">
+          <div class="card-name">Saint Shield</div>
+          <div class="card-desc">AI-powered crypto scam blocker. Browser extension that guards your bag on every click.</div>
+          <span class="card-link">Chrome Web Store</span>
+        </a>
+
+        <a href="https://clawhub.ai/skills/k976ce8"
+           target="_blank" rel="noopener" class="card reveal reveal-delay-3">
+          <div class="card-name">Telegram Sticker Maker</div>
+          <div class="card-desc">ClawHub agent skill — turn any image into a Telegram sticker pack in seconds.</div>
+          <span class="card-link">clawhub.ai</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 4 — RANDOMS
+  ══════════════════════════════════════════════════════ -->
+  <section id="randoms">
+    <div class="section-inner">
+      <p class="section-label reveal">Miscellaneous</p>
+      <h2 class="section-title reveal reveal-delay-1">OTHER SHIT <span class="accent">I BUILT</span></h2>
+
+      <div class="cards">
+
+        <a href="https://grid.saintsola13.workers.dev/" target="_blank" rel="noopener"
+           class="card reveal reveal-delay-2">
+          <div class="card-name">Saints NFT Grid</div>
+          <div class="card-desc">Visual grid of the Saints of LA collection. Every piece, laid out clean.</div>
+          <span class="card-link">View Grid</span>
+        </a>
+
+        <a href="https://fckoff-radio.pages.dev/" target="_blank" rel="noopener"
+           class="card reveal reveal-delay-3">
+          <div class="card-name">FCKOFF Radio</div>
+          <div class="card-desc">90s hip hop internet radio. No ads. No playlist fatigue. Just heat.</div>
+          <span class="card-link">Tune In</span>
+        </a>
+
+        <a href="https://it-couldnt-be.netlify.app/" target="_blank" rel="noopener"
+           class="card reveal reveal-delay-4">
+          <div class="card-name">It Couldn't Be</div>
+          <div class="card-desc">Mystery game. Figure it out yourself — that's the whole point.</div>
+          <span class="card-link">Play</span>
+        </a>
+
+        <a href="https://nftgalleria.netlify.app/" target="_blank" rel="noopener"
+           class="card reveal reveal-delay-5">
+          <div class="card-name">NFT Galleria</div>
+          <div class="card-desc">NFT portfolio viewer. Showcase your collection like it deserves.</div>
+          <span class="card-link">View</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="footer-wordmark reveal">
+      ST SOLA — <span class="gold">LOYALTY OVER EVERYTHING</span> 🧠📡
+    </div>
+    <div class="footer-divider reveal reveal-delay-1"></div>
+    <div class="footer-socials reveal reveal-delay-2">
+      <a href="https://twitter.com/stzyapegang" target="_blank" rel="noopener" class="social-link">
+        𝕏 @stzyapegang
+      </a>
+      <a href="https://twitter.com/SaintsoflaNFT" target="_blank" rel="noopener" class="social-link">
+        𝕏 @SaintsoflaNFT
+      </a>
+    </div>
+    <p class="footer-copy reveal reveal-delay-3">© 2026 St Sola. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ── SCROLL REVEAL ──────────────────────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── NAV DOTS ───────────────────────────────────────────
+    const sections = ['hero', 'apps', 'tools', 'randoms', 'footer'];
+    const dots     = document.querySelectorAll('.nav-dot');
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        document.getElementById(sections[i]).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const idx = sections.indexOf(id);
+          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) sectionObserver.observe(el);
+    });
+  </script>
+
+</body>
+</html>
