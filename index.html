@@ -610,9 +610,11 @@
   <script>
     // ── FCKOFF RADIO ─────────────────────────────────────────
     const STREAMS = [
-      'http://ecmanager2.pro-fhi.net:1800/stream',  // Remember Sounds — LA Chicano/West Coast rap
-      'http://stream.laut.fm/wiphopbeatz',           // Classic Hip Hop & Boom Bap
-      'https://listen.181fm.com/181-oldschool_128k.mp3', // 181.FM Old School
+      'http://ecmanager2.pro-fhi.net:1800/stream',          // Remember Sounds — LA Chicano/West Coast rap
+      'http://stream.laut.fm/wiphopbeatz',                  // Classic Hip Hop & Boom Bap
+      'http://streaming.coollective.nl:8443/UbuntuFMhiphop',// Ubuntu FM Hip Hop
+      'http://cupcake.citrus3.com:8186/stream',             // Ketch Radio
+      'https://listen.181fm.com/181-oldschool_128k.mp3',    // 181.FM Old School (fallback)
     ];
     let radioPlaying = false;
     const radioAudio  = document.getElementById('radioAudio');
@@ -621,51 +623,47 @@
     const iconPlay    = document.getElementById('iconPlay');
     const iconStop    = document.getElementById('iconStop');
 
-    function toggleRadio() {
-      if (radioPlaying) {
-        radioAudio.pause();
-        radioAudio.src = '';
-        radioPlaying = false;
-        radioStatus.textContent = '90s HIP HOP';
-        radioStatus.classList.remove('live');
-        radioBars.classList.remove('active');
-        iconPlay.style.display = 'block';
-        iconStop.style.display = 'none';
-      } else {
-        radioAudio.src = STREAMS[0];
-        radioAudio.play().then(() => {
-          radioPlaying = true;
-          radioStatus.textContent = 'LIVE';
-          radioStatus.classList.add('live');
-          radioBars.classList.add('active');
-          iconPlay.style.display = 'none';
-          iconStop.style.display = 'block';
-        }).catch(() => {
-          // fallback to second stream
-          radioAudio.src = STREAMS[1];
-          radioAudio.play().then(() => {
-            radioPlaying = true;
-            radioStatus.textContent = 'LIVE';
-            radioStatus.classList.add('live');
-            radioBars.classList.add('active');
-            iconPlay.style.display = 'none';
-            iconStop.style.display = 'block';
-          }).catch(() => {
-            radioStatus.textContent = 'SIGNAL LOST';
-          });
-        });
-        radioStatus.textContent = 'LOADING...';
-      }
+    let streamIdx = 0;
+
+    function setPlaying(playing) {
+      radioPlaying = playing;
+      radioStatus.textContent = playing ? 'LIVE' : '90s HIP HOP';
+      radioStatus.classList.toggle('live', playing);
+      radioBars.classList.toggle('active', playing);
+      iconPlay.style.display = playing ? 'none' : 'block';
+      iconStop.style.display = playing ? 'block' : 'none';
     }
 
-    radioAudio.addEventListener('error', () => {
-      if (radioPlaying) {
-        radioPlaying = false;
+    function tryStream(idx) {
+      if (idx >= STREAMS.length) {
         radioStatus.textContent = 'SIGNAL LOST';
         radioStatus.classList.remove('live');
         radioBars.classList.remove('active');
         iconPlay.style.display = 'block';
         iconStop.style.display = 'none';
+        return;
+      }
+      radioAudio.src = STREAMS[idx];
+      radioAudio.play()
+        .then(() => { streamIdx = idx; setPlaying(true); })
+        .catch(() => tryStream(idx + 1));
+    }
+
+    function toggleRadio() {
+      if (radioPlaying) {
+        radioAudio.pause();
+        radioAudio.src = '';
+        setPlaying(false);
+      } else {
+        radioStatus.textContent = 'LOADING...';
+        tryStream(0);
+      }
+    }
+
+    radioAudio.addEventListener('error', () => {
+      if (radioPlaying) {
+        setPlaying(false);
+        tryStream(streamIdx + 1);
       }
     });
 
