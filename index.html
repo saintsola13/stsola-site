@@ -313,6 +313,87 @@
     }
     .footer-socials a:hover { border-color: #ff3a00; }
 
+    /* ── FCKOFF RADIO PLAYER ── */
+    .radio-player {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50px;
+      padding: 10px 20px 10px 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+      transition: box-shadow .25s, border-color .25s;
+      cursor: default;
+      user-select: none;
+    }
+    .radio-player:hover {
+      border-color: rgba(255,58,0,0.35);
+      box-shadow: 0 8px 32px rgba(255,58,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .radio-play-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,58,0,0.6);
+      background: rgba(255,58,0,0.15);
+      color: #ff3a00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background .2s, transform .15s;
+      backdrop-filter: blur(4px);
+    }
+    .radio-play-btn:hover { background: #ff3a00; color: #fff; transform: scale(1.08); }
+    .radio-play-btn svg { display: block; }
+    .radio-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .radio-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: #ff3a00;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .radio-status {
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.15em;
+      transition: color .3s;
+    }
+    .radio-status.live { color: #ffd700; }
+    .radio-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 18px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .radio-bars.active { opacity: 1; }
+    .radio-bars span {
+      display: block;
+      width: 3px;
+      background: #ff3a00;
+      border-radius: 2px;
+      animation: none;
+    }
+    .radio-bars.active span:nth-child(1) { animation: bar1 0.8s ease-in-out infinite; }
+    .radio-bars.active span:nth-child(2) { animation: bar2 0.9s ease-in-out infinite; }
+    .radio-bars.active span:nth-child(3) { animation: bar3 0.7s ease-in-out infinite; }
+    .radio-bars.active span:nth-child(4) { animation: bar1 1.0s ease-in-out infinite; }
+    @keyframes bar1 { 0%,100%{height:4px} 50%{height:16px} }
+    @keyframes bar2 { 0%,100%{height:10px} 50%{height:5px} }
+    @keyframes bar3 { 0%,100%{height:14px} 50%{height:3px} }
+
     /* ── NOISE ── */
     body::after {
       content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
@@ -363,6 +444,24 @@
       </div>
 
       <p class="hero-tagline">Builder.&nbsp; Saint.&nbsp; Creator.</p>
+
+      <!-- FCKOFF RADIO -->
+      <div class="radio-player" id="radioPlayer">
+        <button class="radio-play-btn" id="radioBtn" onclick="toggleRadio()" aria-label="Play/Stop">
+          <!-- Play icon -->
+          <svg id="iconPlay" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <!-- Stop icon -->
+          <svg id="iconStop" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+        </button>
+        <div class="radio-label">
+          <span class="radio-title">FCKOFF Radio</span>
+          <span class="radio-status" id="radioStatus">90s HIP HOP</span>
+        </div>
+        <div class="radio-bars" id="radioBars">
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <audio id="radioAudio" preload="none"></audio>
 
       <div class="scroll-arrow" onclick="document.getElementById('apps').scrollIntoView({behavior:'smooth'})">
         <span></span><span></span><span></span>
@@ -509,6 +608,66 @@
   </div><!-- /scroll-root -->
 
   <script>
+    // ── FCKOFF RADIO ─────────────────────────────────────────
+    const STREAMS = [
+      'https://listen.181fm.com/181-oldschool_128k.mp3',
+      'http://188.165.212.154/;stream/1',  // Radio Caprice OldSchool Hip-Hop
+    ];
+    let radioPlaying = false;
+    const radioAudio  = document.getElementById('radioAudio');
+    const radioStatus = document.getElementById('radioStatus');
+    const radioBars   = document.getElementById('radioBars');
+    const iconPlay    = document.getElementById('iconPlay');
+    const iconStop    = document.getElementById('iconStop');
+
+    function toggleRadio() {
+      if (radioPlaying) {
+        radioAudio.pause();
+        radioAudio.src = '';
+        radioPlaying = false;
+        radioStatus.textContent = '90s HIP HOP';
+        radioStatus.classList.remove('live');
+        radioBars.classList.remove('active');
+        iconPlay.style.display = 'block';
+        iconStop.style.display = 'none';
+      } else {
+        radioAudio.src = STREAMS[0];
+        radioAudio.play().then(() => {
+          radioPlaying = true;
+          radioStatus.textContent = 'LIVE';
+          radioStatus.classList.add('live');
+          radioBars.classList.add('active');
+          iconPlay.style.display = 'none';
+          iconStop.style.display = 'block';
+        }).catch(() => {
+          // fallback to second stream
+          radioAudio.src = STREAMS[1];
+          radioAudio.play().then(() => {
+            radioPlaying = true;
+            radioStatus.textContent = 'LIVE';
+            radioStatus.classList.add('live');
+            radioBars.classList.add('active');
+            iconPlay.style.display = 'none';
+            iconStop.style.display = 'block';
+          }).catch(() => {
+            radioStatus.textContent = 'SIGNAL LOST';
+          });
+        });
+        radioStatus.textContent = 'LOADING...';
+      }
+    }
+
+    radioAudio.addEventListener('error', () => {
+      if (radioPlaying) {
+        radioPlaying = false;
+        radioStatus.textContent = 'SIGNAL LOST';
+        radioStatus.classList.remove('live');
+        radioBars.classList.remove('active');
+        iconPlay.style.display = 'block';
+        iconStop.style.display = 'none';
+      }
+    });
+
     // ── CYCLING SQUARE ──────────────────────────────────────
     const frame = document.getElementById('photoFrame');
     const imgs = frame.querySelectorAll('img');
