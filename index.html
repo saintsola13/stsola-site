@@ -507,7 +507,7 @@
       position: fixed;
       top: 32px;
       right: 0;
-      z-index: 9996;
+      z-index: 9994;
       display: flex;
       gap: 0;
       overflow: hidden;
@@ -1333,8 +1333,10 @@
         var overlay = document.getElementById('admin-overlay');
         if (overlay.classList.contains('open')) {
           overlay.classList.remove('open');
+          document.getElementById('tip-bar').style.display = 'flex';
         } else {
           overlay.classList.add('open');
+          document.getElementById('tip-bar').style.display = 'none';
           var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
           if (tok) {
             document.getElementById('admin-login').style.display = 'none';
@@ -1351,6 +1353,7 @@
 
       function adminClose() {
         document.getElementById('admin-overlay').classList.remove('open');
+        document.getElementById('tip-bar').style.display = 'flex';
       }
 
       function adminLogin() {
