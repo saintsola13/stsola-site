@@ -452,6 +452,56 @@
       cursor: pointer;
     }
 
+    /* ── CRYPTO TICKER ── */
+    #crypto-ticker {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9997;
+      background: rgba(8,0,0,0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,58,0,0.18);
+      height: 32px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: tickerScroll 40s linear infinite;
+      will-change: transform;
+    }
+    #crypto-ticker:hover .ticker-track {
+      animation-play-state: paused;
+    }
+    @keyframes tickerScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 20px;
+      font-family: 'VT323', monospace;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      cursor: default;
+    }
+    .ticker-sym  { color: rgba(255,255,255,0.55); }
+    .ticker-price { color: #fff; }
+    .ticker-up   { color: #2bff9e; font-size: 0.8rem; }
+    .ticker-down { color: #ff3a00; font-size: 0.8rem; }
+    .ticker-sep  { color: rgba(255,58,0,0.4); padding: 0 4px; }
+
+    /* push page content below ticker */
+    .scroll-root { padding-top: 32px; }
+
     /* ── AUDIO REACTIVE HERO ── */
     @keyframes charBreath {
       0%,100% { filter: brightness(0.55); }
@@ -501,6 +551,13 @@
   </style>
 </head>
 <body>
+
+  <!-- CRYPTO TICKER -->
+  <div id="crypto-ticker">
+    <div class="ticker-track" id="ticker-track">
+      <span class="ticker-item"><span class="ticker-sym">LOADING</span><span class="ticker-price">...</span></span>
+    </div>
+  </div>
 
   <!-- FIXED CHARACTER BACKGROUND -->
   <img src="assets/hero-bg.jpg" alt="" class="bg-char" />
@@ -1388,6 +1445,56 @@
     </div>
 
   </div><!-- /admin-overlay -->
+
+  <!-- CRYPTO TICKER SCRIPT -->
+  <script>
+    (function() {
+      var COINS = [
+        'bitcoin','ethereum','solana','dogecoin','pepe','tezos',
+        'tether','binancecoin','ripple','usd-coin','cardano','avalanche-2',
+        'shiba-inu','chainlink','polkadot','uniswap','litecoin','bitcoin-cash',
+        'stellar','near'
+      ];
+
+      function fmt(n) {
+        if (n >= 1000) return '$' + n.toLocaleString('en-US', {maximumFractionDigits:0});
+        if (n >= 1)    return '$' + n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+        if (n >= 0.01) return '$' + n.toFixed(4);
+        return '$' + n.toFixed(6);
+      }
+
+      function buildTrack(coins) {
+        // Double the items so seamless loop works
+        var items = coins.map(function(c) {
+          var pct = c.price_change_percentage_24h || 0;
+          var arrow = pct >= 0 ? '▲' : '▼';
+          var cls   = pct >= 0 ? 'ticker-up' : 'ticker-down';
+          return '<span class="ticker-item">' +
+            '<span class="ticker-sym">' + c.symbol.toUpperCase() + '</span>' +
+            '<span class="ticker-price">' + fmt(c.current_price) + '</span>' +
+            '<span class="' + cls + '">' + arrow + ' ' + Math.abs(pct).toFixed(2) + '%</span>' +
+            '</span>';
+        }).join('');
+        return items + items; // duplicate for seamless scroll
+      }
+
+      function fetchTicker() {
+        var ids = COINS.join(',');
+        fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + ids + '&order=market_cap_desc&per_page=20&page=1&price_change_percentage=24h')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            var track = document.getElementById('ticker-track');
+            if (!track || !data.length) return;
+            track.innerHTML = buildTrack(data);
+          })
+          .catch(function() { /* silently fail */ });
+      }
+
+      // Initial load + refresh every 60s
+      fetchTicker();
+      setInterval(fetchTicker, 60000);
+    })();
+  </script>
 
   <!-- PARTICLE TRAIL CANVAS -->
   <canvas id="particle-trail"></canvas>
