@@ -540,8 +540,14 @@
     .tip-btn-eth {
       background: rgba(98,126,234,0.1);
       color: #a8b4f8;
+      border-right: 1px solid rgba(255,255,255,0.07);
     }
     .tip-btn-eth:hover { background: rgba(98,126,234,0.22); }
+    .tip-btn-cash {
+      background: rgba(0,212,110,0.08);
+      color: #00d46e;
+    }
+    .tip-btn-cash:hover { background: rgba(0,212,110,0.2); }
     .tip-btn svg { flex-shrink: 0; }
 
     /* copy toast */
@@ -632,7 +638,6 @@
       <span class="tip-toast" id="toast-sol">copied ✓</span>
     </button>
     <button class="tip-btn tip-btn-eth" onclick="tipCopy('eth')" title="Tip with ETH">
-      <!-- ETH diamond -->
       <svg width="11" height="13" viewBox="0 0 32 52" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M16 0L0 26.5l16 9.5 16-9.5L16 0Z" fill="#a8b4f8"/>
         <path d="M16 39.5L0 30l16 22 16-22-16 9.5Z" fill="#a8b4f8" opacity=".7"/>
@@ -640,6 +645,14 @@
       TIP ETH
       <span class="tip-toast" id="toast-eth">copied ✓</span>
     </button>
+    <a class="tip-btn tip-btn-cash" href="https://cash.app/$StSola" target="_blank" rel="noopener" title="Tip with Cash App">
+      <!-- Cash App $ -->
+      <svg width="12" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15.93V19h-2v-1.07A4.01 4.01 0 0 1 8 14h2c0 1.1.9 2 2 2s2-.9 2-2c0-1.1-.9-2-2-2a4 4 0 0 1 0-8V3h2v1.07A4.01 4.01 0 0 1 16 8h-2c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2a4 4 0 0 1 0 8Z" fill="#00d46e"/>
+      </svg>
+      CASH APP
+      <span class="tip-toast" id="toast-cash">opening →</span>
+    </a>
   </div>
 
   <!-- FIXED CHARACTER BACKGROUND -->
