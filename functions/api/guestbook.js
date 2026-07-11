@@ -38,7 +38,7 @@ async function handleGet(kv) {
 }
 
 // POST /api/guestbook  — submit a new entry
-async function handlePost(request, kv) {
+async function handlePost(request, kv, env) {
   let body;
   try { body = await request.json(); }
   catch { return jsonResp({ error: "Invalid JSON" }, 400); }
@@ -59,7 +59,7 @@ async function handlePost(request, kv) {
   await kv.put(key, JSON.stringify(entry), { expirationTtl: 60 * 60 * 24 * 365 }); // 1 year
 
   // Fire Telegram alert to Sola
-  const BOT_TOKEN  = "***REDACTED***";
+  const BOT_TOKEN  = env.TELEGRAM_BOT_TOKEN;
   const CHAT_ID    = 8488999370;
   const starStr    = "\u2605".repeat(rating) + "\u2606".repeat(5 - rating);
   const alertText  = `\ud83d\udcdd <b>New Guestbook Entry!</b>\n\n${starStr}\n<b>${name}</b>:\n${message}`;
@@ -85,7 +85,7 @@ export async function onRequest(context) {
   if (!kv) return jsonResp({ error: "Storage unavailable" }, 503);
 
   if (request.method === "GET")  return handleGet(kv);
-  if (request.method === "POST") return handlePost(request, kv);
+  if (request.method === "POST") return handlePost(request, kv, env);
 
   return jsonResp({ error: "Method not allowed" }, 405);
 }
