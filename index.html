@@ -550,25 +550,75 @@
     .tip-btn-cash:hover { background: rgba(0,212,110,0.2); }
     .tip-btn svg { flex-shrink: 0; }
 
-    /* copy toast */
-    .tip-toast {
-      position: absolute;
-      bottom: -28px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.88);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 4px;
-      padding: 3px 10px;
-      font-size: 0.75rem;
-      color: #2bff9e;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity .2s;
-      letter-spacing: 0.1em;
+    /* tip modal */
+    #tip-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
-    .tip-toast.show { opacity: 1; }
+    #tip-modal.open { display: flex; }
+    .tip-modal-box {
+      background: rgba(12,4,4,0.97);
+      border: 1px solid rgba(255,58,0,0.25);
+      border-radius: 16px;
+      padding: 28px 24px;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    }
+    .tip-modal-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-align: center;
+    }
+    .tip-modal-addr {
+      font-family: 'VT323', monospace;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 12px 14px;
+      word-break: break-all;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+      text-align: center;
+      user-select: all;
+    }
+    .tip-modal-copy {
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: background .2s;
+      text-align: center;
+    }
+    .tip-modal-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.3);
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      text-align: center;
+      transition: color .2s;
+    }
+    .tip-modal-close:hover { color: rgba(255,255,255,0.7); }
 
     /* ── AUDIO REACTIVE HERO ── */
     @keyframes charBreath {
@@ -635,7 +685,6 @@
         <path d="M21.7 94.6a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3.1L105.9 115a3.6 3.6 0 0 1-2.5 1H4.6a1.8 1.8 0 0 1-1.3-3.1l18.4-18.3ZM21.7 13a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3L105.9 33.4a3.6 3.6 0 0 1-2.5 1H4.6A1.8 1.8 0 0 1 3.3 31L21.7 13ZM105.9 53.6a3.6 3.6 0 0 0-2.5-1H4.6a1.8 1.8 0 0 0-1.3 3.1L21.7 74a3.6 3.6 0 0 0 2.5 1H123a1.8 1.8 0 0 0 1.3-3.1L105.9 53.6Z" fill="#14f195"/>
       </svg>
       TIP SOL
-      <span class="tip-toast" id="toast-sol">copied ✓</span>
     </button>
     <button class="tip-btn tip-btn-eth" onclick="tipCopy('eth')" title="Tip with ETH">
       <svg width="11" height="13" viewBox="0 0 32 52" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -643,7 +692,6 @@
         <path d="M16 39.5L0 30l16 22 16-22-16 9.5Z" fill="#a8b4f8" opacity=".7"/>
       </svg>
       TIP ETH
-      <span class="tip-toast" id="toast-eth">copied ✓</span>
     </button>
     <a class="tip-btn tip-btn-cash" href="https://cash.app/$StSola" target="_blank" rel="noopener" title="Tip with Cash App">
       <!-- Cash App $ -->
@@ -1497,6 +1545,16 @@
 
   </div><!-- /scroll-root -->
 
+  <!-- TIP MODAL -->
+  <div id="tip-modal" onclick="if(event.target===this)tipModalClose()">
+    <div class="tip-modal-box">
+      <div class="tip-modal-title" id="tip-modal-title"></div>
+      <div class="tip-modal-addr" id="tip-modal-addr"></div>
+      <button class="tip-modal-copy" id="tip-modal-copy" onclick="tipModalCopy()">COPY ADDRESS</button>
+      <button class="tip-modal-close" onclick="tipModalClose()">close</button>
+    </div>
+  </div>
+
   <!-- ══ ADMIN OVERLAY ══ -->
   <div id="admin-overlay">
 
@@ -1559,19 +1617,61 @@
 
   </div><!-- /admin-overlay -->
 
-  <!-- TIP COPY SCRIPT -->
+  <!-- TIP MODAL SCRIPT -->
   <script>
     var TIP_ADDRS = {
-      sol: '3Cj7KhrmVg1tRBHyLhwGAW8Cr4xyosFzxPDhVDk98XVL',
-      eth: '0x90677f29D8026E60E03A1597FE228F15fCc79D69'
+      sol: { addr: '3Cj7KhrmVg1tRBHyLhwGAW8Cr4xyosFzxPDhVDk98XVL', label: 'SOL ADDRESS', color: '#14f195' },
+      eth: { addr: '0x90677f29D8026E60E03A1597FE228F15fCc79D69',    label: 'ETH ADDRESS', color: '#a8b4f8' }
     };
+
     function tipCopy(chain) {
-      navigator.clipboard.writeText(TIP_ADDRS[chain]).then(function() {
-        var toast = document.getElementById('toast-' + chain);
-        toast.classList.add('show');
-        setTimeout(function() { toast.classList.remove('show'); }, 1800);
-      });
+      var t = TIP_ADDRS[chain];
+      document.getElementById('tip-modal-title').textContent = 'TIP WITH ' + chain.toUpperCase();
+      document.getElementById('tip-modal-title').style.color = t.color;
+      document.getElementById('tip-modal-addr').textContent  = t.addr;
+      var btn = document.getElementById('tip-modal-copy');
+      btn.style.background = t.color;
+      btn.style.color = '#000';
+      btn.textContent = 'COPY ADDRESS';
+      btn.dataset.chain = chain;
+      document.getElementById('tip-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
+
+    function tipModalCopy() {
+      var btn   = document.getElementById('tip-modal-copy');
+      var chain = btn.dataset.chain;
+      var addr  = TIP_ADDRS[chain].addr;
+      // Try clipboard API first, fallback to select+copy
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(addr).catch(function() { tipFallbackCopy(addr); });
+      } else {
+        tipFallbackCopy(addr);
+      }
+      btn.textContent = 'COPIED ✓';
+      setTimeout(function() { btn.textContent = 'COPY ADDRESS'; }, 2000);
+    }
+
+    function tipFallbackCopy(text) {
+      var el = document.getElementById('tip-modal-addr');
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      try { document.execCommand('copy'); } catch(e) {}
+      sel.removeAllRanges();
+    }
+
+    function tipModalClose() {
+      document.getElementById('tip-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') tipModalClose();
+    });
   </script>
 
   <!-- CRYPTO TICKER SCRIPT -->
