@@ -502,6 +502,68 @@
     /* push page content below ticker */
     .scroll-root { padding-top: 32px; }
 
+    /* ── TIP BAR ── */
+    #tip-bar {
+      position: fixed;
+      top: 32px;
+      right: 0;
+      z-index: 9996;
+      display: flex;
+      gap: 0;
+      overflow: hidden;
+      border-radius: 0 0 0 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-top: none;
+      border-right: none;
+    }
+    .tip-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      transition: background .2s, color .2s;
+      user-select: none;
+      position: relative;
+    }
+    .tip-btn-sol {
+      background: rgba(20,241,149,0.1);
+      color: #14f195;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .tip-btn-sol:hover { background: rgba(20,241,149,0.22); }
+    .tip-btn-eth {
+      background: rgba(98,126,234,0.1);
+      color: #a8b4f8;
+    }
+    .tip-btn-eth:hover { background: rgba(98,126,234,0.22); }
+    .tip-btn svg { flex-shrink: 0; }
+
+    /* copy toast */
+    .tip-toast {
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.88);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 0.75rem;
+      color: #2bff9e;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s;
+      letter-spacing: 0.1em;
+    }
+    .tip-toast.show { opacity: 1; }
+
     /* ── AUDIO REACTIVE HERO ── */
     @keyframes charBreath {
       0%,100% { filter: brightness(0.55); }
@@ -557,6 +619,27 @@
     <div class="ticker-track" id="ticker-track">
       <span class="ticker-item"><span class="ticker-sym">LOADING</span><span class="ticker-price">...</span></span>
     </div>
+  </div>
+
+  <!-- TIP BAR -->
+  <div id="tip-bar">
+    <button class="tip-btn tip-btn-sol" onclick="tipCopy('sol')" title="Tip with SOL">
+      <!-- Solana logo -->
+      <svg width="13" height="13" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.7 94.6a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3.1L105.9 115a3.6 3.6 0 0 1-2.5 1H4.6a1.8 1.8 0 0 1-1.3-3.1l18.4-18.3ZM21.7 13a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3L105.9 33.4a3.6 3.6 0 0 1-2.5 1H4.6A1.8 1.8 0 0 1 3.3 31L21.7 13ZM105.9 53.6a3.6 3.6 0 0 0-2.5-1H4.6a1.8 1.8 0 0 0-1.3 3.1L21.7 74a3.6 3.6 0 0 0 2.5 1H123a1.8 1.8 0 0 0 1.3-3.1L105.9 53.6Z" fill="#14f195"/>
+      </svg>
+      TIP SOL
+      <span class="tip-toast" id="toast-sol">copied ✓</span>
+    </button>
+    <button class="tip-btn tip-btn-eth" onclick="tipCopy('eth')" title="Tip with ETH">
+      <!-- ETH diamond -->
+      <svg width="11" height="13" viewBox="0 0 32 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 0L0 26.5l16 9.5 16-9.5L16 0Z" fill="#a8b4f8"/>
+        <path d="M16 39.5L0 30l16 22 16-22-16 9.5Z" fill="#a8b4f8" opacity=".7"/>
+      </svg>
+      TIP ETH
+      <span class="tip-toast" id="toast-eth">copied ✓</span>
+    </button>
   </div>
 
   <!-- FIXED CHARACTER BACKGROUND -->
@@ -1445,6 +1528,21 @@
     </div>
 
   </div><!-- /admin-overlay -->
+
+  <!-- TIP COPY SCRIPT -->
+  <script>
+    var TIP_ADDRS = {
+      sol: '3Cj7KhrmVg1tRBHyLhwGAW8Cr4xyosFzxPDhVDk98XVL',
+      eth: '0x90677f29D8026E60E03A1597FE228F15fCc79D69'
+    };
+    function tipCopy(chain) {
+      navigator.clipboard.writeText(TIP_ADDRS[chain]).then(function() {
+        var toast = document.getElementById('toast-' + chain);
+        toast.classList.add('show');
+        setTimeout(function() { toast.classList.remove('show'); }, 1800);
+      });
+    }
+  </script>
 
   <!-- CRYPTO TICKER SCRIPT -->
   <script>
