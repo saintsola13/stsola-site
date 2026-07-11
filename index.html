@@ -1340,6 +1340,7 @@
             document.getElementById('admin-login').style.display = 'none';
             document.getElementById('admin-dashboard').style.display = 'flex';
             adminLoadProfile();
+            adminLoadTips();
             adminLoadComments();
           } else {
             document.getElementById('admin-login').style.display = 'flex';
@@ -1450,6 +1451,41 @@
               var cnt = parseInt(document.getElementById('admin-comment-count').textContent) - 1;
               document.getElementById('admin-comment-count').textContent = cnt;
               gbLoad(); // refresh public view
+            }
+          })
+          .catch(function(){});
+      }
+
+      function adminLoadTips() {
+        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
+        fetch('/api/admin?action=tips', { headers: { 'Authorization': 'Bearer ' + tok } })
+          .then(function(r){ return r.json(); })
+          .then(function(d) {
+            document.getElementById('admin-tip-sol').value = d.sol || '';
+            document.getElementById('admin-tip-eth').value = d.eth || '';
+          })
+          .catch(function(){});
+      }
+
+      function adminSaveTips() {
+        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
+        var tips = {
+          sol: document.getElementById('admin-tip-sol').value.trim(),
+          eth: document.getElementById('admin-tip-eth').value.trim(),
+        };
+        fetch('/api/admin?action=tips', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + tok, 'Content-Type': 'application/json' },
+          body: JSON.stringify(tips)
+        }).then(function(r){ return r.json(); })
+          .then(function(d) {
+            if (d.ok) {
+              // Update live tip modal addresses without reload
+              if (tips.sol) TIP_ADDRS.sol.addr = tips.sol;
+              if (tips.eth) TIP_ADDRS.eth.addr = tips.eth;
+              var s = document.getElementById('admin-tips-status');
+              s.style.display = 'block';
+              setTimeout(function(){ s.style.display = 'none'; }, 2500);
             }
           })
           .catch(function(){});
@@ -1607,6 +1643,25 @@
           </div>
         </div>
 
+        <!-- Tip Addresses -->
+        <div>
+          <div class="admin-section-title">Tip Addresses</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label style="font-size:.8rem;color:rgba(20,241,149,.6);letter-spacing:.15em">SOL ADDRESS</label>
+              <input id="admin-tip-sol" class="admin-input" type="text" maxlength="100" placeholder="Solana wallet address..." />
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label style="font-size:.8rem;color:rgba(168,180,248,.6);letter-spacing:.15em">ETH ADDRESS</label>
+              <input id="admin-tip-eth" class="admin-input" type="text" maxlength="100" placeholder="Ethereum wallet address..." />
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+              <button class="card-link" style="cursor:pointer;border:none;font-size:1.1rem;padding:10px 24px" onclick="adminSaveTips()">SAVE ADDRESSES →</button>
+              <span id="admin-tips-status" style="color:#2bff9e;font-size:.9rem;display:none">saved ✓</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Comments -->
         <div>
           <div class="admin-section-title">Comments (<span id="admin-comment-count">0</span>)</div>
@@ -1624,6 +1679,15 @@
       sol: { addr: '3Cj7KhrmVg1tRBHyLhwGAW8Cr4xyosFzxPDhVDk98XVL', label: 'SOL ADDRESS', color: '#14f195' },
       eth: { addr: '0x90677f29D8026E60E03A1597FE228F15fCc79D69',    label: 'ETH ADDRESS', color: '#a8b4f8' }
     };
+
+    // Load tip addresses from KV (overrides hardcoded defaults if set)
+    fetch('/api/admin?action=tips')
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        if (d.sol) TIP_ADDRS.sol.addr = d.sol;
+        if (d.eth) TIP_ADDRS.eth.addr = d.eth;
+      })
+      .catch(function() {});
 
     function tipCopy(chain) {
       var t = TIP_ADDRS[chain];

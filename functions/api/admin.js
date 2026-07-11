@@ -42,6 +42,12 @@ export async function onRequest(context) {
     return jsonResp(profile || { name: "", bio: "", pinned: "" });
   }
 
+  // ── PUBLIC: GET tip addresses (no auth — needed to render tip modal) ──
+  if (request.method === "GET" && action === "tips") {
+    const tips = await kv.get("admin:tips", { type: "json" }).catch(() => null);
+    return jsonResp(tips || { sol: "", eth: "" });
+  }
+
   // ── ALL OTHER ROUTES: require auth ──
   if (!checkAuth(request, env)) {
     return jsonResp({ error: "Unauthorized" }, 401);
@@ -82,6 +88,19 @@ export async function onRequest(context) {
     };
     await kv.put("admin:profile", JSON.stringify(profile));
     return jsonResp({ ok: true, profile });
+  }
+
+  // POST /api/admin?action=tips  — save tip addresses
+  if (request.method === "POST" && action === "tips") {
+    let body;
+    try { body = await request.json(); }
+    catch { return jsonResp({ error: "Invalid JSON" }, 400); }
+    const tips = {
+      sol: (body.sol || "").trim().slice(0, 100),
+      eth: (body.eth || "").trim().slice(0, 100),
+    };
+    await kv.put("admin:tips", JSON.stringify(tips));
+    return jsonResp({ ok: true, tips });
   }
 
   return jsonResp({ error: "Method not allowed" }, 405);
