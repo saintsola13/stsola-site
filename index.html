@@ -30,7 +30,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&family=Cinzel:wght@700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&display=swap" rel="stylesheet" />
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
@@ -394,6 +394,39 @@
     @keyframes bar2 { 0%,100%{height:10px} 50%{height:5px} }
     @keyframes bar3 { 0%,100%{height:14px} 50%{height:3px} }
 
+    /* ── AUDIO REACTIVE HERO ── */
+    @keyframes charBreath {
+      0%,100% { filter: brightness(0.55); }
+      50%      { filter: brightness(0.7) drop-shadow(0 0 60px rgba(255,58,0,0.45)); }
+    }
+    .bg-char.radio-alive {
+      animation: charBreath 2.8s ease-in-out infinite;
+    }
+
+    /* ── PARTICLE CANVAS ── */
+    #particle-trail {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* ── GLITCH TEXT ── */
+    .section-title, .card-name, .homie-name, .amb-name {
+      transition: none;
+    }
+
+    /* ── VISITOR COUNTER ── */
+    #visit-counter {
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      color: rgba(255, 215, 0, 0.35);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: -16px;
+    }
+
     /* ── NOISE ── */
     body::after {
       content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
@@ -463,10 +496,21 @@
       </div>
       <audio id="radioAudio" preload="none"></audio>
 
-      <div class="scroll-arrow" onclick="document.getElementById('apps').scrollIntoView({behavior:'smooth'})">
+      <div class="scroll-arrow" onclick="document.getElementById('art').scrollIntoView({behavior:'smooth'})">
         <span></span><span></span><span></span>
       </div>
     </section>
+
+    <!-- ══ ST SOLA ART ══ -->
+    <div class="section" id="art">
+      <h2 class="section-title">St Sola Art</h2>
+      <a
+        href="https://objkt.com/profile/tz1i6JL2r2cpwq2gf23RrCdGaqobbj4KYGY1"
+        target="_blank" rel="noopener"
+        class="card-link"
+        style="font-size:1.2rem;padding:12px 32px;letter-spacing:0.15em"
+      >OBJKT →</a>
+    </div>
 
     <!-- ══ WEB APPS ══ -->
     <div class="section" id="apps">
@@ -481,6 +525,11 @@
           <div class="card-name">Saint Shield</div>
           <div class="card-desc">Chrome extension. AI-powered crypto scam blocker. Detects rug pulls, phishing, and fake NFT sites before you get got.</div>
           <a class="card-link" href="https://chromewebstore.google.com/detail/saint-shield/fpkagjdfdfcngcigobfnibmfnmefbhbe" target="_blank" rel="noopener">ADD TO CHROME →</a>
+        </div>
+        <div class="card">
+          <div class="card-name">PNL3</div>
+          <div class="card-desc">Real wallet P&amp;L tracker. Ethereum and Solana. Crypto and NFTs. Any timeframe. No account, no signature, no cost. Paste any address and see the real numbers.</div>
+          <a class="card-link" href="https://pnl3.saintsola13.workers.dev" target="_blank" rel="noopener">LAUNCH →</a>
         </div>
       </div>
     </div>
@@ -523,6 +572,11 @@
     <div class="section" id="randoms">
       <h2 class="section-title">Other Shit I Built</h2>
       <div class="cards">
+        <div class="card">
+          <div class="card-name">NFT F3TCH</div>
+          <div class="card-desc">Wallet NFT viewer. Connect or paste any address and see your full NFT collection across chains. Clean. Fast. Free.</div>
+          <a class="card-link" href="https://nft-f3tch.pages.dev" target="_blank" rel="noopener">VIEW →</a>
+        </div>
         <div class="card">
           <div class="card-name">NFT Grid</div>
           <div class="card-desc">Photo collage tool. Upload up to 100 photos and choose your center pic.</div>
@@ -571,6 +625,26 @@
       </div>
     </div>
 
+    <!-- ══ CODE FOR SALE ══ -->
+    <div class="section" id="code">
+      <h2 class="section-title">Code for Sale</h2>
+      <div class="cards" style="max-width:600px">
+        <div class="card" style="border-color:rgba(255,215,0,0.18);">
+          <div class="card-name" style="color:#ffd700">Flux Protocol</div>
+          <div class="card-desc" id="fluxTeaser">NFT collateral infrastructure. Production-ready Solidity. Click to learn what it does.</div>
+          <div id="fluxDetail" style="display:none;color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.7">
+            Flux Protocol is a full NFT-backed lending infrastructure layer built in Solidity. Holders lock their NFTs as collateral and borrow WETH against them without selling. Collections integrate once. The architecture handles escrow, loan origination, floor-price oracle, fixed-term repayment, permissionless liquidation, and protocol treasury. Four contracts. Audited. Ready to deploy or extend.
+            <br/><br/>
+            <span style="color:#ffd700;font-size:0.95rem;letter-spacing:0.08em">Serious inquiries only.</span>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button class="card-link" onclick="toggleFlux()" id="fluxBtn" style="background:rgba(255,215,0,0.1);border-color:rgba(255,215,0,0.45);color:#ffd700;cursor:pointer">WHAT IS IT? →</button>
+            <a class="card-link" href="mailto:info@stsola.us?subject=Flux Protocol" style="background:rgba(255,58,0,0.1)">INQUIRE →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ══ AMBASSADOR ══ -->
     <div class="section" id="ambassador">
       <h2 class="section-title">In the Community</h2>
@@ -594,6 +668,585 @@
       </div>
     </div>
 
+    <!-- ══ GUESTBOOK ══ -->
+    <div class="section" id="guestbook" style="gap:32px">
+      <h2 class="section-title">Guestbook</h2>
+      <div id="visit-counter"></div>
+
+      <!-- SUBMIT FORM -->
+      <div class="card" style="max-width:600px;width:100%;gap:20px">
+
+        <!-- Name -->
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR NAME</label>
+          <input id="gb-name" maxlength="40" placeholder="who are you..." style="
+            background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
+            border-radius:8px;padding:10px 14px;color:#fff;font-family:inherit;font-size:1rem;
+            outline:none;transition:border-color .2s;
+          " onfocus="this.style.borderColor='rgba(255,58,0,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.12)'" />
+        </div>
+
+        <!-- Message -->
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR MESSAGE</label>
+          <textarea id="gb-msg" maxlength="400" rows="3" placeholder="leave your mark..." style="
+            background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
+            border-radius:8px;padding:10px 14px;color:#fff;font-family:inherit;font-size:1rem;
+            outline:none;resize:vertical;transition:border-color .2s;min-height:80px;
+          " onfocus="this.style.borderColor='rgba(255,58,0,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.12)'"></textarea>
+          <div style="text-align:right;font-size:.75rem;color:rgba(255,255,255,.25)" id="gb-charcount">0 / 400</div>
+        </div>
+
+        <!-- Font picker -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR FONT</label>
+          <div style="display:flex;flex-wrap:wrap;gap:8px" id="gb-fonts">
+            <button class="gb-font-btn active" data-font="VT323"        style="font-family:'VT323',monospace;font-size:1.2rem">VT323</button>
+            <button class="gb-font-btn"        data-font="Cinzel"       style="font-family:'Cinzel',serif;font-size:0.9rem">Cinzel</button>
+            <button class="gb-font-btn"        data-font="UnifrakturMaguntia" style="font-family:'UnifrakturMaguntia',cursive;font-size:1rem">Fraktur</button>
+            <button class="gb-font-btn"        data-font="Orbitron"     style="font-family:'Orbitron',sans-serif;font-size:0.75rem">Orbitron</button>
+            <button class="gb-font-btn"        data-font="Press Start 2P" style="font-family:'Press Start 2P',monospace;font-size:0.6rem">Pixel</button>
+          </div>
+        </div>
+
+        <!-- Color picker -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR COLOR</label>
+          <div style="display:flex;gap:10px;flex-wrap:wrap" id="gb-colors">
+            <button class="gb-color-btn active" data-color="#ffd700" style="background:#ffd700" title="Gold"></button>
+            <button class="gb-color-btn" data-color="#ff3a00" style="background:#ff3a00" title="Fire"></button>
+            <button class="gb-color-btn" data-color="#ffffff" style="background:#fff" title="White"></button>
+            <button class="gb-color-btn" data-color="#00e5ff" style="background:#00e5ff" title="Cyan"></button>
+            <button class="gb-color-btn" data-color="#2bff9e" style="background:#2bff9e" title="Green"></button>
+            <button class="gb-color-btn" data-color="#c084fc" style="background:#c084fc" title="Purple"></button>
+          </div>
+        </div>
+
+        <!-- Star rating -->
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR RATING</label>
+          <div id="gb-stars" style="display:flex;gap:6px;font-size:2rem;cursor:pointer;user-select:none">
+            <span class="gb-star active" data-val="1">&#9733;</span>
+            <span class="gb-star active" data-val="2">&#9733;</span>
+            <span class="gb-star active" data-val="3">&#9733;</span>
+            <span class="gb-star active" data-val="4">&#9733;</span>
+            <span class="gb-star active" data-val="5">&#9733;</span>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button id="gb-submit" class="card-link" style="align-self:flex-start;font-size:1.1rem;padding:10px 28px;cursor:pointer;border:none" onclick="gbSubmit()">
+          SIGN IT →
+        </button>
+        <div id="gb-msg-status" style="font-size:.9rem;color:#2bff9e;display:none">dropped. ✓</div>
+      </div>
+
+      <!-- ENTRIES -->
+      <div style="max-width:700px;width:100%;display:flex;flex-direction:column;gap:8px">
+        <div id="gb-count" style="font-size:.8rem;color:rgba(255,255,255,.22);letter-spacing:.15em;text-align:right"></div>
+        <div id="gb-entries" class="gb-scroll"></div>
+      </div>
+    </div>
+
+    <!-- GUESTBOOK STYLES -->
+    <style>
+      .gb-font-btn {
+        background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
+        border-radius:8px;padding:7px 14px;color:rgba(255,255,255,.6);
+        cursor:pointer;transition:all .2s;
+      }
+      .gb-font-btn.active, .gb-font-btn:hover {
+        border-color:rgba(255,58,0,.5);color:#ff3a00;background:rgba(255,58,0,.08);
+      }
+      .gb-color-btn {
+        width:28px;height:28px;border-radius:50%;border:2px solid transparent;
+        cursor:pointer;transition:transform .15s, border-color .15s;
+        flex-shrink:0;
+      }
+      .gb-color-btn.active, .gb-color-btn:hover { transform:scale(1.25);border-color:#fff; }
+      .gb-star { color:rgba(255,215,0,0.25); transition:color .1s; }
+      .gb-star.active { color:#ffd700; text-shadow:0 0 10px rgba(255,215,0,.5); }
+      .gb-entry {
+        background:rgba(255,255,255,0.04);backdrop-filter:blur(12px);
+        border:1px solid rgba(255,255,255,0.09);border-radius:14px;
+        padding:18px 20px;display:flex;flex-direction:column;gap:8px;
+      }
+      .gb-entry-stars { font-size:1rem; color:#ffd700; letter-spacing:2px; }
+      .gb-entry-msg { font-size:1.1rem; line-height:1.6; word-break:break-word; }
+      .gb-entry-meta { font-size:.75rem; color:rgba(255,255,255,.3); letter-spacing:.1em; margin-top:4px; }
+
+      /* ── GUESTBOOK SCROLL ── */
+      .gb-scroll {
+        max-height: 560px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255,58,0,.35) rgba(255,255,255,.04);
+        padding-right: 6px;
+      }
+      .gb-scroll::-webkit-scrollbar { width: 4px; }
+      .gb-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,.04); border-radius: 2px; }
+      .gb-scroll::-webkit-scrollbar-thumb { background: rgba(255,58,0,.4); border-radius: 2px; }
+
+      /* ── ADMIN PROFILE / HOST CARD ── */
+      .gb-host-card {
+        background: rgba(255,215,0,.05);
+        border: 1px solid rgba(255,215,0,.22);
+        border-radius: 14px;
+        padding: 18px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .gb-host-badge {
+        font-size: .7rem; letter-spacing: .2em; color: #ffd700;
+        text-transform: uppercase; display: flex; align-items: center; gap: 6px;
+      }
+      .gb-host-badge::before { content: '★'; }
+      .gb-host-name  { font-family: 'Cinzel', serif; font-size: 1.05rem; color: #ffd700; }
+      .gb-host-bio   { font-size: 1rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+      .gb-host-pinned { font-size: 1.05rem; color: #fff; line-height: 1.7; font-style: italic; }
+
+      /* ── HOMIES SECTION ── */
+      .homie-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+        width: 100%;
+        max-width: 900px;
+      }
+      .homie-card {
+        background: rgba(255,255,255,.05);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,.1);
+        border-radius: 18px;
+        overflow: hidden;
+        transition: transform .25s, box-shadow .25s, border-color .25s;
+      }
+      .homie-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255,58,0,.35);
+        box-shadow: 0 12px 40px rgba(255,58,0,.12);
+      }
+      .homie-video { width:100%; aspect-ratio:16/9; background:#000; }
+      .homie-video iframe { width:100%; height:100%; border:none; display:block; }
+      .homie-info { padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; }
+      .homie-name { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #ffd700; letter-spacing: .08em; }
+      .homie-handle { font-size: .85rem; color: #ff3a00; letter-spacing: .15em; }
+      .homie-desc { font-size: 1rem; color: rgba(255,255,255,.65); line-height: 1.6; }
+      .homie-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+      /* ── ADMIN OVERLAY ── */
+      #admin-overlay {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,.93);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        z-index: 9000;
+        display: none;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+      #admin-overlay.open { display: flex; }
+      .admin-header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 18px 28px; border-bottom: 1px solid rgba(255,58,0,.2);
+        position: sticky; top: 0;
+        background: rgba(0,0,0,.92); backdrop-filter: blur(8px); z-index: 1;
+      }
+      .admin-title { font-family:'Cinzel',serif; font-size:1.1rem; color:#ff3a00; letter-spacing:.2em; }
+      .admin-close {
+        background:none; border:1px solid rgba(255,58,0,.4); color:#ff3a00;
+        padding:6px 14px; border-radius:6px; cursor:pointer;
+        font-family:'VT323',monospace; font-size:1.1rem; letter-spacing:.1em;
+        transition:background .2s;
+      }
+      .admin-close:hover { background:rgba(255,58,0,.15); }
+      .admin-body {
+        padding: 28px; display:flex; flex-direction:column; gap:32px;
+        max-width: 780px; margin: 0 auto; width:100%;
+      }
+      .admin-section-title {
+        font-family:'Cinzel',serif; font-size:.9rem;
+        color:rgba(255,255,255,.4); letter-spacing:.2em; text-transform:uppercase;
+        margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,.08); padding-bottom:8px;
+      }
+      .admin-input {
+        background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+        border-radius:8px; padding:10px 14px; color:#fff;
+        font-family:'VT323',monospace; font-size:1.1rem;
+        width:100%; outline:none; transition:border-color .2s;
+      }
+      .admin-input:focus { border-color:rgba(255,58,0,.5); }
+      .admin-textarea {
+        background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+        border-radius:8px; padding:10px 14px; color:#fff;
+        font-family:'VT323',monospace; font-size:1.1rem;
+        width:100%; outline:none; resize:vertical; min-height:80px; transition:border-color .2s;
+      }
+      .admin-textarea:focus { border-color:rgba(255,58,0,.5); }
+      .admin-comment-row {
+        background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
+        border-radius:10px; padding:14px 16px;
+        display:flex; gap:12px; align-items:flex-start;
+      }
+      .admin-comment-body { flex:1; display:flex; flex-direction:column; gap:4px; }
+      .admin-comment-name { font-family:'Cinzel',serif; font-size:.9rem; color:#ffd700; }
+      .admin-comment-msg  { font-size:.95rem; color:rgba(255,255,255,.7); line-height:1.5; word-break:break-word; }
+      .admin-comment-meta { font-size:.75rem; color:rgba(255,255,255,.3); }
+      .admin-delete-btn {
+        background:rgba(255,58,0,.1); border:1px solid rgba(255,58,0,.3);
+        color:#ff3a00; padding:6px 12px; border-radius:6px; cursor:pointer;
+        font-family:'VT323',monospace; font-size:1rem; letter-spacing:.05em;
+        flex-shrink:0; transition:background .2s;
+      }
+      .admin-delete-btn:hover { background:rgba(255,58,0,.25); }
+      #admin-login {
+        display:flex; flex-direction:column; align-items:center;
+        justify-content:center; min-height:100vh; gap:20px; padding:40px 24px;
+      }
+      .admin-login-box {
+        background:rgba(255,255,255,.05); border:1px solid rgba(255,58,0,.2);
+        border-radius:16px; padding:36px 32px;
+        display:flex; flex-direction:column; gap:16px;
+        width:100%; max-width:360px;
+      }
+      .admin-login-title {
+        font-family:'Cinzel',serif; font-size:1.2rem; color:#ff3a00;
+        letter-spacing:.2em; text-align:center;
+      }
+    </style>
+
+    <!-- GUESTBOOK SCRIPT -->
+    <script>
+      var gbFont  = 'VT323';
+      var gbColor = '#ffd700';
+      var gbRating = 5;
+
+      // Font buttons
+      document.querySelectorAll('.gb-font-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.gb-font-btn').forEach(function(b){ b.classList.remove('active'); });
+          btn.classList.add('active');
+          gbFont = btn.dataset.font;
+        });
+      });
+
+      // Color buttons
+      document.querySelectorAll('.gb-color-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.gb-color-btn').forEach(function(b){ b.classList.remove('active'); });
+          btn.classList.add('active');
+          gbColor = btn.dataset.color;
+        });
+      });
+
+      // Star rating
+      var stars = document.querySelectorAll('.gb-star');
+      stars.forEach(function(star) {
+        star.addEventListener('click', function() {
+          gbRating = parseInt(star.dataset.val);
+          stars.forEach(function(s) {
+            s.classList.toggle('active', parseInt(s.dataset.val) <= gbRating);
+          });
+        });
+      });
+
+      // Char counter
+      document.getElementById('gb-msg').addEventListener('input', function() {
+        document.getElementById('gb-charcount').textContent = this.value.length + ' / 400';
+      });
+
+      function relTime(ts) {
+        var diff = Math.floor((Date.now() - ts) / 1000);
+        if (diff < 60)  return 'just now';
+        if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+        if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+        return Math.floor(diff/86400) + 'd ago';
+      }
+
+      function renderEntry(e) {
+        var stars = '';
+        for (var i = 0; i < 5; i++) stars += i < e.rating ? '★' : '☆';
+        var fontStack = e.font === 'VT323' ? "'VT323',monospace"
+          : e.font === 'Cinzel' ? "'Cinzel',serif"
+          : e.font === 'UnifrakturMaguntia' ? "'UnifrakturMaguntia',cursive"
+          : e.font === 'Orbitron' ? "'Orbitron',sans-serif"
+          : "'Press Start 2P',monospace";
+        var div = document.createElement('div');
+        div.className = 'gb-entry';
+        div.innerHTML =
+          '<div class="gb-entry-stars">' + stars + '</div>' +
+          '<div class="gb-entry-msg" style="font-family:' + fontStack + ';color:' + e.color + '">' +
+            e.message.replace(/</g,'&lt;').replace(/>/g,'&gt;') +
+          '</div>' +
+          '<div class="gb-entry-meta">' + e.name.replace(/</g,'&lt;') + ' &nbsp;&middot;&nbsp; ' + relTime(e.ts) + '</div>';
+        return div;
+      }
+
+      function gbLoad() {
+        var profileP = fetch('/api/admin?action=profile')
+          .then(function(r){ return r.ok ? r.json() : null; })
+          .catch(function(){ return null; });
+        var entriesP = fetch('/api/guestbook')
+          .then(function(r){ return r.json(); })
+          .catch(function(){ return []; });
+
+        Promise.all([profileP, entriesP]).then(function(res) {
+          var profile = res[0];
+          var entries = res[1];
+          var el = document.getElementById('gb-entries');
+          var countEl = document.getElementById('gb-count');
+          el.innerHTML = '';
+
+          // Host card if profile has content
+          if (profile && (profile.pinned || profile.bio || profile.name)) {
+            var hostCard = document.createElement('div');
+            hostCard.className = 'gb-host-card';
+            var h = '<div class="gb-host-badge">HOST</div>';
+            if (profile.name) h += '<div class="gb-host-name">' + profile.name.replace(/</g,'&lt;') + '</div>';
+            if (profile.bio)  h += '<div class="gb-host-bio">'  + profile.bio.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '</div>';
+            if (profile.pinned) h += '<div class="gb-host-pinned">&ldquo;' + profile.pinned.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '&rdquo;</div>';
+            hostCard.innerHTML = h;
+            el.appendChild(hostCard);
+          }
+
+          if (countEl) countEl.textContent = entries.length ? entries.length + ' comment' + (entries.length !== 1 ? 's' : '') : '';
+
+          if (!entries.length) {
+            var empty = document.createElement('p');
+            empty.style.cssText = 'color:rgba(255,255,255,.3);text-align:center;letter-spacing:.15em;padding:20px 0';
+            empty.textContent = 'BE THE FIRST TO SIGN.';
+            el.appendChild(empty);
+            return;
+          }
+          entries.forEach(function(e){ el.appendChild(renderEntry(e)); });
+        });
+      }
+
+      function gbSubmit() {
+        var name = document.getElementById('gb-name').value.trim();
+        var msg  = document.getElementById('gb-msg').value.trim();
+        if (!name || !msg) { alert('Name and message required.'); return; }
+        var btn = document.getElementById('gb-submit');
+        btn.textContent = 'SIGNING...';
+        btn.disabled = true;
+        fetch('/api/guestbook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, message: msg, font: gbFont, color: gbColor, rating: gbRating })
+        })
+        .then(function(r){ return r.json(); })
+        .then(function(d) {
+          if (d.ok) {
+            document.getElementById('gb-name').value = '';
+            document.getElementById('gb-msg').value  = '';
+            document.getElementById('gb-charcount').textContent = '0 / 400';
+            document.getElementById('gb-msg-status').style.display = 'block';
+            setTimeout(function(){ document.getElementById('gb-msg-status').style.display = 'none'; }, 3000);
+            gbLoad();
+          } else {
+            alert(d.error || 'Something went wrong.');
+          }
+        })
+        .catch(function(){ alert('Failed to submit. Try again.'); })
+        .finally(function(){ btn.textContent = 'SIGN IT →'; btn.disabled = false; });
+      }
+
+      // Load on page ready
+      document.addEventListener('DOMContentLoaded', gbLoad);
+
+      // ── ADMIN PANEL ──────────────────────────────────
+      var ADMIN_SESS_KEY = 'stsola_admin_tok';
+
+      function adminToggle() {
+        var overlay = document.getElementById('admin-overlay');
+        if (overlay.classList.contains('open')) {
+          overlay.classList.remove('open');
+        } else {
+          overlay.classList.add('open');
+          var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
+          if (tok) {
+            document.getElementById('admin-login').style.display = 'none';
+            document.getElementById('admin-dashboard').style.display = 'flex';
+            adminLoadProfile();
+            adminLoadComments();
+          } else {
+            document.getElementById('admin-login').style.display = 'flex';
+            document.getElementById('admin-dashboard').style.display = 'none';
+          }
+        }
+      }
+
+      function adminClose() {
+        document.getElementById('admin-overlay').classList.remove('open');
+      }
+
+      function adminLogin() {
+        var code = document.getElementById('admin-code-input').value.trim();
+        if (!code) return;
+        // Validate by calling a protected endpoint
+        fetch('/api/admin', { headers: { 'Authorization': 'Bearer ' + code } })
+          .then(function(r) {
+            if (r.status === 401) {
+              document.getElementById('admin-login-err').style.display = 'block';
+              return null;
+            }
+            return r.json();
+          })
+          .then(function(data) {
+            if (!data) return;
+            document.getElementById('admin-login-err').style.display = 'none';
+            sessionStorage.setItem(ADMIN_SESS_KEY, code);
+            document.getElementById('admin-login').style.display = 'none';
+            document.getElementById('admin-dashboard').style.display = 'flex';
+            adminRenderComments(data);
+            adminLoadProfile();
+          })
+          .catch(function() {
+            document.getElementById('admin-login-err').style.display = 'block';
+          });
+      }
+
+      function adminLogout() {
+        sessionStorage.removeItem(ADMIN_SESS_KEY);
+        document.getElementById('admin-dashboard').style.display = 'none';
+        document.getElementById('admin-login').style.display = 'flex';
+        document.getElementById('admin-code-input').value = '';
+      }
+
+      function adminLoadProfile() {
+        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
+        fetch('/api/admin?action=profile', { headers: { 'Authorization': 'Bearer ' + tok } })
+          .then(function(r){ return r.json(); })
+          .then(function(p) {
+            document.getElementById('admin-profile-name').value   = p.name   || '';
+            document.getElementById('admin-profile-bio').value    = p.bio    || '';
+            document.getElementById('admin-profile-pinned').value = p.pinned || '';
+          })
+          .catch(function(){});
+      }
+
+      function adminLoadComments() {
+        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
+        fetch('/api/admin', { headers: { 'Authorization': 'Bearer ' + tok } })
+          .then(function(r){ return r.json(); })
+          .then(adminRenderComments)
+          .catch(function(){
+            document.getElementById('admin-comments-list').innerHTML =
+              '<p style="color:#ff3a00;font-size:.9rem">Failed to load comments.</p>';
+          });
+      }
+
+      function adminRenderComments(entries) {
+        var list = document.getElementById('admin-comments-list');
+        document.getElementById('admin-comment-count').textContent = entries.length;
+        list.innerHTML = '';
+        if (!entries.length) {
+          list.innerHTML = '<p style="color:rgba(255,255,255,.3);letter-spacing:.1em;font-size:.9rem">No comments yet.</p>';
+          return;
+        }
+        entries.forEach(function(e) {
+          var stars = '';
+          for (var i = 0; i < 5; i++) stars += i < e.rating ? '★' : '☆';
+          var date = new Date(e.ts).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+          var row = document.createElement('div');
+          row.className = 'admin-comment-row';
+          row.dataset.key = e._key;
+          row.innerHTML =
+            '<div class="admin-comment-body">' +
+              '<div class="admin-comment-name">' + e.name.replace(/</g,'&lt;') +
+                ' &nbsp;<span style="color:#ffd700;font-size:.8rem">' + stars + '</span></div>' +
+              '<div class="admin-comment-msg">' + e.message.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '</div>' +
+              '<div class="admin-comment-meta">' + date + '</div>' +
+            '</div>' +
+            '<button class="admin-delete-btn" onclick="adminDelete(this)">DEL</button>';
+          list.appendChild(row);
+        });
+      }
+
+      function adminDelete(btn) {
+        var row = btn.closest('.admin-comment-row');
+        var key = row.dataset.key;
+        if (!confirm('Delete this comment?')) return;
+        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
+        fetch('/api/admin?key=' + encodeURIComponent(key), {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + tok }
+        }).then(function(r){ return r.json(); })
+          .then(function(d) {
+            if (d.ok) {
+              row.remove();
+              var cnt = parseInt(document.getElementById('admin-comment-count').textContent) - 1;
+              document.getElementById('admin-comment-count').textContent = cnt;
+              gbLoad(); // refresh public view
+            }
+          })
+          .catch(function(){});
+      }
+
+      function adminSaveProfile() {
+        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
+        var profile = {
+          name:   document.getElementById('admin-profile-name').value.trim(),
+          bio:    document.getElementById('admin-profile-bio').value.trim(),
+          pinned: document.getElementById('admin-profile-pinned').value.trim(),
+        };
+        fetch('/api/admin?action=profile', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + tok, 'Content-Type': 'application/json' },
+          body: JSON.stringify(profile)
+        }).then(function(r){ return r.json(); })
+          .then(function(d) {
+            if (d.ok) {
+              var s = document.getElementById('admin-profile-status');
+              s.style.display = 'block';
+              setTimeout(function(){ s.style.display = 'none'; }, 2500);
+              gbLoad(); // refresh public guestbook with new profile
+            }
+          })
+          .catch(function(){});
+      }
+
+      // Enter key on login input
+      document.getElementById('admin-code-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') adminLogin();
+      });
+    </script>
+
+    <!-- ══ HOMIES ══ -->
+    <div class="section" id="homies">
+      <h2 class="section-title">St Sola's Homies</h2>
+      <div class="homie-grid">
+
+        <!-- DJ vAPED -->
+        <div class="homie-card">
+          <div class="homie-video">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/boUPTVUckG8?rel=0&modestbranding=1"
+              title="DJ vAPED — Pressure System: Tech, Bass &amp; Breaks Escalation"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="homie-info">
+            <div class="homie-name">DJ vAPED</div>
+            <div class="homie-handle">@DJvAPED &nbsp;&bull;&nbsp; Los Angeles</div>
+            <div class="homie-desc">Dope DJ based out of LA. Mixes that hit different. West Coast energy, global reach. This is what a real set sounds like.</div>
+            <div class="homie-links">
+              <a class="card-link" href="https://www.youtube.com/@djvaped" target="_blank" rel="noopener">YOUTUBE →</a>
+              <a class="card-link" href="https://x.com/DJvAPED" target="_blank" rel="noopener">𝕏 @DJvAPED →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- ══ FOOTER ══ -->
     <footer id="footer">
       <div class="footer-name">St Sola</div>
@@ -603,9 +1256,199 @@
       <a href="https://instagram.com/s.t.sola" target="_blank" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s;display:inline-flex;align-items:center;gap:8px" onmouseover="this.style.borderColor='#e1306c'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@s.t.sola</a>
       <a href="mailto:info@stsola.us" style="font-size:1.2rem;color:#ffd700;letter-spacing:.15em;border-bottom:1px solid rgba(255,215,0,.3);transition:border-color .2s" onmouseover="this.style.borderColor='#ffd700'" onmouseout="this.style.borderColor='rgba(255,215,0,.3)'">info@stsola.us</a>
       <a href="https://madebuilt.io" target="_blank" rel="noopener" style="font-size:1rem;color:rgba(255,255,255,.35);letter-spacing:.2em;margin-top:8px;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">madebuilt.io @stsola</a>
+      <button onclick="adminToggle()" style="background:none;border:none;color:rgba(255,255,255,.1);font-size:.7rem;letter-spacing:.2em;cursor:pointer;padding:4px 8px;transition:color .2s;font-family:'VT323',monospace;margin-top:4px" onmouseover="this.style.color='rgba(255,58,0,.35)'" onmouseout="this.style.color='rgba(255,255,255,.1)'">[ admin ]</button>
     </footer>
 
   </div><!-- /scroll-root -->
+
+  <!-- ══ ADMIN OVERLAY ══ -->
+  <div id="admin-overlay">
+
+    <!-- Login screen -->
+    <div id="admin-login">
+      <div class="admin-login-box">
+        <div class="admin-login-title">ADMIN ACCESS</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="font-size:.8rem;color:rgba(255,255,255,.35);letter-spacing:.15em">ACCESS CODE</label>
+          <input id="admin-code-input" class="admin-input" type="password" placeholder="enter code..." autocomplete="off" />
+        </div>
+        <button class="card-link" style="align-self:center;cursor:pointer;border:none;font-size:1.1rem;padding:10px 28px" onclick="adminLogin()">ENTER →</button>
+        <div id="admin-login-err" style="color:#ff3a00;text-align:center;font-size:.9rem;display:none">wrong code.</div>
+        <button onclick="adminClose()" style="background:none;border:none;color:rgba(255,255,255,.25);font-size:.9rem;cursor:pointer;text-align:center;font-family:'VT323',monospace;letter-spacing:.1em">cancel</button>
+      </div>
+    </div>
+
+    <!-- Dashboard (shown after login) -->
+    <div id="admin-dashboard" style="display:none;flex-direction:column;flex:1">
+      <div class="admin-header">
+        <div class="admin-title">ADMIN PANEL</div>
+        <div style="display:flex;gap:10px">
+          <button class="admin-close" onclick="adminLogout()">LOGOUT</button>
+          <button class="admin-close" onclick="adminClose()">CLOSE ✕</button>
+        </div>
+      </div>
+      <div class="admin-body">
+
+        <!-- Profile -->
+        <div>
+          <div class="admin-section-title">Your Profile</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label style="font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.15em">DISPLAY NAME</label>
+              <input id="admin-profile-name" class="admin-input" type="text" maxlength="50" placeholder="St Sola" />
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label style="font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.15em">BIO (shows on guestbook)</label>
+              <textarea id="admin-profile-bio" class="admin-textarea" maxlength="300" placeholder="Builder. Saint. Creator."></textarea>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label style="font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.15em">PINNED MESSAGE (pinned at top of guestbook)</label>
+              <textarea id="admin-profile-pinned" class="admin-textarea" maxlength="300" placeholder="Welcome to the guestbook. Leave your mark."></textarea>
+            </div>
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+              <button class="card-link" style="cursor:pointer;border:none;font-size:1.1rem;padding:10px 24px" onclick="adminSaveProfile()">SAVE PROFILE →</button>
+              <span id="admin-profile-status" style="color:#2bff9e;font-size:.9rem;display:none">saved ✓</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div>
+          <div class="admin-section-title">Comments (<span id="admin-comment-count">0</span>)</div>
+          <div id="admin-comments-list" style="display:flex;flex-direction:column;gap:10px"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /admin-overlay -->
+
+  <!-- PARTICLE TRAIL CANVAS -->
+  <canvas id="particle-trail"></canvas>
+
+  <!-- TIER 1 ENHANCEMENTS -->
+  <script>
+    // ────────────────────────────────────────────────
+    // 1. CURSOR PARTICLE TRAIL
+    // ────────────────────────────────────────────────
+    (function() {
+      var canvas = document.getElementById('particle-trail');
+      var ctx = canvas.getContext('2d');
+      var W, H;
+
+      function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      var particles = [];
+      var PALETTE = ['#ff3a00','#ff5500','#ff6600','#ffd700','#ff8800','#ff2200'];
+
+      document.addEventListener('mousemove', function(e) {
+        var count = 3;
+        for (var i = 0; i < count; i++) {
+          particles.push({
+            x:     e.clientX + (Math.random() - 0.5) * 6,
+            y:     e.clientY + (Math.random() - 0.5) * 6,
+            vx:    (Math.random() - 0.5) * 1.8,
+            vy:    -(Math.random() * 2.2 + 0.4),
+            life:  1.0,
+            decay: Math.random() * 0.028 + 0.018,
+            size:  Math.random() * 3.5 + 1,
+            color: PALETTE[Math.floor(Math.random() * PALETTE.length)]
+          });
+        }
+      });
+
+      function loop() {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = particles.length - 1; i >= 0; i--) {
+          var p = particles[i];
+          p.x  += p.vx;
+          p.y  += p.vy;
+          p.vy += 0.06;  // gravity pulls embers down
+          p.vx *= 0.98;  // air resistance
+          p.life -= p.decay;
+          if (p.life <= 0) { particles.splice(i, 1); continue; }
+          ctx.globalAlpha = p.life * 0.85;
+          ctx.fillStyle   = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(loop);
+      }
+      loop();
+    })();
+
+
+    // ────────────────────────────────────────────────
+    // 2. GLITCH TEXT HOVER
+    // ────────────────────────────────────────────────
+    var GLITCH_CHARS = '!<>-_\/[]{}=+*^?#░▒▓|@$%&~';
+
+    function glitchElement(el) {
+      if (el._glitching) return;
+      el._glitching = true;
+      var orig = el.dataset.origText || el.textContent;
+      el.dataset.origText = orig;
+      var chars = orig.split('');
+      var iters = 0;
+      var maxIter = orig.length * 1.5;
+
+      var interval = setInterval(function() {
+        var scrambled = chars.map(function(ch, idx) {
+          if (ch === ' ') return ' ';
+          if (idx < Math.floor(iters * 0.7)) return orig[idx];
+          return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+        }).join('');
+        el.textContent = scrambled;
+        iters++;
+        if (iters >= maxIter) {
+          clearInterval(interval);
+          el.textContent = orig;
+          el._glitching = false;
+        }
+      }, 28);
+    }
+
+    document.querySelectorAll('.section-title, .card-name, .homie-name, .amb-name').forEach(function(el) {
+      el.addEventListener('mouseenter', function() { glitchElement(el); });
+    });
+
+
+    // ────────────────────────────────────────────────
+    // 3. VISITOR COUNTER (part of guestbook)
+    // ────────────────────────────────────────────────
+    function formatCount(n) {
+      return n.toLocaleString('en-US');
+    }
+
+    // Animated count-up
+    function countUp(el, target) {
+      var start = Math.max(0, target - Math.min(target, 60));
+      var current = start;
+      var step = Math.max(1, Math.ceil((target - start) / 40));
+      var interval = setInterval(function() {
+        current = Math.min(current + step, target);
+        el.textContent = formatCount(current) + ' SAINTS CAME THROUGH';
+        if (current >= target) clearInterval(interval);
+      }, 28);
+    }
+
+    fetch('/api/visits', { method: 'POST' })
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        var el = document.getElementById('visit-counter');
+        if (el && d.count) countUp(el, d.count);
+      })
+      .catch(function() {
+        // silently fail — counter is a nice-to-have
+      });
+  </script>
 
   <script>
     // ── FCKOFF RADIO ─────────────────────────────────────────
@@ -632,6 +1475,9 @@
       radioBars.classList.toggle('active', playing);
       iconPlay.style.display = playing ? 'none' : 'block';
       iconStop.style.display = playing ? 'block' : 'none';
+      // Audio reactive hero — bg character breathes with the music
+      const bgChar = document.querySelector('.bg-char');
+      if (bgChar) bgChar.classList.toggle('radio-alive', playing);
     }
 
     function tryStream(idx) {
@@ -666,6 +1512,17 @@
         tryStream(streamIdx + 1);
       }
     });
+
+    // ── FLUX REVEAL ───────────────────────────
+    function toggleFlux() {
+      const detail = document.getElementById('fluxDetail');
+      const teaser = document.getElementById('fluxTeaser');
+      const btn    = document.getElementById('fluxBtn');
+      const open   = detail.style.display === 'none';
+      detail.style.display = open ? 'block' : 'none';
+      teaser.style.display = open ? 'none'  : 'block';
+      btn.textContent      = open ? 'CLOSE ✕' : 'WHAT IS IT? →';
+    }
 
     // ── CYCLING SQUARE ──────────────────────────────────────
     const frame = document.getElementById('photoFrame');

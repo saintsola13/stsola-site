@@ -1,0 +1,6 @@
+name = "stsola-site"
+pages_build_output_dir = "."
+
+[[kv_namespaces]]
+binding = "GUESTBOOK"
+id = "abd7d53199c4495a90cd1481fb00eb54"
