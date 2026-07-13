@@ -452,6 +452,100 @@
       cursor: pointer;
     }
 
+    /* ── $COLORS SECTION ── */
+    .colors-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .colors-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .colors-mascot {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255,58,0,0.4);
+      flex-shrink: 0;
+    }
+    .colors-title {
+      font-family: 'VT323', monospace;
+      font-size: 2.2rem;
+      color: #fff;
+      letter-spacing: .05em;
+      margin: 0;
+    }
+    .colors-price-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .colors-price {
+      font-family: 'VT323', monospace;
+      font-size: 1.6rem;
+      color: #fff;
+      letter-spacing: .04em;
+    }
+    .colors-change {
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+    .colors-change.up   { background: rgba(43,255,158,0.15); color: #2bff9e; }
+    .colors-change.down { background: rgba(255,58,0,0.15);  color: #ff3a00; }
+    .colors-meta {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .colors-chart {
+      width: 100%;
+      height: 340px;
+      border: 1px solid rgba(255,58,0,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .colors-chart iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .colors-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .colors-link {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 5px 12px;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: color .2s, border-color .2s, background .2s;
+      background: transparent;
+      cursor: pointer;
+    }
+    .colors-link:hover { color: #ff3a00; border-color: #ff3a00; }
+    button.colors-link {
+      color: #ff3a00;
+      border-color: rgba(255,58,0,0.4);
+    }
+    button.colors-link:hover {
+      background: rgba(255,58,0,0.12);
+      border-color: #ff3a00;
+    }
+
     /* ── CRYPTO TICKER ── */
     #crypto-ticker {
       position: fixed;
@@ -699,7 +793,6 @@
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15.93V19h-2v-1.07A4.01 4.01 0 0 1 8 14h2c0 1.1.9 2 2 2s2-.9 2-2c0-1.1-.9-2-2-2a4 4 0 0 1 0-8V3h2v1.07A4.01 4.01 0 0 1 16 8h-2c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2a4 4 0 0 1 0 8Z" fill="#00d46e"/>
       </svg>
       CASH APP
-      <span class="tip-toast" id="toast-cash">opening →</span>
     </a>
   </div>
 
@@ -801,6 +894,38 @@
       </div>
     </div>
 
+    <!-- ══ TICKERS ══ -->
+    <div class="section" id="tickers">
+      <h2 class="section-title">Tickers</h2>
+      <div class="card" style="max-width:560px;display:flex;flex-direction:column;gap:16px;padding:20px 22px;">
+        <div class="colors-header">
+          <img src="assets/colors-mascot.jpg" alt="$COLORS" class="colors-mascot" />
+          <div>
+            <div class="colors-title">$COLORS</div>
+            <div class="colors-price-row">
+              <span class="colors-price" id="colors-price">--</span>
+              <span class="colors-change" id="colors-change">—</span>
+            </div>
+            <div class="colors-meta" id="colors-meta">SOL · LIVE</div>
+          </div>
+        </div>
+        <div class="colors-chart">
+          <iframe
+            src="https://dexscreener.com/solana/6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty?embed=1&theme=dark&trades=0&info=0"
+            title="$COLORS chart"
+            loading="lazy"
+            allow="clipboard-write"
+          ></iframe>
+        </div>
+        <div class="colors-links">
+          <button class="colors-link" onclick="copyColorsCa()" id="colors-copy-btn">COPY CA</button>
+          <a class="colors-link" href="https://dexscreener.com/solana/6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty" target="_blank" rel="noopener">DEXSCREENER →</a>
+          <a class="colors-link" href="https://colors.fluxinc.io/" target="_blank" rel="noopener">WEBSITE →</a>
+          <a class="colors-link" href="https://x.com/SOLxColors" target="_blank" rel="noopener">X →</a>
+        </div>
+      </div>
+    </div>
+
     <!-- ══ TOOLS ══ -->
     <div class="section" id="tools">
       <h2 class="section-title">Degen Plays & Entertainment</h2>
@@ -814,6 +939,11 @@
           <div class="card-name">Telegram Sticker Maker</div>
           <div class="card-desc">ClawHub skill. Turn any image into a Telegram sticker pack. Background removal, resize, animate. One command.</div>
           <a class="card-link" href="https://clawhub.ai/saintsola13/telegram-stickers" target="_blank" rel="noopener">GET SKILL →</a>
+        </div>
+        <div class="card">
+          <div class="card-name">NFT Galleria</div>
+          <div class="card-desc">Sola's curated NFT gallery. Saints of LA, BAYC, DeGods, Chumpz and more. Live on-chain. Red. Raw.</div>
+          <a class="card-link" href="https://nftgalleria.pages.dev" target="_blank" rel="noopener">VIEW →</a>
         </div>
       </div>
     </div>
@@ -859,11 +989,7 @@
           <div class="card-desc">Mystery game. You'll see.</div>
           <a class="card-link" href="https://it-couldnt-be.netlify.app/" target="_blank" rel="noopener">PLAY →</a>
         </div>
-        <div class="card">
-          <div class="card-name">NFT Galleria</div>
-          <div class="card-desc">NFT portfolio viewer. Multi-chain. Clean UI.</div>
-          <a class="card-link" href="https://nftgalleria.netlify.app/" target="_blank" rel="noopener">VIEW →</a>
-        </div>
+
         <div class="card">
           <div class="card-name">QR Studio</div>
           <div class="card-desc">Custom QR code generator. Style it, brand it, download it.</div>
@@ -2029,6 +2155,50 @@
         ? '<path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>'
         : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
     });
+
+    // ── $COLORS COPY CA ───────────────────────
+    var COLORS_CA = 'DCmeU6DAdNqMNamxw4Uw4Zp6rdVwwRcJDDpbPVJCULT';
+    function copyColorsCa() {
+      navigator.clipboard.writeText(COLORS_CA).then(function() {
+        var btn = document.getElementById('colors-copy-btn');
+        if (btn) { btn.textContent = 'COPIED!'; setTimeout(function(){ btn.textContent = 'COPY CA'; }, 2000); }
+      }).catch(function(){
+        var btn = document.getElementById('colors-copy-btn');
+        if (btn) btn.textContent = 'COPY CA';
+      });
+    }
+
+    // ── $COLORS LIVE PRICE ─────────────────────
+    (function fetchColorsPrice() {
+      var PAIR = '6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty';
+      var priceEl  = document.getElementById('colors-price');
+      var changeEl = document.getElementById('colors-change');
+      var metaEl   = document.getElementById('colors-meta');
+      function update() {
+        fetch('https://api.dexscreener.com/latest/dex/pairs/solana/' + PAIR)
+          .then(function(r){ return r.json(); })
+          .then(function(d) {
+            var pair = d.pair || (d.pairs && d.pairs[0]);
+            if (!pair) return;
+            var price = parseFloat(pair.priceUsd);
+            var ch24  = parseFloat(pair.priceChange && pair.priceChange.h24);
+            var mcap  = pair.marketCap ? '$' + (pair.marketCap/1e6).toFixed(2) + 'M MCAP' : '';
+            var vol   = pair.volume && pair.volume.h24 ? 'VOL $' + Math.round(pair.volume.h24).toLocaleString() : '';
+            if (priceEl) priceEl.textContent = price < 0.01
+              ? '$' + price.toFixed(8)
+              : '$' + price.toFixed(6);
+            if (changeEl) {
+              var sign = ch24 >= 0 ? '+' : '';
+              changeEl.textContent = sign + ch24.toFixed(2) + '%';
+              changeEl.className = 'colors-change ' + (ch24 >= 0 ? 'up' : 'down');
+            }
+            if (metaEl) metaEl.textContent = 'SOL · LIVE' + (mcap ? ' · ' + mcap : '') + (vol ? ' · ' + vol : '');
+          })
+          .catch(function(){})
+      }
+      update();
+      setInterval(update, 30000); // refresh every 30s
+    })();
 
     // ── FLUX REVEAL ───────────────────────────
     function toggleFlux() {
