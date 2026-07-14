@@ -53,7 +53,10 @@
       object-position: center top;
       z-index: 0;
       filter: brightness(0.55);
+      opacity: 1;
+      transition: opacity 1.2s ease-in-out;
     }
+    .bg-char.fade-out { opacity: 0; }
 
     /* Subtle dark overlay so text is readable */
     .bg-overlay {
@@ -797,7 +800,7 @@
   </div>
 
   <!-- FIXED CHARACTER BACKGROUND -->
-  <img src="assets/hero-bg.jpg" alt="" class="bg-char" />
+  <img src="assets/hero-bg.jpg" alt="" class="bg-char" id="bg-slide" />
   <div class="bg-overlay"></div>
 
   <!-- ALL CONTENT SCROLLS OVER CHARACTER -->
@@ -2095,6 +2098,19 @@
       radioBars.classList.toggle('active', playing);
       iconPlay.style.display = playing ? 'none' : 'block';
       iconStop.style.display = playing ? 'block' : 'none';
+      // Hero slideshow
+      const slides = ['assets/hero-bg.jpg', 'assets/hero-bar.jpg'];
+      let slideIdx = 0;
+      const bgSlide = document.getElementById('bg-slide');
+      setInterval(function() {
+        bgSlide.classList.add('fade-out');
+        setTimeout(function() {
+          slideIdx = (slideIdx + 1) % slides.length;
+          bgSlide.src = slides[slideIdx];
+          bgSlide.classList.remove('fade-out');
+        }, 1200);
+      }, 6000);
+
       // Audio reactive hero — bg character breathes with the music
       const bgChar = document.querySelector('.bg-char');
       if (bgChar) bgChar.classList.toggle('radio-alive', playing);
