@@ -56,7 +56,7 @@
       opacity: 1;
       transition: opacity 1.2s ease-in-out;
     }
-    .bg-char.fade-out { opacity: 0; }
+
 
     /* Subtle dark overlay so text is readable */
     .bg-overlay {
@@ -800,7 +800,7 @@
   </div>
 
   <!-- FIXED CHARACTER BACKGROUND -->
-  <img src="assets/hero-bg.jpg" alt="" class="bg-char" id="bg-slide" />
+  <img src="assets/hero-bg.jpg" alt="" class="bg-char" />
   <div class="bg-overlay"></div>
 
   <!-- ALL CONTENT SCROLLS OVER CHARACTER -->
@@ -2249,24 +2249,6 @@
       if (Math.abs(dx) > 30) showImg(current + (dx < 0 ? 1 : -1));
       startAuto();
     }, {passive:true});
-  </script>
-  <script>
-    // Hero background slideshow
-    (function() {
-      var slides = ['assets/hero-bg.jpg', 'assets/hero-bar.jpg'];
-      var idx = 0;
-      var el = document.getElementById('bg-slide');
-      if (!el) return;
-      setInterval(function() {
-        el.style.transition = 'opacity 1.2s ease-in-out';
-        el.style.opacity = '0';
-        setTimeout(function() {
-          idx = (idx + 1) % slides.length;
-          el.src = slides[idx];
-          el.style.opacity = '0.55';
-        }, 1200);
-      }, 6000);
-    })();
   </script>
 </body>
 </html>
