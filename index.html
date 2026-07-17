@@ -868,7 +868,7 @@
         </button>
         <div class="radio-label">
           <span class="radio-title">Rave Underground</span>
-          <span class="radio-status" id="raveStatus">JUNGLE / HARDCORE</span>
+          <span class="radio-status" id="raveStatus">JUNGLE / PROGRESSIVE</span>
         </div>
         <div class="radio-bars" id="raveBars">
           <span></span><span></span><span></span><span></span>
@@ -2201,7 +2201,7 @@
 
     function setRavePlaying(playing) {
       ravePlaying = playing;
-      raveStatus.textContent = playing ? 'LIVE' : 'JUNGLE / HARDCORE';
+      raveStatus.textContent = playing ? 'LIVE' : 'JUNGLE / PROGRESSIVE';
       raveStatus.classList.toggle('live', playing);
       raveBars.classList.toggle('active', playing);
       raveIconPlay.style.display = playing ? 'none' : 'block';
