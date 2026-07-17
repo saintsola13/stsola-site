@@ -868,7 +868,7 @@
         </button>
         <div class="radio-label">
           <span class="radio-title">Rave Underground</span>
-          <span class="radio-status" id="raveStatus">TECHNO</span>
+          <span class="radio-status" id="raveStatus">JUNGLE / HARDCORE</span>
         </div>
         <div class="radio-bars" id="raveBars">
           <span></span><span></span><span></span><span></span>
@@ -2184,8 +2184,12 @@
 
     // ── RAVE UNDERGROUND ─────────────────────────────────────────
     const RAVE_STREAMS = [
-      'https://listener3.mp3.tb-group.fm/tb.mp3',  // TechnoBase.FM — verified live 192kbps
-      'https://listen.technobase.fm/tunein-mp3',   // TechnoBase.FM — fallback
+      'http://prem4.di.fm:80/jungle',                         // DI.FM Jungle — verified live
+      'http://prem4.di.fm:80/progressive',                    // DI.FM Progressive House — verified live
+      'http://65.109.81.84:8658/stream',                      // SkellyWays Hardcore — verified live
+      'https://stream.sunshine-live.de/Hardcore/mp3-192/',    // Sunshine Live Hardcore — verified live
+      'http://prem4.di.fm:80/harddance',                      // DI.FM Hard Dance — fallback
+      'http://prem4.di.fm:80/drumandbass',                    // DI.FM Drum & Bass — fallback
     ];
     let ravePlaying = false;
     let raveStreamIdx = 0;
@@ -2197,7 +2201,7 @@
 
     function setRavePlaying(playing) {
       ravePlaying = playing;
-      raveStatus.textContent = playing ? 'LIVE' : 'TECHNO';
+      raveStatus.textContent = playing ? 'LIVE' : 'JUNGLE / HARDCORE';
       raveStatus.classList.toggle('live', playing);
       raveBars.classList.toggle('active', playing);
       raveIconPlay.style.display = playing ? 'none' : 'block';
