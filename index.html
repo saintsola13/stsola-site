@@ -860,6 +860,30 @@
       </div>
       <audio id="radioAudio" preload="none"></audio>
 
+      <!-- RAVE UNDERGROUND -->
+      <div class="radio-player" id="ravePlayer" style="margin-top:10px;border-color:#7f00ff;">
+        <button class="radio-play-btn" id="raveBtn" onclick="toggleRave()" aria-label="Play/Stop" style="background:#7f00ff;color:#fff;">
+          <svg id="raveIconPlay" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="raveIconStop" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+        </button>
+        <div class="radio-label">
+          <span class="radio-title">Rave Underground</span>
+          <span class="radio-status" id="raveStatus">TECHNO</span>
+        </div>
+        <div class="radio-bars" id="raveBars">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="radio-vol-wrap" id="raveVolWrap">
+          <span class="radio-vol-icon">
+            <svg id="raveVolIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+          </span>
+          <input class="radio-vol" id="raveVol" type="range" min="0" max="100" value="80" aria-label="Volume" />
+        </div>
+      </div>
+      <audio id="raveAudio" preload="none"></audio>
+
       <div class="scroll-arrow" onclick="document.getElementById('art').scrollIntoView({behavior:'smooth'})">
         <span></span><span></span><span></span>
       </div>
@@ -2077,11 +2101,9 @@
   <script>
     // ── FCKOFF RADIO ─────────────────────────────────────────
     const STREAMS = [
-      'http://ecmanager2.pro-fhi.net:1800/stream',          // Remember Sounds — LA Chicano/West Coast rap
-      'http://stream.laut.fm/wiphopbeatz',                  // Classic Hip Hop & Boom Bap
-      'http://streaming.coollective.nl:8443/UbuntuFMhiphop',// Ubuntu FM Hip Hop
-      'http://cupcake.citrus3.com:8186/stream',             // Ketch Radio
-      'https://listen.181fm.com/181-oldschool_128k.mp3',    // 181.FM Old School (fallback)
+      'https://streams.90s90s.de/hiphop/mp3-128/',         // 90s90s HipHop — verified 90s rap, no ads
+      'https://streams.bigfm.de/bigfm-oldschool-128-mp3',  // bigFM Oldschool — verified 90s rap
+      'https://streams.90s90s.de/hiphop/mp3-128/',         // fallback
     ];
     let radioPlaying = false;
     const radioAudio  = document.getElementById('radioAudio');
@@ -2154,6 +2176,76 @@
       syncVolTrack(v);
       // Swap icon: muted vs normal
       volIcon.innerHTML = v === 0
+        ? '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>'
+        : v < 50
+        ? '<path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>'
+        : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+    });
+
+    // ── RAVE UNDERGROUND ─────────────────────────────────────────
+    const RAVE_STREAMS = [
+      'https://listener3.mp3.tb-group.fm/tb.mp3',  // TechnoBase.FM — verified live 192kbps
+      'https://listen.technobase.fm/tunein-mp3',   // TechnoBase.FM — fallback
+    ];
+    let ravePlaying = false;
+    let raveStreamIdx = 0;
+    const raveAudio  = document.getElementById('raveAudio');
+    const raveStatus = document.getElementById('raveStatus');
+    const raveBars   = document.getElementById('raveBars');
+    const raveIconPlay = document.getElementById('raveIconPlay');
+    const raveIconStop = document.getElementById('raveIconStop');
+
+    function setRavePlaying(playing) {
+      ravePlaying = playing;
+      raveStatus.textContent = playing ? 'LIVE' : 'TECHNO';
+      raveStatus.classList.toggle('live', playing);
+      raveBars.classList.toggle('active', playing);
+      raveIconPlay.style.display = playing ? 'none' : 'block';
+      raveIconStop.style.display = playing ? 'block' : 'none';
+    }
+
+    function tryRaveStream(idx) {
+      if (idx >= RAVE_STREAMS.length) {
+        raveStatus.textContent = 'SIGNAL LOST';
+        raveStatus.classList.remove('live');
+        raveBars.classList.remove('active');
+        raveIconPlay.style.display = 'block';
+        raveIconStop.style.display = 'none';
+        return;
+      }
+      raveAudio.src = RAVE_STREAMS[idx];
+      raveAudio.play()
+        .then(() => { raveStreamIdx = idx; setRavePlaying(true); })
+        .catch(() => tryRaveStream(idx + 1));
+    }
+
+    function toggleRave() {
+      if (ravePlaying) {
+        raveAudio.pause();
+        raveAudio.src = '';
+        setRavePlaying(false);
+      } else {
+        raveStatus.textContent = 'LOADING...';
+        tryRaveStream(0);
+      }
+    }
+
+    raveAudio.addEventListener('error', () => {
+      if (ravePlaying) {
+        setRavePlaying(false);
+        tryRaveStream(raveStreamIdx + 1);
+      }
+    });
+
+    const raveVol = document.getElementById('raveVol');
+    const raveVolIcon = document.getElementById('raveVolIcon');
+    raveVol.style.setProperty('--vol-pct', '80%');
+    raveAudio.volume = 0.8;
+    raveVol.addEventListener('input', function() {
+      const v = parseInt(this.value);
+      raveAudio.volume = v / 100;
+      raveVol.style.setProperty('--vol-pct', v + '%');
+      raveVolIcon.innerHTML = v === 0
         ? '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>'
         : v < 50
         ? '<path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>'
