@@ -884,7 +884,10 @@
       </div>
       <audio id="raveAudio" preload="none"></audio>
 
-      <div class="scroll-arrow" onclick="document.getElementById('art').scrollIntoView({behavior:'smooth'})">
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+        <button class="card-link" onclick="document.getElementById('guestbook').scrollIntoView({behavior:'smooth'})" style="font-size:1rem;padding:10px 24px;cursor:pointer;border:none;background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.2);letter-spacing:.15em">GUEST ROOM →</button>
+      </div>
+      <div class="scroll-arrow" onclick="document.getElementById('art').scrollIntoView({behavior:'smooth'})" style="margin-top:4px">
         <span></span><span></span><span></span>
       </div>
     </section>
@@ -1089,9 +1092,15 @@
       </div>
     </div>
 
-    <!-- ══ GUESTBOOK ══ -->
-    <div class="section" id="guestbook" style="gap:32px">
-      <h2 class="section-title">Guestbook</h2>
+    <!-- ══ GUESTROOM ══ -->
+    <div id="guestbook" class="guestroom-outer">
+      <!-- ROOM BACKGROUND -->
+      <div class="guestroom-bg"></div>
+      <div class="guestroom-overlay"></div>
+
+      <!-- INNER CONTENT -->
+      <div class="section guestroom-inner" style="gap:32px;position:relative;z-index:2">
+      <h2 class="section-title">GuestRoom</h2>
       <div id="visit-counter"></div>
 
       <!-- SUBMIT FORM -->
@@ -1162,15 +1171,54 @@
         <div id="gb-msg-status" style="font-size:.9rem;color:#2bff9e;display:none">dropped. ✓</div>
       </div>
 
-      <!-- ENTRIES -->
-      <div style="max-width:700px;width:100%;display:flex;flex-direction:column;gap:8px">
-        <div id="gb-count" style="font-size:.8rem;color:rgba(255,255,255,.22);letter-spacing:.15em;text-align:right"></div>
+      <!-- ENTRIES — glass block -->
+      <div class="gb-glass-block">
+        <div id="gb-count" style="font-size:.8rem;color:rgba(255,255,255,.22);letter-spacing:.15em;text-align:right;margin-bottom:4px"></div>
         <div id="gb-entries" class="gb-scroll"></div>
       </div>
-    </div>
 
-    <!-- GUESTBOOK STYLES -->
+      </div><!-- /guestroom-inner -->
+    </div><!-- /guestroom-outer -->
+
+    <!-- GUESTROOM STYLES -->
     <style>
+      /* ── GUESTROOM WRAPPER ── */
+      .guestroom-outer {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+      .guestroom-bg {
+        position: absolute;
+        inset: 0;
+        background: url('assets/guestroom-bg.jpg') center center / cover no-repeat;
+        z-index: 0;
+      }
+      .guestroom-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.62);
+        z-index: 1;
+      }
+      .guestroom-inner {
+        position: relative;
+        z-index: 2;
+      }
+      /* GLASS ENTRIES BLOCK */
+      .gb-glass-block {
+        max-width: 700px;
+        width: 100%;
+        background: rgba(255,255,255,0.07);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(255,255,255,0.14);
+        border-radius: 20px;
+        padding: 20px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+      }
       .gb-font-btn {
         background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
         border-radius:8px;padding:7px 14px;color:rgba(255,255,255,.6);
