@@ -597,7 +597,8 @@
     .ticker-down { color: #ff3a00; font-size: 0.8rem; }
     .ticker-sep  { color: rgba(255,58,0,0.4); padding: 0 4px; }
 
-    /* push page content below ticker+nav (overridden by facelift) */
+    /* push page content below ticker */
+    .scroll-root { padding-top: 32px; }
 
     /* ── TIP BAR ── */
     #tip-bar {
@@ -757,124 +758,9 @@
       opacity: .022;
     }
 
-
-    /* ── STICKY GLASS NAV (facelift 2026-10) ── */
-    #glass-nav {
-      position: sticky;
-      top: 32px;
-      z-index: 9996;
-      display: flex;
-      justify-content: center;
-      padding: 10px 16px 12px;
-      pointer-events: none;
-    }
-    .glass-nav-inner {
-      pointer-events: auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 4px 2px;
-      padding: 8px 10px;
-      max-width: 920px;
-      width: 100%;
-      background: rgba(12, 4, 8, 0.55);
-      backdrop-filter: blur(18px) saturate(1.4);
-      -webkit-backdrop-filter: blur(18px) saturate(1.4);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 999px;
-      box-shadow:
-        0 8px 32px rgba(0,0,0,0.45),
-        0 0 0 1px rgba(255,58,0,0.08),
-        inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-    .glass-nav-inner a {
-      font-family: 'VT323', monospace;
-      font-size: clamp(0.95rem, 2.4vw, 1.15rem);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.72);
-      padding: 8px 14px;
-      border-radius: 999px;
-      transition: color .2s, background .2s, box-shadow .2s;
-      white-space: nowrap;
-    }
-    .glass-nav-inner a:hover,
-    .glass-nav-inner a:focus-visible {
-      color: #fff;
-      background: rgba(255,58,0,0.22);
-      box-shadow: 0 0 18px rgba(255,58,0,0.25);
-      outline: none;
-    }
-    #tip-bar { top: 78px; }
-    .scroll-root { padding-top: 88px; }
-
-    /* ── BENTO GRID ── */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
-      width: 100%;
-      max-width: 1100px;
-    }
-    .cards > .card {
-      grid-column: span 4;
-      min-height: 100%;
-    }
-    .cards > .card.bento-lg { grid-column: span 8; }
-    .cards > .card.bento-md { grid-column: span 6; }
-    .cards > .card.bento-full { grid-column: span 12; }
-    .section {
-      padding: 64px 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    .card {
-      border-radius: 20px;
-      background: rgba(255,255,255,0.055);
-      position: relative;
-      overflow: hidden;
-    }
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,58,0,0.08), transparent 42%, rgba(0,229,255,0.05));
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity .3s;
-    }
-    .card:hover::before { opacity: 1; }
-    .bento-lg .card-name { font-size: 1.35rem; }
-    .bento-lg .card-desc { font-size: 1.12rem; }
-
-    @media(max-width:900px) {
-      .cards > .card,
-      .cards > .card.bento-lg,
-      .cards > .card.bento-md { grid-column: span 6; }
-    }
+    /* ── MOBILE ── */
     @media(max-width:640px) {
-      .glass-nav-inner {
-        border-radius: 18px;
-        gap: 2px;
-        padding: 6px;
-      }
-      .glass-nav-inner a {
-        padding: 7px 10px;
-        letter-spacing: 0.1em;
-        font-size: 0.9rem;
-      }
-      .cards > .card,
-      .cards > .card.bento-lg,
-      .cards > .card.bento-md,
-      .cards > .card.bento-full { grid-column: span 12; }
-      #tip-bar { top: 32px; transform: scale(0.92); transform-origin: top right; }
-      .scroll-root { padding-top: 96px; }
-    }
-
-    /* ── MOBILE (base) ── */
-    @media(max-width:640px) {
-      .amb-grid { grid-template-columns: 1fr; }
+      .cards, .amb-grid { grid-template-columns: 1fr; }
       .photo-frame { width: 88vw; }
       .name-cutout { font-size: clamp(56px, 18vw, 120px); }
     }
@@ -885,7 +771,7 @@
   <!-- CRYPTO TICKER -->
   <div id="crypto-ticker">
     <div class="ticker-track" id="ticker-track">
-      <span class="ticker-item"><span class="ticker-sym">BTC</span><span class="ticker-price">…</span></span><span class="ticker-item"><span class="ticker-sym">ETH</span><span class="ticker-price">…</span></span><span class="ticker-item"><span class="ticker-sym">SOL</span><span class="ticker-price">…</span></span>
+      <span class="ticker-item"><span class="ticker-sym">LOADING</span><span class="ticker-price">...</span></span>
     </div>
   </div>
 
@@ -913,18 +799,6 @@
       CASH APP
     </a>
   </div>
-
-  <!-- STICKY GLASS NAV -->
-  <nav id="glass-nav" aria-label="Primary">
-    <div class="glass-nav-inner">
-      <a href="#randoms">Build</a>
-      <a href="#apps">Play</a>
-      <a href="#tools">Protect</a>
-      <a href="#lofi">Listen</a>
-      <a href="#guestbook">Guestroom</a>
-      <a href="#homies">Homies</a>
-    </div>
-  </nav>
 
   <!-- FIXED CHARACTER BACKGROUND -->
   <img src="assets/hero-bg.jpg" alt="" class="bg-char" />
@@ -1034,7 +908,7 @@
     <div class="section" id="apps">
       <h2 class="section-title">Security Tools</h2>
       <div class="cards">
-        <div class="card bento-lg">
+        <div class="card">
           <div class="card-name">Saint Watch</div>
           <div class="card-desc">Web3 wallet security monitoring. Approval guard, drain watch, bridge watch. Your on-chain bodyguard.</div>
           <a class="card-link" href="https://saintwatch.com" target="_blank" rel="noopener">VISIT →</a>
@@ -1055,7 +929,7 @@
     <!-- ══ TICKERS ══ -->
     <div class="section" id="tickers">
       <h2 class="section-title">Tickers</h2>
-      <div class="card bento-full" style="max-width:100%;display:flex;flex-direction:column;gap:16px;padding:20px 22px;">
+      <div class="card" style="max-width:560px;display:flex;flex-direction:column;gap:16px;padding:20px 22px;">
         <div class="colors-header">
           <img src="assets/colors-mascot.jpg" alt="$COLORS" class="colors-mascot" />
           <div>
@@ -1119,12 +993,12 @@
     <div class="section" id="tools">
       <h2 class="section-title">Degen Plays & Entertainment</h2>
       <div class="cards">
-        <div class="card bento-lg">
+        <div class="card">
           <div class="card-name">Trap Wars</div>
           <div class="card-desc">PVP trading battles on Solana. Best trader wins the pot. Squads Protocol escrow. No mercy.</div>
           <a class="card-link" href="https://trapwars.win" target="_blank" rel="noopener">ENTER →</a>
         </div>
-        <div class="card bento-md">
+        <div class="card">
           <div class="card-name">HangMeng 🎮</div>
           <div class="card-desc">Neon hangman with West Coast vibes. Solo or two-player. Share invite codes. Music. Confetti when you win.</div>
           <a class="card-link" href="https://hangmeng.pages.dev" target="_blank" rel="noopener">PLAY →</a>
@@ -1156,7 +1030,7 @@
     <div class="section" id="automation">
       <h2 class="section-title">Bots & Automation</h2>
       <div class="cards">
-        <div class="card bento-lg">
+        <div class="card">
           <div class="card-name">Telegram Bot Suite</div>
           <div class="card-desc">6 live bots running 24/7. Daily briefings, astrology, recipes, word definitions, spiritual teachings, and Saints community management. All automated.</div>
           <a class="card-link" href="https://t.me/Saint_hood_bot" target="_blank" rel="noopener">@Saint_hood_bot →</a>
@@ -1173,7 +1047,7 @@
     <div class="section" id="randoms">
       <h2 class="section-title">Other Shit I Built</h2>
       <div class="cards">
-        <div class="card bento-lg">
+        <div class="card">
           <div class="card-name">NFT F3TCH</div>
           <div class="card-desc">Wallet NFT viewer. Connect or paste any address and see your full NFT collection across chains. Clean. Fast. Free.</div>
           <a class="card-link" href="https://nft-f3tch.pages.dev" target="_blank" rel="noopener">VIEW →</a>
@@ -1220,8 +1094,8 @@
     <!-- ══ CODE FOR SALE ══ -->
     <div class="section" id="code">
       <h2 class="section-title">Code for Sale</h2>
-      <div class="cards" style="max-width:900px">
-        <div class="card bento-full" style="border-color:rgba(255,215,0,0.18);">
+      <div class="cards" style="max-width:600px">
+        <div class="card" style="border-color:rgba(255,215,0,0.18);">
           <div class="card-name" style="color:#ffd700">Flux Protocol</div>
           <div class="card-desc" id="fluxTeaser">NFT collateral infrastructure. Production-ready Solidity. Click to learn what it does.</div>
           <div id="fluxDetail" style="display:none;color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.7">
@@ -2174,26 +2048,16 @@
         return items + items; // duplicate for seamless scroll
       }
 
-      function showTickerFallback() {
-        var track = document.getElementById('ticker-track');
-        if (!track) return;
-        var fallback = '<span class="ticker-item"><span class="ticker-sym">BTC</span><span class="ticker-price">LIVE</span></span>' +
-          '<span class="ticker-item"><span class="ticker-sym">ETH</span><span class="ticker-price">LIVE</span></span>' +
-          '<span class="ticker-item"><span class="ticker-sym">SOL</span><span class="ticker-price">LIVE</span></span>' +
-          '<span class="ticker-item"><span class="ticker-sym">$COLORS</span><span class="ticker-price">SOL</span></span>';
-        track.innerHTML = fallback + fallback;
-      }
       function fetchTicker() {
         var ids = COINS.join(',');
         fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + ids + '&order=market_cap_desc&per_page=20&page=1&price_change_percentage=24h')
           .then(function(r) { return r.json(); })
           .then(function(data) {
             var track = document.getElementById('ticker-track');
-            if (!track) return;
-            if (!data || !data.length) { showTickerFallback(); return; }
+            if (!track || !data.length) return;
             track.innerHTML = buildTrack(data);
           })
-          .catch(function() { showTickerFallback(); });
+          .catch(function() { /* silently fail */ });
       }
 
       // Initial load + refresh every 60s
