@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>St Sola — Loyalty Over Bullshit</title>
   <meta name="description" content="Builder. Saint. Creator. Security tools, degen plays, bots & more." />
+  <meta name="theme-color" content="#07030a" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="St Sola — Loyalty Over Bullshit" />
@@ -30,2422 +31,622 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&display=swap" rel="stylesheet" />
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-    /* ── FIXED CHARACTER BACKGROUND ── */
-    html, body { min-height:100%; }
-    body {
-      font-family:'VT323',monospace;
-      color:#fff;
-      /* Character locked behind everything */
-      background: #080808;
-    }
-
-    /* Fixed full-viewport character */
-    .bg-char {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      z-index: 0;
-      filter: brightness(0.55);
-      opacity: 1;
-      transition: opacity 1.2s ease-in-out;
-    }
-
-
-    /* Subtle dark overlay so text is readable */
-    .bg-overlay {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(8,0,0,0.25) 0%,
-        rgba(8,0,0,0.15) 40%,
-        rgba(8,0,0,0.55) 100%
-      );
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* All content scrolls above the fixed bg */
-    .scroll-root {
-      position: relative;
-      z-index: 2;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 24px 80px;
-      text-align: center;
-      gap: 32px;
-    }
-
-    /* NAME CUTOUT — gothic text, background-clip reveals red behind */
-    .name-cutout {
-      font-family: 'UnifrakturMaguntia', cursive;
-      font-size: clamp(72px, 18vw, 180px);
-      line-height: 1;
-      /* Clip the red bg image through the text */
-      background: url('assets/hero-bg.jpg') center top / cover;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 30px rgba(255,58,0,0.6)) drop-shadow(0 4px 8px rgba(0,0,0,0.8));
-      animation: nameIn 1.5s ease both;
-      letter-spacing: 0.02em;
-    }
-    @keyframes nameIn {
-      from { opacity:0; transform: scale(0.92); }
-      to   { opacity:1; transform: scale(1); }
-    }
-
-    /* THE CYCLING SQUARE */
-    .photo-frame {
-      position: relative;
-      width: min(380px, 82vw);
-      aspect-ratio: 1/1;
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: crosshair;
-      /* Glass border */
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow:
-        0 8px 32px rgba(0,0,0,0.5),
-        0 0 60px rgba(255,58,0,0.2),
-        inset 0 0 0 1px rgba(255,255,255,0.05);
-      backdrop-filter: blur(2px);
-    }
-    .photo-frame img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.7s ease;
-    }
-    .photo-frame img.active { opacity: 1; }
-
-    .hero-tagline {
-      font-family: 'VT323', monospace;
-      font-size: clamp(1.3rem, 4vw, 2rem);
-      color: #ffd700;
-      letter-spacing: 0.4em;
-      text-shadow: 0 0 16px rgba(255,215,0,0.5);
-      text-transform: uppercase;
-      animation: nameIn 1.5s ease 1s both;
-    }
-
-    /* Scroll arrow */
-    .scroll-arrow {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      cursor: pointer; animation: bounce 2s ease-in-out infinite;
-    }
-    .scroll-arrow span {
-      display: block; width: 12px; height: 12px;
-      border-right: 2px solid rgba(255,58,0,0.8);
-      border-bottom: 2px solid rgba(255,58,0,0.8);
-      transform: rotate(45deg); opacity: 0;
-      animation: arrowFade 1.5s ease infinite;
-    }
-    .scroll-arrow span:nth-child(2){animation-delay:.2s}
-    .scroll-arrow span:nth-child(3){animation-delay:.4s}
-    @keyframes arrowFade{0%,100%{opacity:0}50%{opacity:.7}}
-    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-    @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
-
-    /* ── SECTIONS ── */
-    .section {
-      padding: 80px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.3rem, 3.5vw, 2rem);
-      color: #ff3a00;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      text-shadow: 0 0 20px rgba(255,58,0,0.5);
-      text-align: center;
-    }
-
-    /* ── GLASS CARDS ── */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 900px;
-    }
-
-    .card {
-      /* CLEAR GLASS */
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 16px;
-      padding: 28px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: transform .25s, box-shadow .25s, background .25s;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      background: rgba(255,255,255,0.1);
-      box-shadow: 0 12px 40px rgba(255,58,0,0.2), inset 0 1px 0 rgba(255,255,255,0.12);
-      border-color: rgba(255,58,0,0.4);
-    }
-    .card-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: #ffd700;
-      letter-spacing: 0.1em;
-    }
-    .card-desc {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.6;
-      flex: 1;
-    }
-    .card-link {
-      display: inline-block;
-      padding: 8px 18px;
-      background: rgba(255,58,0,0.15);
-      border: 1px solid rgba(255,58,0,0.5);
-      color: #ff3a00;
-      border-radius: 6px;
-      font-family: 'VT323', monospace;
-      font-size: 1.1rem;
-      letter-spacing: 0.1em;
-      transition: background .2s, color .2s;
-      width: fit-content;
-      backdrop-filter: blur(4px);
-    }
-    .card-link:hover { background: #ff3a00; color: #fff; }
-
-    /* ── AMBASSADOR SECTION ── */
-    .amb-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      width: 100%;
-      max-width: 800px;
-    }
-    .amb-card {
-      background: rgba(255,215,0,0.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,215,0,0.15);
-      border-radius: 14px;
-      padding: 20px;
-      text-align: center;
-      transition: transform .25s, box-shadow .25s;
-    }
-    .amb-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(255,215,0,0.15);
-      border-color: rgba(255,215,0,0.4);
-    }
-    .amb-role {
-      font-size: 0.9rem;
-      color: #ff3a00;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-    .amb-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: #ffd700;
-    }
-
-    /* ── FOOTER ── */
-    #footer {
-      padding: 60px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      text-align: center;
-      border-top: 1px solid rgba(255,58,0,0.1);
-      /* slight dark bg for footer readability */
-      background: rgba(8,0,0,0.7);
-      backdrop-filter: blur(8px);
-    }
-    .footer-name {
-      font-family: 'UnifrakturMaguntia', cursive;
-      font-size: clamp(2rem, 8vw, 4rem);
-      background: url('assets/hero-bg.jpg') center top / cover;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 16px rgba(255,58,0,0.4));
-    }
-    .footer-tagline {
-      font-size: 1.2rem;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.3em;
-    }
-    .footer-socials {
-      display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
-    }
-    .footer-socials a {
-      font-size: 1.1rem;
-      color: #ff3a00;
-      letter-spacing: 0.1em;
-      border-bottom: 1px solid transparent;
-      transition: border-color .2s;
-    }
-    .footer-socials a:hover { border-color: #ff3a00; }
-
-    /* ── FCKOFF RADIO PLAYER ── */
-    .radio-player {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 50px;
-      padding: 10px 20px 10px 12px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
-      transition: box-shadow .25s, border-color .25s;
-      cursor: default;
-      user-select: none;
-    }
-    .radio-player:hover {
-      border-color: rgba(255,58,0,0.35);
-      box-shadow: 0 8px 32px rgba(255,58,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
-    }
-    .radio-play-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,58,0,0.6);
-      background: rgba(255,58,0,0.15);
-      color: #ff3a00;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: background .2s, transform .15s;
-      backdrop-filter: blur(4px);
-    }
-    .radio-play-btn:hover { background: #ff3a00; color: #fff; transform: scale(1.08); }
-    .radio-play-btn svg { display: block; }
-    .radio-label {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .radio-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.85rem;
-      color: #ff3a00;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-    .radio-status {
-      font-family: 'VT323', monospace;
-      font-size: 1rem;
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.15em;
-      transition: color .3s;
-    }
-    .radio-status.live { color: #ffd700; }
-    .radio-bars {
-      display: flex;
-      align-items: flex-end;
-      gap: 3px;
-      height: 18px;
-      opacity: 0;
-      transition: opacity .3s;
-    }
-    .radio-bars.active { opacity: 1; }
-    .radio-bars span {
-      display: block;
-      width: 3px;
-      background: #ff3a00;
-      border-radius: 2px;
-      animation: none;
-    }
-    .radio-bars.active span:nth-child(1) { animation: bar1 0.8s ease-in-out infinite; }
-    .radio-bars.active span:nth-child(2) { animation: bar2 0.9s ease-in-out infinite; }
-    .radio-bars.active span:nth-child(3) { animation: bar3 0.7s ease-in-out infinite; }
-    .radio-bars.active span:nth-child(4) { animation: bar1 1.0s ease-in-out infinite; }
-    @keyframes bar1 { 0%,100%{height:4px} 50%{height:16px} }
-    @keyframes bar2 { 0%,100%{height:10px} 50%{height:5px} }
-    @keyframes bar3 { 0%,100%{height:14px} 50%{height:3px} }
-
-    /* ── VOLUME SLIDER ── */
-    .radio-vol-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      max-width: 0;
-      overflow: hidden;
-      transition: opacity .3s ease, max-width .3s ease;
-      pointer-events: none;
-    }
-    .radio-player:hover .radio-vol-wrap,
-    .radio-vol-wrap:focus-within {
-      opacity: 1;
-      max-width: 120px;
-      pointer-events: auto;
-    }
-    .radio-vol-icon {
-      color: rgba(255,255,255,0.35);
-      flex-shrink: 0;
-      line-height: 0;
-    }
-    .radio-vol {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 80px;
-      height: 3px;
-      border-radius: 2px;
-      background: linear-gradient(
-        to right,
-        #ff3a00 0%,
-        #ff3a00 var(--vol-pct, 80%),
-        rgba(255,255,255,0.15) var(--vol-pct, 80%),
-        rgba(255,255,255,0.15) 100%
-      );
-      outline: none;
-      cursor: pointer;
-    }
-    .radio-vol::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ff3a00;
-      box-shadow: 0 0 6px rgba(255,58,0,0.7);
-      cursor: pointer;
-      transition: transform .15s;
-    }
-    .radio-vol::-webkit-slider-thumb:hover { transform: scale(1.3); }
-    .radio-vol::-moz-range-thumb {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ff3a00;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* ── $COLORS SECTION ── */
-    .colors-section {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .colors-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .colors-mascot {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(255,58,0,0.4);
-      flex-shrink: 0;
-    }
-    .colors-title {
-      font-family: 'VT323', monospace;
-      font-size: 2.2rem;
-      color: #fff;
-      letter-spacing: .05em;
-      margin: 0;
-    }
-    .colors-price-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .colors-price {
-      font-family: 'VT323', monospace;
-      font-size: 1.6rem;
-      color: #fff;
-      letter-spacing: .04em;
-    }
-    .colors-change {
-      font-size: 0.85rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 3px;
-    }
-    .colors-change.up   { background: rgba(43,255,158,0.15); color: #2bff9e; }
-    .colors-change.down { background: rgba(255,58,0,0.15);  color: #ff3a00; }
-    .colors-meta {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-    .colors-chart {
-      width: 100%;
-      height: 340px;
-      border: 1px solid rgba(255,58,0,0.2);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .colors-chart iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    .colors-links {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .colors-link {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 5px 12px;
-      border-radius: 3px;
-      text-decoration: none;
-      transition: color .2s, border-color .2s, background .2s;
-      background: transparent;
-      cursor: pointer;
-    }
-    .colors-link:hover { color: #ff3a00; border-color: #ff3a00; }
-    button.colors-link {
-      color: #ff3a00;
-      border-color: rgba(255,58,0,0.4);
-    }
-    button.colors-link:hover {
-      background: rgba(255,58,0,0.12);
-      border-color: #ff3a00;
-    }
-
-    /* ── CRYPTO TICKER ── */
-    #crypto-ticker {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 9997;
-      background: rgba(8,0,0,0.82);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,58,0,0.18);
-      height: 32px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-    }
-    .ticker-track {
-      display: flex;
-      gap: 0;
-      white-space: nowrap;
-      animation: tickerScroll 40s linear infinite;
-      will-change: transform;
-    }
-    #crypto-ticker:hover .ticker-track {
-      animation-play-state: paused;
-    }
-    @keyframes tickerScroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .ticker-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0 20px;
-      font-family: 'VT323', monospace;
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      border-right: 1px solid rgba(255,255,255,0.07);
-      cursor: default;
-    }
-    .ticker-sym  { color: rgba(255,255,255,0.55); }
-    .ticker-price { color: #fff; }
-    .ticker-up   { color: #2bff9e; font-size: 0.8rem; }
-    .ticker-down { color: #ff3a00; font-size: 0.8rem; }
-    .ticker-sep  { color: rgba(255,58,0,0.4); padding: 0 4px; }
-
-    /* push page content below ticker */
-    .scroll-root { padding-top: 32px; }
-
-    /* ── TIP BAR ── */
-    #tip-bar {
-      position: fixed;
-      top: 32px;
-      right: 0;
-      z-index: 9994;
-      display: flex;
-      gap: 0;
-      overflow: hidden;
-      border-radius: 0 0 0 10px;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-top: none;
-      border-right: none;
-    }
-    .tip-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 14px;
-      font-family: 'VT323', monospace;
-      font-size: 1rem;
-      letter-spacing: 0.12em;
-      cursor: pointer;
-      border: none;
-      outline: none;
-      transition: background .2s, color .2s;
-      user-select: none;
-      position: relative;
-    }
-    .tip-btn-sol {
-      background: rgba(20,241,149,0.1);
-      color: #14f195;
-      border-right: 1px solid rgba(255,255,255,0.07);
-    }
-    .tip-btn-sol:hover { background: rgba(20,241,149,0.22); }
-    .tip-btn-eth {
-      background: rgba(98,126,234,0.1);
-      color: #a8b4f8;
-      border-right: 1px solid rgba(255,255,255,0.07);
-    }
-    .tip-btn-eth:hover { background: rgba(98,126,234,0.22); }
-    .tip-btn-cash {
-      background: rgba(0,212,110,0.08);
-      color: #00d46e;
-    }
-    .tip-btn-cash:hover { background: rgba(0,212,110,0.2); }
-    .tip-btn svg { flex-shrink: 0; }
-
-    /* tip modal */
-    #tip-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-    #tip-modal.open { display: flex; }
-    .tip-modal-box {
-      background: rgba(12,4,4,0.97);
-      border: 1px solid rgba(255,58,0,0.25);
-      border-radius: 16px;
-      padding: 28px 24px;
-      width: 100%;
-      max-width: 420px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-    }
-    .tip-modal-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      letter-spacing: 0.2em;
-      text-align: center;
-    }
-    .tip-modal-addr {
-      font-family: 'VT323', monospace;
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.75);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      padding: 12px 14px;
-      word-break: break-all;
-      letter-spacing: 0.04em;
-      line-height: 1.5;
-      text-align: center;
-      user-select: all;
-    }
-    .tip-modal-copy {
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      font-family: 'VT323', monospace;
-      font-size: 1.2rem;
-      letter-spacing: 0.15em;
-      cursor: pointer;
-      transition: background .2s;
-      text-align: center;
-    }
-    .tip-modal-close {
-      background: none;
-      border: none;
-      color: rgba(255,255,255,0.3);
-      font-family: 'VT323', monospace;
-      font-size: 1rem;
-      letter-spacing: 0.15em;
-      cursor: pointer;
-      text-align: center;
-      transition: color .2s;
-    }
-    .tip-modal-close:hover { color: rgba(255,255,255,0.7); }
-
-    /* ── AUDIO REACTIVE HERO ── */
-    @keyframes charBreath {
-      0%,100% { filter: brightness(0.55); }
-      50%      { filter: brightness(0.7) drop-shadow(0 0 60px rgba(255,58,0,0.45)); }
-    }
-    .bg-char.radio-alive {
-      animation: charBreath 2.8s ease-in-out infinite;
-    }
-
-    /* ── PARTICLE CANVAS ── */
-    #particle-trail {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9998;
-    }
-
-    /* ── GLITCH TEXT ── */
-    .section-title, .card-name, .homie-name, .amb-name {
-      transition: none;
-    }
-
-    /* ── VISITOR COUNTER ── */
-    #visit-counter {
-      font-family: 'VT323', monospace;
-      font-size: 1rem;
-      color: rgba(255, 215, 0, 0.35);
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      text-align: center;
-      margin-top: -16px;
-    }
-
-    /* ── NOISE ── */
-    body::after {
-      content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity: .022;
-    }
-
-    /* ── MOBILE ── */
-    @media(max-width:640px) {
-      .cards, .amb-grid { grid-template-columns: 1fr; }
-      .photo-frame { width: 88vw; }
-      .name-cutout { font-size: clamp(56px, 18vw, 120px); }
-    }
-  </style>
+  <link rel="preconnect" href="https://api.coingecko.com" crossorigin />
+  <link rel="preload" as="image" href="assets/saint-pool.jpg" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="assets/app.css?v=revamp1" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- CRYPTO TICKER -->
-  <div id="crypto-ticker">
+  <div id="crypto-ticker" role="marquee" aria-label="Live crypto prices">
     <div class="ticker-track" id="ticker-track">
-      <span class="ticker-item"><span class="ticker-sym">LOADING</span><span class="ticker-price">...</span></span>
+      <span class="ticker-item"><span class="ticker-sym">SOL</span><span class="ticker-price">…</span></span>
+      <span class="ticker-item"><span class="ticker-sym">ETH</span><span class="ticker-price">…</span></span>
+      <span class="ticker-item"><span class="ticker-sym">BTC</span><span class="ticker-price">…</span></span>
     </div>
   </div>
 
-  <!-- TIP BAR -->
-  <div id="tip-bar">
-    <button class="tip-btn tip-btn-sol" onclick="tipCopy('sol')" title="Tip with SOL">
-      <!-- Solana logo -->
-      <svg width="13" height="13" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21.7 94.6a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3.1L105.9 115a3.6 3.6 0 0 1-2.5 1H4.6a1.8 1.8 0 0 1-1.3-3.1l18.4-18.3ZM21.7 13a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3L105.9 33.4a3.6 3.6 0 0 1-2.5 1H4.6A1.8 1.8 0 0 1 3.3 31L21.7 13ZM105.9 53.6a3.6 3.6 0 0 0-2.5-1H4.6a1.8 1.8 0 0 0-1.3 3.1L21.7 74a3.6 3.6 0 0 0 2.5 1H123a1.8 1.8 0 0 0 1.3-3.1L105.9 53.6Z" fill="#14f195"/>
-      </svg>
-      TIP SOL
+  <!-- TOP BAR -->
+  <header class="topbar" id="topbar">
+    <button class="menu-btn menu-btn-left" id="openLeft" aria-controls="menuLeft" aria-expanded="false" aria-label="Open apps and projects menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      <span>APPS</span>
     </button>
-    <button class="tip-btn tip-btn-eth" onclick="tipCopy('eth')" title="Tip with ETH">
-      <svg width="11" height="13" viewBox="0 0 32 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 0L0 26.5l16 9.5 16-9.5L16 0Z" fill="#a8b4f8"/>
-        <path d="M16 39.5L0 30l16 22 16-22-16 9.5Z" fill="#a8b4f8" opacity=".7"/>
-      </svg>
-      TIP ETH
+    <a class="topbar-logo" href="#hero" aria-label="St Sola home">St Sola</a>
+    <button class="menu-btn menu-btn-right" id="openRight" aria-controls="menuRight" aria-expanded="false" aria-label="Open links, socials and dev login menu">
+      <span>LINKS</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M10 17h10"/></svg>
     </button>
-    <a class="tip-btn tip-btn-cash" href="https://cash.app/$StSola" target="_blank" rel="noopener" title="Tip with Cash App">
-      <!-- Cash App $ -->
-      <svg width="12" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15.93V19h-2v-1.07A4.01 4.01 0 0 1 8 14h2c0 1.1.9 2 2 2s2-.9 2-2c0-1.1-.9-2-2-2a4 4 0 0 1 0-8V3h2v1.07A4.01 4.01 0 0 1 16 8h-2c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2a4 4 0 0 1 0 8Z" fill="#00d46e"/>
-      </svg>
-      CASH APP
-    </a>
-  </div>
+  </header>
 
   <!-- FIXED CHARACTER BACKGROUND -->
-  <img src="assets/hero-bg.jpg" alt="" class="bg-char" />
+  <img src="assets/hero-bg.jpg" alt="" class="bg-char" fetchpriority="low" />
   <div class="bg-overlay"></div>
+  <canvas id="neon-field" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- SWIPE HINT EDGES -->
+  <div class="edge-hint edge-hint-left" aria-hidden="true"></div>
+  <div class="edge-hint edge-hint-right" aria-hidden="true"></div>
+
+  <!-- MENU OVERLAY -->
+  <div class="menu-overlay" id="menuOverlay" aria-hidden="true"></div>
+
+  <!-- ══ LEFT MENU: APPS / TOOLS / PROJECTS ══ -->
+  <aside class="side-menu side-left" id="menuLeft" role="dialog" aria-modal="true" aria-label="Apps, tools and projects" aria-hidden="true" tabindex="-1">
+    <div class="menu-head">
+      <div class="menu-kicker">ST SOLA // BUILT</div>
+      <div class="menu-title">Apps &amp; Projects</div>
+      <button class="menu-close" data-close-menu aria-label="Close menu">✕</button>
+    </div>
+    <div class="menu-tools">
+      <label class="m-search-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="menuSearch" type="search" placeholder="search apps, tools, homies…" autocomplete="off" aria-label="Search apps and projects" /></label>
+      <div class="m-chips" id="menuChips"><button class="m-chip active" data-filter="all" type="button">All</button><button class="m-chip" data-filter="tips" type="button">Tips</button><button class="m-chip" data-filter="security" type="button">Security</button><button class="m-chip" data-filter="degen" type="button">Degen</button><button class="m-chip" data-filter="bots" type="button">Bots</button><button class="m-chip" data-filter="randoms" type="button">Built</button><button class="m-chip" data-filter="art" type="button">Art</button><button class="m-chip" data-filter="code" type="button">Code</button><button class="m-chip" data-filter="community" type="button">Community</button><button class="m-chip" data-filter="homies" type="button">Homies</button><button class="m-chip" data-filter="radar" type="button">Radar</button></div>
+    </div>
+    <div class="menu-scroll" id="menuLeftScroll">
+      
+      <section class="m-group " data-group="tips" aria-labelledby="mg-tips">
+        <h3 class="m-group-title" id="mg-tips">Tip Jar</h3>
+        <div class="m-items"><div class="card m-item m-tips" data-cat="tips"><div class="card-name">Tip Jar</div><div class="card-desc">Show love. SOL, ETH or Cash App.</div><div class="tip-row"><button class="tip-btn tip-btn-sol" onclick="tipCopy('sol')" title="Tip with SOL">
+<!-- Solana logo -->
+<svg fill="none" height="13" viewbox="0 0 128 128" width="13" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.7 94.6a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3.1L105.9 115a3.6 3.6 0 0 1-2.5 1H4.6a1.8 1.8 0 0 1-1.3-3.1l18.4-18.3ZM21.7 13a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3L105.9 33.4a3.6 3.6 0 0 1-2.5 1H4.6A1.8 1.8 0 0 1 3.3 31L21.7 13ZM105.9 53.6a3.6 3.6 0 0 0-2.5-1H4.6a1.8 1.8 0 0 0-1.3 3.1L21.7 74a3.6 3.6 0 0 0 2.5 1H123a1.8 1.8 0 0 0 1.3-3.1L105.9 53.6Z" fill="#14f195"></path>
+</svg>
+      TIP SOL
+    </button><button class="tip-btn tip-btn-eth" onclick="tipCopy('eth')" title="Tip with ETH">
+<svg fill="none" height="13" viewbox="0 0 32 52" width="11" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 0L0 26.5l16 9.5 16-9.5L16 0Z" fill="#a8b4f8"></path>
+<path d="M16 39.5L0 30l16 22 16-22-16 9.5Z" fill="#a8b4f8" opacity=".7"></path>
+</svg>
+      TIP ETH
+    </button><a class="tip-btn tip-btn-cash" href="https://cash.app/$StSola" rel="noopener" target="_blank" title="Tip with Cash App">
+<!-- Cash App $ -->
+<svg fill="none" height="13" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15.93V19h-2v-1.07A4.01 4.01 0 0 1 8 14h2c0 1.1.9 2 2 2s2-.9 2-2c0-1.1-.9-2-2-2a4 4 0 0 1 0-8V3h2v1.07A4.01 4.01 0 0 1 16 8h-2c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2a4 4 0 0 1 0 8Z" fill="#00d46e"></path>
+</svg>
+      CASH APP
+    </a></div></div></div>
+      </section>
+      <section class="m-group " data-group="security" aria-labelledby="mg-security">
+        <h3 class="m-group-title" id="mg-security">Security Tools</h3>
+        <div class="m-items"><div class="card m-item" data-cat="apps">
+<div class="card-name">NFTstack</div>
+<div class="card-desc">Free directory of every NFT tool. Updated daily. nftstack.net</div>
+<a class="card-link" href="https://nftstack.net" rel="noopener" target="_blank">NFTSTACK.NET →</a>
+</div><div class="card m-item" data-cat="apps">
+<div class="card-name">Saint Watch</div>
+<div class="card-desc">Web3 wallet security monitoring. Approval guard, drain watch, bridge watch. Your on-chain bodyguard.</div>
+<a class="card-link" href="https://saintwatch.com" rel="noopener" target="_blank">VISIT →</a>
+</div><div class="card m-item" data-cat="apps">
+<div class="card-name">Saint Shield</div>
+<div class="card-desc">Chrome extension. AI-powered crypto scam blocker. Detects rug pulls, phishing, and fake NFT sites before you get got.</div>
+<a class="card-link" href="https://chromewebstore.google.com/detail/saint-shield/fpkagjdfdfcngcigobfnibmfnmefbhbe" rel="noopener" target="_blank">ADD TO CHROME →</a>
+</div><div class="card m-item" data-cat="apps">
+<div class="card-name">PNL3</div>
+<div class="card-desc">Real wallet P&amp;L tracker. Ethereum and Solana. Crypto and NFTs. Any timeframe. No account, no signature, no cost. Paste any address and see the real numbers.</div>
+<a class="card-link" href="https://pnl3.saintsola13.workers.dev" rel="noopener" target="_blank">LAUNCH →</a>
+</div></div>
+      </section>
+      <section class="m-group " data-group="degen" aria-labelledby="mg-degen">
+        <h3 class="m-group-title" id="mg-degen">Degen Plays &amp; Entertainment</h3>
+        <div class="m-items"><div class="card m-item" data-cat="degen">
+<div class="card-name">Trap Wars</div>
+<div class="card-desc">PVP trading battles on Solana. Best trader wins the pot. Squads Protocol escrow. No mercy.</div>
+<a class="card-link" href="https://trapwars.win" rel="noopener" target="_blank">ENTER →</a>
+</div><div class="card m-item" data-cat="degen">
+<div class="card-name">HangMeng 🎮</div>
+<div class="card-desc">Neon hangman with West Coast vibes. Solo or two-player. Share invite codes. Music. Confetti when you win.</div>
+<a class="card-link" href="https://hangmeng.pages.dev" rel="noopener" target="_blank">PLAY →</a>
+</div><div class="card m-item" data-cat="degen">
+<div class="card-name">Saint Runner</div>
+<div class="card-desc">Don't get busted by 5-0. Run, Saint, run.</div>
+<a class="card-link" href="https://saintsrunner.pages.dev/" rel="noopener" target="_blank">RUN →</a>
+</div><div class="card m-item" data-cat="degen">
+<div class="card-name">Telegram Sticker Maker</div>
+<div class="card-desc">ClawHub skill. Turn any image into a Telegram sticker pack. Background removal, resize, animate. One command.</div>
+<a class="card-link" href="https://clawhub.ai/saintsola13/telegram-stickers" rel="noopener" target="_blank">GET SKILL →</a>
+</div><div class="card m-item" data-cat="degen">
+<div class="card-name">OkinaGalleria</div>
+<div class="card-desc">A curated gallery of Bryan Vee's art. The visionary behind Saints of LA, Chumpz, and HMN5. Pure art. On-chain. Unfiltered.</div>
+<a class="card-link" href="https://okinagalleria.xyz" rel="noopener" target="_blank">VIEW →</a>
+</div><div class="card m-item" data-cat="degen">
+<div class="card-name">M4SK</div>
+<div class="card-desc">Web face-mask studio. Drop any photo on your face in real time. Mouth moves. Eyes blink. Record and save. No app needed.</div>
+<a class="card-link" href="https://masklab.saintsola13.workers.dev" rel="noopener" target="_blank">LAUNCH →</a>
+</div></div>
+      </section>
+      <section class="m-group " data-group="bots" aria-labelledby="mg-bots">
+        <h3 class="m-group-title" id="mg-bots">Bots &amp; Automation</h3>
+        <div class="m-items"><div class="card m-item" data-cat="bots">
+<div class="card-name">Telegram Bot Suite</div>
+<div class="card-desc">6 live bots running 24/7. Daily briefings, astrology, recipes, word definitions, spiritual teachings, and Saints community management. All automated.</div>
+<a class="card-link" href="https://t.me/Saint_hood_bot" rel="noopener" target="_blank">@Saint_hood_bot →</a>
+</div><div class="card m-item" data-cat="bots">
+<div class="card-name">X / Twitter Bot</div>
+<div class="card-desc">@StCyph3r — automated Saints of LA NFT sales alerts and daily posts. Runs on the VPS, fires every sale in real time.</div>
+<a class="card-link" href="https://twitter.com/StCyph3r" rel="noopener" target="_blank">@StCyph3r →</a>
+</div></div>
+      </section>
+      <section class="m-group " data-group="randoms" aria-labelledby="mg-randoms">
+        <h3 class="m-group-title" id="mg-randoms">Other Shit I Built</h3>
+        <div class="m-items"><div class="card m-item" data-cat="randoms">
+<div class="card-name">NFT F3TCH</div>
+<div class="card-desc">Wallet NFT viewer. Connect or paste any address and see your full NFT collection across chains. Clean. Fast. Free.</div>
+<a class="card-link" href="https://nft-f3tch.pages.dev" rel="noopener" target="_blank">VIEW →</a>
+</div><div class="card m-item" data-cat="randoms">
+<div class="card-name">NFT Grid</div>
+<div class="card-desc">Photo collage tool. Upload up to 100 photos and choose your center pic.</div>
+<a class="card-link" href="https://grid.saintsola13.workers.dev/" rel="noopener" target="_blank">VIEW →</a>
+</div><div class="card m-item" data-cat="randoms">
+<div class="card-name">FCKOFF Radio</div>
+<div class="card-desc">90s hip hop internet radio. West Coast. Old school. No ads. No German news.</div>
+<a class="card-link" href="https://fckoff-radio.pages.dev/" rel="noopener" target="_blank">TUNE IN →</a>
+</div><div class="card m-item" data-cat="randoms">
+<div class="card-name">It Couldn't Be</div>
+<div class="card-desc">Mystery game. You'll see.</div>
+<a class="card-link" href="https://it-couldnt-be.netlify.app/" rel="noopener" target="_blank">PLAY →</a>
+</div><div class="card m-item" data-cat="randoms">
+<div class="card-name">QR Studio</div>
+<div class="card-desc">Custom QR code generator. Style it, brand it, download it.</div>
+<a class="card-link" href="https://qrstudiov2.netlify.app/" rel="noopener" target="_blank">USE IT →</a>
+</div><div class="card m-item" data-cat="randoms">
+<div class="card-name">Saints Relic Generator</div>
+<div class="card-desc">Generate your Saints relic. On-chain energy, off-chain vibes.</div>
+<a class="card-link" href="https://saints-relic-generator.netlify.app/" rel="noopener" target="_blank">GENERATE →</a>
+</div><div class="card m-item" data-cat="randoms">
+<div class="card-name">Vibeulizer</div>
+<div class="card-desc">Visual effects generator. Turn the vibe up.</div>
+<a class="card-link" href="https://vibeulizer.netlify.app/" rel="noopener" target="_blank">VIBE →</a>
+</div><div class="card m-item" data-cat="randoms">
+<div class="card-name">The Lower Left</div>
+<div class="card-desc">Screen saver. Hypnotic. Just let it run.</div>
+<a class="card-link" href="https://thelowerleft.netlify.app/" rel="noopener" target="_blank">WATCH →</a>
+</div></div>
+      </section>
+      <section class="m-group " data-group="art" aria-labelledby="mg-art">
+        <h3 class="m-group-title" id="mg-art">St Sola Art</h3>
+        <div class="m-items"><div class="card m-item" data-cat="art"><div class="card-name">OBJKT</div><div class="card-desc">St Sola art on OBJKT (Tezos).</div><a class="card-link" href="https://objkt.com/profile/tz1i6JL2r2cpwq2gf23RrCdGaqobbj4KYGY1" rel="noopener" style="font-size:1.2rem;padding:12px 32px;letter-spacing:0.15em" target="_blank">OBJKT →</a></div></div>
+      </section>
+      <section class="m-group " data-group="code" aria-labelledby="mg-code">
+        <h3 class="m-group-title" id="mg-code">Code for Sale</h3>
+        <div class="m-items"><div class="card m-item" data-cat="code" style="border-color:rgba(255,215,0,0.18);">
+<div class="card-name" style="color:#ffd700">Flux Protocol</div>
+<div class="card-desc" id="fluxTeaser">NFT collateral infrastructure. Production-ready Solidity. Click to learn what it does.</div>
+<div id="fluxDetail" style="display:none;color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.7">
+            Flux Protocol is a full NFT-backed lending infrastructure layer built in Solidity. Holders lock their NFTs as collateral and borrow WETH against them without selling. Collections integrate once. The architecture handles escrow, loan origination, floor-price oracle, fixed-term repayment, permissionless liquidation, and protocol treasury. Four contracts. Audited. Ready to deploy or extend.
+            <br/><br/>
+<span style="color:#ffd700;font-size:0.95rem;letter-spacing:0.08em">Serious inquiries only.</span>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<button class="card-link" id="fluxBtn" onclick="toggleFlux()" style="background:rgba(255,215,0,0.1);border-color:rgba(255,215,0,0.45);color:#ffd700;cursor:pointer">WHAT IS IT? →</button>
+<a class="card-link" href="mailto:info@stsola.us?subject=Flux Protocol" style="background:rgba(255,58,0,0.1)">INQUIRE →</a>
+</div>
+</div></div>
+      </section>
+      <section class="m-group " data-group="community" aria-labelledby="mg-community">
+        <h3 class="m-group-title" id="mg-community">In the Community</h3>
+        <div class="m-items"><div class="amb-grid m-item m-item-flat" data-cat="community"><a class="amb-card" href="https://x.com/saintsoflanft" rel="noopener" target="_blank">
+<div class="amb-role">Socials</div>
+<div class="amb-name">Saints of LA</div>
+</a><a class="amb-card" href="https://x.com/Stzyapegang" rel="noopener" target="_blank">
+<div class="amb-role">Socials</div>
+<div class="amb-name">STZY Ape Gang</div>
+</a><a class="amb-card" href="https://x.com/HMN5_NFT" rel="noopener" target="_blank">
+<div class="amb-role">Socials</div>
+<div class="amb-name">HMN5</div>
+</a><a class="amb-card" href="https://x.com/Chumpzonape" rel="noopener" target="_blank">
+<div class="amb-role">Socials</div>
+<div class="amb-name">Chumpz on Ape</div>
+</a><a class="amb-card" href="https://x.com/ithinkitsart" rel="noopener" target="_blank">
+<div class="amb-role">Affiliate</div>
+<div class="amb-name">ITIA</div>
+</a></div></div>
+      </section>
+      <section class="m-group " data-group="homies" aria-labelledby="mg-homies">
+        <h3 class="m-group-title" id="mg-homies">St Sola's Homies</h3>
+        <div class="m-items"><div class="homie-card m-item" data-cat="homies">
+<div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:#000;position:relative">
+<img alt="Rabid Artwork by Roman Blat" loading="lazy" onmouseout="this.style.transform='scale(1)'" onmouseover="this.style.transform='scale(1.04)'" src="assets/rabid-roman-blat.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .4s ease"/>
+</div>
+<div class="homie-info">
+<div class="homie-name">Roman Blat</div>
+<div class="homie-handle">RabidArtWork  •  Actor  •  Art Brut Creator</div>
+<div class="homie-desc">Latvian-born. Played Uncle Sam in <em>The Purge: Election Year</em>. Been in <em>The Americans</em>. On screen he brings the heat — off screen he's building the RAW Universe. Art Brut with cinematic energy. Canvases, NFTs, prints, gear. No filter. No restraint. Pure expression. Art is Vibes San!</div>
+<div class="homie-links">
+<a class="card-link" href="https://www.rabidartwork.com" rel="noopener" target="_blank">RABIDARTWORK.COM →</a>
+<a class="card-link" href="https://www.imdb.com/name/nm4815384/" rel="noopener" target="_blank">IMDB →</a>
+<a class="card-link" href="https://www.rabidartwork.com/rabidartwork-nft" rel="noopener" target="_blank">NFT SHOP →</a>
+<a class="card-link" href="https://x.com/RabidArtWorkRIP" rel="noopener" target="_blank">𝕏 @RabidArtWorkRIP →</a>
+</div>
+</div>
+</div><div class="card m-item" data-cat="homies"><div class="card-name">DJ vAPED</div><div class="card-desc">Dope DJ based out of LA. Set embedded on the main page.</div><div class="homie-links"><a class="card-link" href="#djvaped" data-close-menu>WATCH SET ↓</a><a class="card-link" href="https://www.youtube.com/@djvaped" target="_blank" rel="noopener">YOUTUBE →</a><a class="card-link" href="https://x.com/DJvAPED" target="_blank" rel="noopener">𝕏 @DJvAPED →</a></div></div></div>
+      </section>
+      <section class="m-group " data-group="radar" aria-labelledby="mg-radar">
+        <h3 class="m-group-title" id="mg-radar">On My Radar</h3>
+        <div class="m-items"><div class="homie-card m-item" data-cat="radar">
+<div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:#0a0a14;position:relative;display:flex;align-items:center;justify-content:center">
+<img alt="HOLO — Holotag App" loading="lazy" onmouseout="this.style.transform='scale(1)'" onmouseover="this.style.transform='scale(1.04)'" src="assets/holotag-app.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .4s ease"/>
+</div>
+<div class="homie-info">
+<div class="homie-name">HOLO</div>
+<div class="homie-handle">@holo_app  •  Founded by Reed Hartke</div>
+<div class="homie-desc">All-in-one platform for collectors. Catalog, verify, showcase, and manage your trading cards and collectibles. Digital binder. Community built around the culture. If you collect anything, this is your home base.</div>
+<div class="homie-links">
+<a class="card-link" href="https://holotag.app" rel="noopener" target="_blank">HOLOTAG.APP →</a>
+<a class="card-link" href="https://x.com/holo_app" rel="noopener" target="_blank">𝕏 @holo_app →</a>
+<a class="card-link" href="https://x.com/0xJuiceddd" rel="noopener" target="_blank">𝕏 @0xJuiceddd →</a>
+</div>
+</div>
+</div></div>
+      </section>
+      <p class="m-empty" id="menuEmpty" hidden>Nothing matches. Try another word.</p>
+    </div>
+  </aside>
+
+  <!-- ══ RIGHT MENU: DEV LOGIN / SOCIALS / LINKS / CONTACT ══ -->
+  <aside class="side-menu side-right" id="menuRight" role="dialog" aria-modal="true" aria-label="Dev login, socials, links and contact" aria-hidden="true" tabindex="-1">
+    <div class="menu-head">
+      <div class="menu-kicker">ST SOLA // CONNECT</div>
+      <div class="menu-title">Links</div>
+      <button class="menu-close" data-close-menu aria-label="Close menu">✕</button>
+    </div>
+    <div class="menu-scroll">
+      <button class="dev-login" onclick="menuCloseAll();adminToggle()" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <span>DEV LOGIN</span><small>admin panel</small>
+      </button>
+      <section class="r-group"><h3 class="m-group-title">Socials</h3><div class="r-list"><a class="r-link" href="https://x.com/StSola" rel="noopener" target="_blank">𝕏 @StSola</a><a class="r-link" href="https://t.me/St_Sola" rel="noopener" target="_blank"><svg fill="currentColor" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"></path></svg>@St_Sola</a><a class="r-link" href="https://instagram.com/s.t.sola" rel="noopener" target="_blank"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" fill="currentColor" r="1" stroke="none"></circle></svg>@s.t.sola</a><a class="r-link" href="https://youtube.com/@St_Sola" rel="noopener" target="_blank"><svg fill="currentColor" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>@St_Sola</a></div></section>
+      <section class="r-group"><h3 class="m-group-title">Links</h3><div class="r-list">
+        <a class="r-link" href="https://madebuilt.io" rel="noopener" target="_blank">madebuilt.io @stsola</a>
+        <a class="r-link" href="https://objkt.com/profile/tz1i6JL2r2cpwq2gf23RrCdGaqobbj4KYGY1" target="_blank" rel="noopener">OBJKT · St Sola Art</a>
+        <a class="r-link" href="https://www.youtube.com/live/b6ZlGXjKqjI" target="_blank" rel="noopener">StSola Lofi · Live 24/7</a>
+        <a class="r-link" href="https://fckoff-radio.pages.dev/" target="_blank" rel="noopener">FCKOFF Radio</a>
+        <a class="r-link" href="https://nftstack.net" target="_blank" rel="noopener">NFTstack · nftstack.net</a>
+      </div></section>
+      <section class="r-group"><h3 class="m-group-title">Contact</h3><div class="r-list">
+        <a class="r-link" href="mailto:info@stsola.us">info@stsola.us</a>
+        <a class="r-link" href="https://t.me/St_Sola" target="_blank" rel="noopener">DM on Telegram · @St_Sola</a>
+        <p class="r-note">Collab info: hit the email or a DM. Code for Sale inquiries: Flux Protocol in the Apps menu.</p>
+      </div></section>
+      <section class="r-group"><h3 class="m-group-title">On This Site</h3><div class="r-list r-jump">
+        <a class="r-link" href="#hero" data-close-menu>Hero · Saint Art</a>
+        <a class="r-link" href="#radio" data-close-menu>FCKOFF Radio</a>
+        <a class="r-link" href="#tickers" data-close-menu>$COLORS Chart</a>
+        <a class="r-link" href="#lofi" data-close-menu>StSola Lofi Live</a>
+        <a class="r-link" href="#djvaped" data-close-menu>DJ vAPED</a>
+        <a class="r-link" href="#guestbook" data-close-menu>GuestRoom</a>
+      </div></section>
+    </div>
+  </aside>
 
   <!-- ALL CONTENT SCROLLS OVER CHARACTER -->
-  <div class="scroll-root">
+  <main class="scroll-root" id="main">
 
     <!-- ══ HERO ══ -->
     <section id="hero">
       <h1 class="name-cutout">St Sola</h1>
 
-      <div class="photo-frame" id="photoFrame">
-        <img src="assets/saint-pool.jpg" alt="" class="active" />
-        <img src="assets/saint-tia.jpg" alt="" />
-        <img src="assets/saint-losangeles.jpg" alt="" />
-        <img src="assets/saint-skater.jpg" alt="" />
-        <img src="assets/img1.jpg" alt="" />
-        <img src="assets/img2.jpg" alt="" />
-        <img src="assets/img3.jpg" alt="" />
-        <img src="assets/img4.jpg" alt="" />
-        <img src="assets/img5.jpg" alt="" />
-        <img src="assets/img6.jpg" alt="" />
-        <img src="assets/photo1.jpg" alt="" />
-        <img src="assets/photo2.jpg" alt="" />
-        <img src="assets/photo3.jpg" alt="" />
-        <img src="assets/photo4.jpg" alt="" />
-        <img src="assets/photo5.jpg" alt="" />
-        <img src="assets/saint-lowrider.jpg" alt="" />
-        <img src="assets/saint-toast.jpg" alt="" />
-        <img src="assets/saint-tacos.jpg" alt="" />
-        <img src="assets/hero-bar.jpg" alt="" />
+      <div class="stage" id="stage">
+        <div class="photo-frame" id="photoFrame" aria-roledescription="carousel" aria-label="Saint art">
+          <figure class="slide active"><img src="assets/saint-pool.jpg" alt="Saint art" decoding="async" fetchpriority="high" /></figure><figure class="slide"><img data-src="assets/saint-tia.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/saint-losangeles.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/saint-skater.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img1.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img2.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img3.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img4.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img5.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img6.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/photo1.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/photo2.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/photo3.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/photo4.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/photo5.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/saint-lowrider.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/saint-toast.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/saint-tacos.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/hero-bar.jpg" alt="Saint art" decoding="async" /></figure>
+          <div class="frame-vignette" aria-hidden="true"></div>
+          <div class="frame-grain" aria-hidden="true"></div>
+          <div class="frame-glare" aria-hidden="true"></div>
+          <button class="frame-nav frame-prev" id="framePrev" aria-label="Previous image">‹</button>
+          <button class="frame-nav frame-next" id="frameNext" aria-label="Next image">›</button>
+        </div>
+        <div class="frame-dots" id="frameDots"><button class="dot active" data-i="0" aria-label="Show image 1"></button><button class="dot" data-i="1" aria-label="Show image 2"></button><button class="dot" data-i="2" aria-label="Show image 3"></button><button class="dot" data-i="3" aria-label="Show image 4"></button><button class="dot" data-i="4" aria-label="Show image 5"></button><button class="dot" data-i="5" aria-label="Show image 6"></button><button class="dot" data-i="6" aria-label="Show image 7"></button><button class="dot" data-i="7" aria-label="Show image 8"></button><button class="dot" data-i="8" aria-label="Show image 9"></button><button class="dot" data-i="9" aria-label="Show image 10"></button><button class="dot" data-i="10" aria-label="Show image 11"></button><button class="dot" data-i="11" aria-label="Show image 12"></button><button class="dot" data-i="12" aria-label="Show image 13"></button><button class="dot" data-i="13" aria-label="Show image 14"></button><button class="dot" data-i="14" aria-label="Show image 15"></button><button class="dot" data-i="15" aria-label="Show image 16"></button><button class="dot" data-i="16" aria-label="Show image 17"></button><button class="dot" data-i="17" aria-label="Show image 18"></button><button class="dot" data-i="18" aria-label="Show image 19"></button></div>
       </div>
 
       <p class="hero-tagline">Builder.&nbsp; Saint.&nbsp; Creator.</p>
 
-      <!-- FCKOFF RADIO -->
-      <div class="radio-player" id="radioPlayer">
-        <button class="radio-play-btn" id="radioBtn" onclick="toggleRadio()" aria-label="Play/Stop">
-          <!-- Play icon -->
-          <svg id="iconPlay" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          <!-- Stop icon -->
-          <svg id="iconStop" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
-        </button>
-        <div class="radio-label">
-          <span class="radio-title">FCKOFF Radio</span>
-          <span class="radio-status" id="radioStatus">90s HIP HOP</span>
-        </div>
-        <div class="radio-bars" id="radioBars">
-          <span></span><span></span><span></span><span></span>
-        </div>
-        <div class="radio-vol-wrap" id="radioVolWrap">
-          <span class="radio-vol-icon">
-            <svg id="volIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-            </svg>
-          </span>
-          <input class="radio-vol" id="radioVol" type="range" min="0" max="100" value="80" aria-label="Volume" />
-        </div>
+      <div class="hero-ctas">
+        <button class="card-link cta" type="button" onclick="menuOpen('left')">APPS &amp; PROJECTS →</button>
+        <button class="card-link cta cta-ghost" onclick="document.getElementById('guestbook').scrollIntoView({behavior:'smooth'})">GUEST ROOM →</button>
       </div>
-      <audio id="radioAudio" preload="none"></audio>
-
-      <!-- RAVE UNDERGROUND -->
-      <div class="radio-player" id="ravePlayer" style="margin-top:10px;border-color:#7f00ff;">
-        <button class="radio-play-btn" id="raveBtn" onclick="toggleRave()" aria-label="Play/Stop" style="background:#7f00ff;color:#fff;">
-          <svg id="raveIconPlay" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          <svg id="raveIconStop" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
-        </button>
-        <div class="radio-label">
-          <span class="radio-title">Rave Underground</span>
-          <span class="radio-status" id="raveStatus">JUNGLE / PROGRESSIVE</span>
-        </div>
-        <div class="radio-bars" id="raveBars">
-          <span></span><span></span><span></span><span></span>
-        </div>
-        <div class="radio-vol-wrap" id="raveVolWrap">
-          <span class="radio-vol-icon">
-            <svg id="raveVolIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-            </svg>
-          </span>
-          <input class="radio-vol" id="raveVol" type="range" min="0" max="100" value="80" aria-label="Volume" />
-        </div>
-      </div>
-      <audio id="raveAudio" preload="none"></audio>
-
-      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px">
-        <button class="card-link" onclick="document.getElementById('guestbook').scrollIntoView({behavior:'smooth'})" style="font-size:1rem;padding:10px 24px;cursor:pointer;border:none;background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.2);letter-spacing:.15em">GUEST ROOM →</button>
-      </div>
-      <div class="scroll-arrow" onclick="document.getElementById('art').scrollIntoView({behavior:'smooth'})" style="margin-top:4px">
+      <p class="swipe-tip" aria-hidden="true"><span>⟵ swipe for links</span><span>swipe for apps ⟶</span></p>
+      <div class="scroll-arrow" onclick="document.getElementById('radio').scrollIntoView({behavior:'smooth'})" style="margin-top:4px">
         <span></span><span></span><span></span>
       </div>
     </section>
 
-    <!-- ══ ST SOLA ART ══ -->
-    <div class="section" id="art">
-      <h2 class="section-title">St Sola Art</h2>
-      <a
-        href="https://objkt.com/profile/tz1i6JL2r2cpwq2gf23RrCdGaqobbj4KYGY1"
-        target="_blank" rel="noopener"
-        class="card-link"
-        style="font-size:1.2rem;padding:12px 32px;letter-spacing:0.15em"
-      >OBJKT →</a>
-    </div>
+    <!-- ══ FCKOFF RADIO ══ -->
+    <section class="section reveal" id="radio">
+      <h2 class="section-title">FCKOFF Radio</h2>
+      <div class="radio-player" id="radioPlayer">
+<button aria-label="Play/Stop" class="radio-play-btn" id="radioBtn" onclick="toggleRadio()">
+<!-- Play icon -->
+<svg fill="currentColor" height="16" id="iconPlay" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"></path></svg>
+<!-- Stop icon -->
+<svg fill="currentColor" height="14" id="iconStop" style="display:none" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg"><rect height="12" rx="2" width="12" x="6" y="6"></rect></svg>
+</button>
+<div class="radio-label">
+<span class="radio-title">FCKOFF Radio</span>
+<span class="radio-status" id="radioStatus">90s HIP HOP</span>
+</div>
+<div class="radio-bars" id="radioBars">
+<span></span><span></span><span></span><span></span>
+</div>
+<div class="radio-vol-wrap" id="radioVolWrap">
+<span class="radio-vol-icon">
+<svg fill="currentColor" height="14" id="volIcon" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"></path>
+</svg>
+</span>
+<input aria-label="Volume" class="radio-vol" id="radioVol" max="100" min="0" type="range" value="80"/>
+</div>
+</div>
+      <audio id="radioAudio" preload="none"></audio>
+      <a class="card-link" href="https://fckoff-radio.pages.dev/" target="_blank" rel="noopener">FULL STATION →</a>
+    </section>
 
-    <!-- ══ WEB APPS ══ -->
-    <div class="section" id="apps">
-      <h2 class="section-title">Security Tools</h2>
-      <div class="cards">
-        <div class="card">
-          <div class="card-name">NFTstack</div>
-          <div class="card-desc">Free directory of every NFT tool. Updated daily. nftstack.net</div>
-          <a class="card-link" href="https://nftstack.net" target="_blank" rel="noopener">NFTSTACK.NET →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">Saint Watch</div>
-          <div class="card-desc">Web3 wallet security monitoring. Approval guard, drain watch, bridge watch. Your on-chain bodyguard.</div>
-          <a class="card-link" href="https://saintwatch.com" target="_blank" rel="noopener">VISIT →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">Saint Shield</div>
-          <div class="card-desc">Chrome extension. AI-powered crypto scam blocker. Detects rug pulls, phishing, and fake NFT sites before you get got.</div>
-          <a class="card-link" href="https://chromewebstore.google.com/detail/saint-shield/fpkagjdfdfcngcigobfnibmfnmefbhbe" target="_blank" rel="noopener">ADD TO CHROME →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">PNL3</div>
-          <div class="card-desc">Real wallet P&amp;L tracker. Ethereum and Solana. Crypto and NFTs. Any timeframe. No account, no signature, no cost. Paste any address and see the real numbers.</div>
-          <a class="card-link" href="https://pnl3.saintsola13.workers.dev" target="_blank" rel="noopener">LAUNCH →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ TICKERS ══ -->
-    <div class="section" id="tickers">
+    <!-- ══ TICKERS ($COLORS chart) ══ -->
+    <section class="section reveal" id="tickers">
       <h2 class="section-title">Tickers</h2>
       <div class="card" style="max-width:560px;display:flex;flex-direction:column;gap:16px;padding:20px 22px;">
-        <div class="colors-header">
-          <img src="assets/colors-mascot.jpg" alt="$COLORS" class="colors-mascot" />
-          <div>
-            <div class="colors-title">$COLORS</div>
-            <div class="colors-price-row">
-              <span class="colors-price" id="colors-price">--</span>
-              <span class="colors-change" id="colors-change">—</span>
-            </div>
-            <div class="colors-meta" id="colors-meta">SOL · LIVE</div>
-          </div>
-        </div>
-        <div class="colors-chart">
-          <iframe
-            src="https://dexscreener.com/solana/6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty?embed=1&theme=dark&trades=0&info=0"
-            title="$COLORS chart"
-            loading="lazy"
-            allow="clipboard-write"
-          ></iframe>
-        </div>
-        <div class="colors-links">
-          <button class="colors-link" onclick="copyColorsCa()" id="colors-copy-btn">COPY CA</button>
-          <a class="colors-link" href="https://dexscreener.com/solana/6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty" target="_blank" rel="noopener">DEXSCREENER →</a>
-          <a class="colors-link" href="https://colors.fluxinc.io/" target="_blank" rel="noopener">WEBSITE →</a>
-          <a class="colors-link" href="https://x.com/SOLxColors" target="_blank" rel="noopener">X →</a>
-        </div>
-      </div>
-    </div>
+<div class="colors-header">
+<img alt="$COLORS" class="colors-mascot" src="assets/colors-mascot.jpg"/>
+<div>
+<div class="colors-title">$COLORS</div>
+<div class="colors-price-row">
+<span class="colors-price" id="colors-price">--</span>
+<span class="colors-change" id="colors-change">—</span>
+</div>
+<div class="colors-meta" id="colors-meta">SOL · LIVE</div>
+</div>
+</div>
+<div class="colors-chart">
+<iframe allow="clipboard-write" class="lazy-embed" data-src="https://dexscreener.com/solana/6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty?embed=1&amp;theme=dark&amp;trades=0&amp;info=0" loading="lazy" title="$COLORS chart"></iframe>
+</div>
+<div class="colors-links">
+<button class="colors-link" id="colors-copy-btn" onclick="copyColorsCa()">COPY CA</button>
+<a class="colors-link" href="https://dexscreener.com/solana/6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty" rel="noopener" target="_blank">DEXSCREENER →</a>
+<a class="colors-link" href="https://colors.fluxinc.io/" rel="noopener" target="_blank">WEBSITE →</a>
+<a class="colors-link" href="https://x.com/SOLxColors" rel="noopener" target="_blank">X →</a>
+</div>
+</div>
+    </section>
 
-    <!-- ══ STSOLA LOFI ══ -->
-    <div class="section" id="lofi">
+    <!-- ══ STSOLA LOFI (live) ══ -->
+    <section class="section reveal" id="lofi">
       <h2 class="section-title">StSola Lofi</h2>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:20px;width:100%;max-width:760px">
-        <!-- Thumbnail card — links out to YouTube live -->
-        <a href="https://www.youtube.com/live/b6ZlGXjKqjI" target="_blank" rel="noopener"
-          style="display:block;width:100%;position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(255,58,0,0.25);box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 60px rgba(255,58,0,0.08);cursor:pointer;text-decoration:none">
-          <img
-            src="/assets/lofi-thumb.jpg"
-            alt="StSola Lofi — Live Stream"
-            loading="lazy"
-            style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover"
-          />
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.28);transition:background .2s" onmouseover="this.style.background='rgba(0,0,0,0.18)'" onmouseout="this.style.background='rgba(0,0,0,0.28)'">
-            <div style="width:72px;height:72px;border-radius:50%;background:rgba(255,58,0,0.85);display:flex;align-items:center;justify-content:center;box-shadow:0 0 32px rgba(255,58,0,0.6)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div style="position:absolute;top:14px;left:14px;background:#ff3a00;color:#fff;font-family:'VT323',monospace;font-size:1rem;letter-spacing:0.2em;padding:3px 10px;border-radius:4px;display:flex;align-items:center;gap:6px">
-            <span style="width:7px;height:7px;border-radius:50%;background:#fff;animation:pulseDot 1.6s ease-in-out infinite;display:inline-block"></span>
-            LIVE
-          </div>
-        </a>
-        <div style="display:flex;align-items:center;gap:10px;font-family:'VT323',monospace;font-size:1.1rem;color:rgba(255,255,255,0.4);letter-spacing:0.2em">
-          <span style="width:8px;height:8px;border-radius:50%;background:#ff3a00;box-shadow:0 0 8px rgba(255,58,0,0.8);animation:pulseDot 1.6s ease-in-out infinite;flex-shrink:0;display:inline-block"></span>
+      <div class="embed-col">
+        <div class="video-shell live-shell" id="lofiShell" data-embed="b6ZlGXjKqjI">
+          <a class="yt-facade" href="https://www.youtube.com/live/b6ZlGXjKqjI" target="_blank" rel="noopener" aria-label="StSola Lofi — Live Stream on YouTube">
+            <img src="https://i.ytimg.com/vi/b6ZlGXjKqjI/maxresdefault.jpg" alt="StSola Lofi — Live Stream" loading="lazy" decoding="async" />
+            <span class="yt-play"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+          </a>
+          <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+        </div>
+        <div class="live-meta">
+          <span class="live-dot"></span>
           <span>LIVE 24/7 &nbsp;·&nbsp; ORIGINAL BEATS &nbsp;·&nbsp; NO ADS</span>
         </div>
         <a class="card-link" href="https://www.youtube.com/live/b6ZlGXjKqjI" target="_blank" rel="noopener" style="font-size:1.1rem;padding:10px 28px;letter-spacing:0.15em">WATCH ON YOUTUBE →</a>
       </div>
-    </div>
+    </section>
 
-    <!-- ══ TOOLS ══ -->
-    <div class="section" id="tools">
-      <h2 class="section-title">Degen Plays & Entertainment</h2>
-      <div class="cards">
-        <div class="card">
-          <div class="card-name">Trap Wars</div>
-          <div class="card-desc">PVP trading battles on Solana. Best trader wins the pot. Squads Protocol escrow. No mercy.</div>
-          <a class="card-link" href="https://trapwars.win" target="_blank" rel="noopener">ENTER →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">HangMeng 🎮</div>
-          <div class="card-desc">Neon hangman with West Coast vibes. Solo or two-player. Share invite codes. Music. Confetti when you win.</div>
-          <a class="card-link" href="https://hangmeng.pages.dev" target="_blank" rel="noopener">PLAY →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">Saint Runner</div>
-          <div class="card-desc">Don't get busted by 5-0. Run, Saint, run.</div>
-          <a class="card-link" href="https://saintsrunner.pages.dev/" target="_blank" rel="noopener">RUN →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">Telegram Sticker Maker</div>
-          <div class="card-desc">ClawHub skill. Turn any image into a Telegram sticker pack. Background removal, resize, animate. One command.</div>
-          <a class="card-link" href="https://clawhub.ai/saintsola13/telegram-stickers" target="_blank" rel="noopener">GET SKILL →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">OkinaGalleria</div>
-          <div class="card-desc">A curated gallery of Bryan Vee's art. The visionary behind Saints of LA, Chumpz, and HMN5. Pure art. On-chain. Unfiltered.</div>
-          <a class="card-link" href="https://okinagalleria.xyz" target="_blank" rel="noopener">VIEW →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">M4SK</div>
-          <div class="card-desc">Web face-mask studio. Drop any photo on your face in real time. Mouth moves. Eyes blink. Record and save. No app needed.</div>
-          <a class="card-link" href="https://masklab.saintsola13.workers.dev" target="_blank" rel="noopener">LAUNCH →</a>
-        </div>
+    <!-- ══ DJ vAPED ══ -->
+    <section class="section reveal" id="djvaped">
+      <h2 class="section-title">DJ vAPED</h2>
+      <div class="homie-grid homie-grid-single">
+        <div class="homie-card">
+<div class="homie-video">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="lazy-embed" data-src="https://www.youtube-nocookie.com/embed/1SuSH9oc5b4?rel=0&amp;modestbranding=1" loading="lazy" title="DJ vAPED"></iframe>
+</div>
+<div class="homie-info">
+<div class="homie-name">DJ vAPED</div>
+<div class="homie-handle">@DJvAPED  •  Los Angeles</div>
+<div class="homie-desc">Dope DJ based out of LA. Mixes that hit different. West Coast energy, global reach. This is what a real set sounds like.</div>
+<div class="homie-links">
+<a class="card-link" href="https://www.youtube.com/@djvaped" rel="noopener" target="_blank">YOUTUBE →</a>
+<a class="card-link" href="https://x.com/DJvAPED" rel="noopener" target="_blank">𝕏 @DJvAPED →</a>
+</div>
+</div>
+</div>
       </div>
-    </div>
-
-    <!-- ══ AUTOMATION ══ -->
-    <div class="section" id="automation">
-      <h2 class="section-title">Bots & Automation</h2>
-      <div class="cards">
-        <div class="card">
-          <div class="card-name">Telegram Bot Suite</div>
-          <div class="card-desc">6 live bots running 24/7. Daily briefings, astrology, recipes, word definitions, spiritual teachings, and Saints community management. All automated.</div>
-          <a class="card-link" href="https://t.me/Saint_hood_bot" target="_blank" rel="noopener">@Saint_hood_bot →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">X / Twitter Bot</div>
-          <div class="card-desc">@StCyph3r — automated Saints of LA NFT sales alerts and daily posts. Runs on the VPS, fires every sale in real time.</div>
-          <a class="card-link" href="https://twitter.com/StCyph3r" target="_blank" rel="noopener">@StCyph3r →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ RANDOMS ══ -->
-    <div class="section" id="randoms">
-      <h2 class="section-title">Other Shit I Built</h2>
-      <div class="cards">
-        <div class="card">
-          <div class="card-name">NFT F3TCH</div>
-          <div class="card-desc">Wallet NFT viewer. Connect or paste any address and see your full NFT collection across chains. Clean. Fast. Free.</div>
-          <a class="card-link" href="https://nft-f3tch.pages.dev" target="_blank" rel="noopener">VIEW →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">NFT Grid</div>
-          <div class="card-desc">Photo collage tool. Upload up to 100 photos and choose your center pic.</div>
-          <a class="card-link" href="https://grid.saintsola13.workers.dev/" target="_blank" rel="noopener">VIEW →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">FCKOFF Radio</div>
-          <div class="card-desc">90s hip hop internet radio. West Coast. Old school. No ads. No German news.</div>
-          <a class="card-link" href="https://fckoff-radio.pages.dev/" target="_blank" rel="noopener">TUNE IN →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">It Couldn't Be</div>
-          <div class="card-desc">Mystery game. You'll see.</div>
-          <a class="card-link" href="https://it-couldnt-be.netlify.app/" target="_blank" rel="noopener">PLAY →</a>
-        </div>
-
-        <div class="card">
-          <div class="card-name">QR Studio</div>
-          <div class="card-desc">Custom QR code generator. Style it, brand it, download it.</div>
-          <a class="card-link" href="https://qrstudiov2.netlify.app/" target="_blank" rel="noopener">USE IT →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">Saints Relic Generator</div>
-          <div class="card-desc">Generate your Saints relic. On-chain energy, off-chain vibes.</div>
-          <a class="card-link" href="https://saints-relic-generator.netlify.app/" target="_blank" rel="noopener">GENERATE →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">Vibeulizer</div>
-          <div class="card-desc">Visual effects generator. Turn the vibe up.</div>
-          <a class="card-link" href="https://vibeulizer.netlify.app/" target="_blank" rel="noopener">VIBE →</a>
-        </div>
-        <div class="card">
-          <div class="card-name">The Lower Left</div>
-          <div class="card-desc">Screen saver. Hypnotic. Just let it run.</div>
-          <a class="card-link" href="https://thelowerleft.netlify.app/" target="_blank" rel="noopener">WATCH →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ CODE FOR SALE ══ -->
-    <div class="section" id="code">
-      <h2 class="section-title">Code for Sale</h2>
-      <div class="cards" style="max-width:600px">
-        <div class="card" style="border-color:rgba(255,215,0,0.18);">
-          <div class="card-name" style="color:#ffd700">Flux Protocol</div>
-          <div class="card-desc" id="fluxTeaser">NFT collateral infrastructure. Production-ready Solidity. Click to learn what it does.</div>
-          <div id="fluxDetail" style="display:none;color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.7">
-            Flux Protocol is a full NFT-backed lending infrastructure layer built in Solidity. Holders lock their NFTs as collateral and borrow WETH against them without selling. Collections integrate once. The architecture handles escrow, loan origination, floor-price oracle, fixed-term repayment, permissionless liquidation, and protocol treasury. Four contracts. Audited. Ready to deploy or extend.
-            <br/><br/>
-            <span style="color:#ffd700;font-size:0.95rem;letter-spacing:0.08em">Serious inquiries only.</span>
-          </div>
-          <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <button class="card-link" onclick="toggleFlux()" id="fluxBtn" style="background:rgba(255,215,0,0.1);border-color:rgba(255,215,0,0.45);color:#ffd700;cursor:pointer">WHAT IS IT? →</button>
-            <a class="card-link" href="mailto:info@stsola.us?subject=Flux Protocol" style="background:rgba(255,58,0,0.1)">INQUIRE →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ AMBASSADOR ══ -->
-    <div class="section" id="ambassador">
-      <h2 class="section-title">In the Community</h2>
-      <div class="amb-grid">
-        <a href="https://x.com/saintsoflanft" target="_blank" rel="noopener" class="amb-card">
-          <div class="amb-role">Socials</div>
-          <div class="amb-name">Saints of LA</div>
-        </a>
-        <a href="https://x.com/Stzyapegang" target="_blank" rel="noopener" class="amb-card">
-          <div class="amb-role">Socials</div>
-          <div class="amb-name">STZY Ape Gang</div>
-        </a>
-        <a href="https://x.com/HMN5_NFT" target="_blank" rel="noopener" class="amb-card">
-          <div class="amb-role">Socials</div>
-          <div class="amb-name">HMN5</div>
-        </a>
-        <a href="https://x.com/Chumpzonape" target="_blank" rel="noopener" class="amb-card">
-          <div class="amb-role">Socials</div>
-          <div class="amb-name">Chumpz on Ape</div>
-        </a>
-        <a href="https://x.com/ithinkitsart" target="_blank" rel="noopener" class="amb-card">
-          <div class="amb-role">Affiliate</div>
-          <div class="amb-name">ITIA</div>
-        </a>
-      </div>
-    </div>
+    </section>
 
     <!-- ══ GUESTROOM ══ -->
     <div id="guestbook" class="guestroom-outer">
-      <!-- ROOM BACKGROUND -->
       <div class="guestroom-bg"></div>
       <div class="guestroom-overlay"></div>
-
-      <!-- INNER CONTENT -->
       <div class="section guestroom-inner" style="gap:32px;position:relative;z-index:2">
-      <h2 class="section-title">GuestRoom</h2>
-      <div id="visit-counter"></div>
-
-      <!-- SUBMIT FORM -->
-      <div class="card" style="max-width:600px;width:100%;gap:20px">
-
-        <!-- Name -->
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR NAME</label>
-          <input id="gb-name" maxlength="40" placeholder="who are you..." style="
+      
+<h2 class="section-title">GuestRoom</h2>
+<div id="visit-counter"></div>
+<!-- SUBMIT FORM -->
+<div class="card" style="max-width:600px;width:100%;gap:20px">
+<!-- Name -->
+<div style="display:flex;flex-direction:column;gap:6px">
+<label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR NAME</label>
+<input id="gb-name" maxlength="40" onblur="this.style.borderColor='rgba(255,255,255,.12)'" onfocus="this.style.borderColor='rgba(255,58,0,.5)'" placeholder="who are you..." style="
             background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
             border-radius:8px;padding:10px 14px;color:#fff;font-family:inherit;font-size:1rem;
             outline:none;transition:border-color .2s;
-          " onfocus="this.style.borderColor='rgba(255,58,0,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.12)'" />
-        </div>
-
-        <!-- Message -->
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR MESSAGE</label>
-          <textarea id="gb-msg" maxlength="400" rows="3" placeholder="leave your mark..." style="
+          "/>
+</div>
+<!-- Message -->
+<div style="display:flex;flex-direction:column;gap:6px">
+<label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR MESSAGE</label>
+<textarea id="gb-msg" maxlength="400" onblur="this.style.borderColor='rgba(255,255,255,.12)'" onfocus="this.style.borderColor='rgba(255,58,0,.5)'" placeholder="leave your mark..." rows="3" style="
             background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
             border-radius:8px;padding:10px 14px;color:#fff;font-family:inherit;font-size:1rem;
             outline:none;resize:vertical;transition:border-color .2s;min-height:80px;
-          " onfocus="this.style.borderColor='rgba(255,58,0,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.12)'"></textarea>
-          <div style="text-align:right;font-size:.75rem;color:rgba(255,255,255,.25)" id="gb-charcount">0 / 400</div>
-        </div>
-
-        <!-- Font picker -->
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR FONT</label>
-          <div style="display:flex;flex-wrap:wrap;gap:8px" id="gb-fonts">
-            <button class="gb-font-btn active" data-font="VT323"        style="font-family:'VT323',monospace;font-size:1.2rem">VT323</button>
-            <button class="gb-font-btn"        data-font="Cinzel"       style="font-family:'Cinzel',serif;font-size:0.9rem">Cinzel</button>
-            <button class="gb-font-btn"        data-font="UnifrakturMaguntia" style="font-family:'UnifrakturMaguntia',cursive;font-size:1rem">Fraktur</button>
-            <button class="gb-font-btn"        data-font="Orbitron"     style="font-family:'Orbitron',sans-serif;font-size:0.75rem">Orbitron</button>
-            <button class="gb-font-btn"        data-font="Press Start 2P" style="font-family:'Press Start 2P',monospace;font-size:0.6rem">Pixel</button>
-          </div>
-        </div>
-
-        <!-- Color picker -->
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR COLOR</label>
-          <div style="display:flex;gap:10px;flex-wrap:wrap" id="gb-colors">
-            <button class="gb-color-btn active" data-color="#ffd700" style="background:#ffd700" title="Gold"></button>
-            <button class="gb-color-btn" data-color="#ff3a00" style="background:#ff3a00" title="Fire"></button>
-            <button class="gb-color-btn" data-color="#ffffff" style="background:#fff" title="White"></button>
-            <button class="gb-color-btn" data-color="#00e5ff" style="background:#00e5ff" title="Cyan"></button>
-            <button class="gb-color-btn" data-color="#2bff9e" style="background:#2bff9e" title="Green"></button>
-            <button class="gb-color-btn" data-color="#c084fc" style="background:#c084fc" title="Purple"></button>
-          </div>
-        </div>
-
-        <!-- Star rating -->
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR RATING</label>
-          <div id="gb-stars" style="display:flex;gap:6px;font-size:2rem;cursor:pointer;user-select:none">
-            <span class="gb-star active" data-val="1">&#9733;</span>
-            <span class="gb-star active" data-val="2">&#9733;</span>
-            <span class="gb-star active" data-val="3">&#9733;</span>
-            <span class="gb-star active" data-val="4">&#9733;</span>
-            <span class="gb-star active" data-val="5">&#9733;</span>
-          </div>
-        </div>
-
-        <!-- Submit -->
-        <button id="gb-submit" class="card-link" style="align-self:flex-start;font-size:1.1rem;padding:10px 28px;cursor:pointer;border:none" onclick="gbSubmit()">
+          "></textarea>
+<div id="gb-charcount" style="text-align:right;font-size:.75rem;color:rgba(255,255,255,.25)">0 / 400</div>
+</div>
+<!-- Font picker -->
+<div style="display:flex;flex-direction:column;gap:8px">
+<label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR FONT</label>
+<div id="gb-fonts" style="display:flex;flex-wrap:wrap;gap:8px">
+<button class="gb-font-btn active" data-font="VT323" style="font-family:'VT323',monospace;font-size:1.2rem">VT323</button>
+<button class="gb-font-btn" data-font="Cinzel" style="font-family:'Cinzel',serif;font-size:0.9rem">Cinzel</button>
+<button class="gb-font-btn" data-font="UnifrakturMaguntia" style="font-family:'UnifrakturMaguntia',cursive;font-size:1rem">Fraktur</button>
+<button class="gb-font-btn" data-font="Orbitron" style="font-family:'Orbitron',sans-serif;font-size:0.75rem">Orbitron</button>
+<button class="gb-font-btn" data-font="Press Start 2P" style="font-family:'Press Start 2P',monospace;font-size:0.6rem">Pixel</button>
+</div>
+</div>
+<!-- Color picker -->
+<div style="display:flex;flex-direction:column;gap:8px">
+<label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR COLOR</label>
+<div id="gb-colors" style="display:flex;gap:10px;flex-wrap:wrap">
+<button class="gb-color-btn active" data-color="#ffd700" style="background:#ffd700" title="Gold"></button>
+<button class="gb-color-btn" data-color="#ff3a00" style="background:#ff3a00" title="Fire"></button>
+<button class="gb-color-btn" data-color="#ffffff" style="background:#fff" title="White"></button>
+<button class="gb-color-btn" data-color="#00e5ff" style="background:#00e5ff" title="Cyan"></button>
+<button class="gb-color-btn" data-color="#2bff9e" style="background:#2bff9e" title="Green"></button>
+<button class="gb-color-btn" data-color="#c084fc" style="background:#c084fc" title="Purple"></button>
+</div>
+</div>
+<!-- Star rating -->
+<div style="display:flex;flex-direction:column;gap:8px">
+<label style="font-size:0.85rem;letter-spacing:.15em;color:rgba(255,255,255,.4)">YOUR RATING</label>
+<div id="gb-stars" style="display:flex;gap:6px;font-size:2rem;cursor:pointer;user-select:none">
+<span class="gb-star active" data-val="1">★</span>
+<span class="gb-star active" data-val="2">★</span>
+<span class="gb-star active" data-val="3">★</span>
+<span class="gb-star active" data-val="4">★</span>
+<span class="gb-star active" data-val="5">★</span>
+</div>
+</div>
+<!-- Submit -->
+<button class="card-link" id="gb-submit" onclick="gbSubmit()" style="align-self:flex-start;font-size:1.1rem;padding:10px 28px;cursor:pointer;border:none">
           SIGN IT →
         </button>
-        <div id="gb-msg-status" style="font-size:.9rem;color:#2bff9e;display:none">dropped. ✓</div>
-      </div>
-
-      <!-- ENTRIES — glass block -->
-      <div class="gb-glass-block">
-        <div id="gb-count" style="font-size:.8rem;color:rgba(255,255,255,.22);letter-spacing:.15em;text-align:right;margin-bottom:4px"></div>
-        <div id="gb-entries" class="gb-scroll"></div>
-      </div>
+<div id="gb-msg-status" style="font-size:.9rem;color:#2bff9e;display:none">dropped. ✓</div>
+</div>
+<!-- ENTRIES — glass block -->
+<div class="gb-glass-block">
+<div id="gb-count" style="font-size:.8rem;color:rgba(255,255,255,.22);letter-spacing:.15em;text-align:right;margin-bottom:4px"></div>
+<div class="gb-scroll" id="gb-entries"></div>
+</div>
 
       </div><!-- /guestroom-inner -->
     </div><!-- /guestroom-outer -->
 
-    <!-- GUESTROOM STYLES -->
-    <style>
-      /* ── GUESTROOM WRAPPER ── */
-      .guestroom-outer {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-      }
-      .guestroom-bg {
-        position: absolute;
-        inset: 0;
-        background: url('assets/guestroom-bg.jpg') center center / cover no-repeat;
-        z-index: 0;
-      }
-      .guestroom-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0,0,0,0.62);
-        z-index: 1;
-      }
-      .guestroom-inner {
-        position: relative;
-        z-index: 2;
-      }
-      /* GLASS ENTRIES BLOCK */
-      .gb-glass-block {
-        max-width: 700px;
-        width: 100%;
-        background: rgba(255,255,255,0.07);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        border: 1px solid rgba(255,255,255,0.14);
-        border-radius: 20px;
-        padding: 20px 22px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        box-shadow: 0 8px 40px rgba(0,0,0,0.45);
-      }
-      .gb-font-btn {
-        background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);
-        border-radius:8px;padding:7px 14px;color:rgba(255,255,255,.6);
-        cursor:pointer;transition:all .2s;
-      }
-      .gb-font-btn.active, .gb-font-btn:hover {
-        border-color:rgba(255,58,0,.5);color:#ff3a00;background:rgba(255,58,0,.08);
-      }
-      .gb-color-btn {
-        width:28px;height:28px;border-radius:50%;border:2px solid transparent;
-        cursor:pointer;transition:transform .15s, border-color .15s;
-        flex-shrink:0;
-      }
-      .gb-color-btn.active, .gb-color-btn:hover { transform:scale(1.25);border-color:#fff; }
-      .gb-star { color:rgba(255,215,0,0.25); transition:color .1s; }
-      .gb-star.active { color:#ffd700; text-shadow:0 0 10px rgba(255,215,0,.5); }
-      .gb-entry {
-        background:rgba(255,255,255,0.04);backdrop-filter:blur(12px);
-        border:1px solid rgba(255,255,255,0.09);border-radius:14px;
-        padding:18px 20px;display:flex;flex-direction:column;gap:8px;
-      }
-      .gb-entry-stars { font-size:1rem; color:#ffd700; letter-spacing:2px; }
-      .gb-entry-msg { font-size:1.1rem; line-height:1.6; word-break:break-word; }
-      .gb-entry-meta { font-size:.75rem; color:rgba(255,255,255,.3); letter-spacing:.1em; margin-top:4px; }
-
-      /* ── GUESTBOOK SCROLL ── */
-      .gb-scroll {
-        max-height: 560px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(255,58,0,.35) rgba(255,255,255,.04);
-        padding-right: 6px;
-      }
-      .gb-scroll::-webkit-scrollbar { width: 4px; }
-      .gb-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,.04); border-radius: 2px; }
-      .gb-scroll::-webkit-scrollbar-thumb { background: rgba(255,58,0,.4); border-radius: 2px; }
-
-      /* ── ADMIN PROFILE / HOST CARD ── */
-      .gb-host-card {
-        background: rgba(255,215,0,.05);
-        border: 1px solid rgba(255,215,0,.22);
-        border-radius: 14px;
-        padding: 18px 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-      .gb-host-badge {
-        font-size: .7rem; letter-spacing: .2em; color: #ffd700;
-        text-transform: uppercase; display: flex; align-items: center; gap: 6px;
-      }
-      .gb-host-badge::before { content: '★'; }
-      .gb-host-name  { font-family: 'Cinzel', serif; font-size: 1.05rem; color: #ffd700; }
-      .gb-host-bio   { font-size: 1rem; color: rgba(255,255,255,.6); line-height: 1.6; }
-      .gb-host-pinned { font-size: 1.05rem; color: #fff; line-height: 1.7; font-style: italic; }
-
-      /* ── HOMIES SECTION ── */
-      .homie-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 24px;
-        width: 100%;
-        max-width: 900px;
-      }
-      .homie-card {
-        background: rgba(255,255,255,.05);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255,255,255,.1);
-        border-radius: 18px;
-        overflow: hidden;
-        transition: transform .25s, box-shadow .25s, border-color .25s;
-      }
-      .homie-card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(255,58,0,.35);
-        box-shadow: 0 12px 40px rgba(255,58,0,.12);
-      }
-      .homie-video { width:100%; aspect-ratio:16/9; background:#000; }
-      .homie-video iframe { width:100%; height:100%; border:none; display:block; }
-      .homie-info { padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; }
-      .homie-name { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #ffd700; letter-spacing: .08em; }
-      .homie-handle { font-size: .85rem; color: #ff3a00; letter-spacing: .15em; }
-      .homie-desc { font-size: 1rem; color: rgba(255,255,255,.65); line-height: 1.6; }
-      .homie-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
-
-      /* ── ADMIN OVERLAY ── */
-      #admin-overlay {
-        position: fixed; inset: 0;
-        background: rgba(0,0,0,.93);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        z-index: 9000;
-        display: none;
-        flex-direction: column;
-        overflow-y: auto;
-      }
-      #admin-overlay.open { display: flex; }
-      .admin-header {
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 18px 28px; border-bottom: 1px solid rgba(255,58,0,.2);
-        position: sticky; top: 0;
-        background: rgba(0,0,0,.92); backdrop-filter: blur(8px); z-index: 1;
-      }
-      .admin-title { font-family:'Cinzel',serif; font-size:1.1rem; color:#ff3a00; letter-spacing:.2em; }
-      .admin-close {
-        background:none; border:1px solid rgba(255,58,0,.4); color:#ff3a00;
-        padding:6px 14px; border-radius:6px; cursor:pointer;
-        font-family:'VT323',monospace; font-size:1.1rem; letter-spacing:.1em;
-        transition:background .2s;
-      }
-      .admin-close:hover { background:rgba(255,58,0,.15); }
-      .admin-body {
-        padding: 28px; display:flex; flex-direction:column; gap:32px;
-        max-width: 780px; margin: 0 auto; width:100%;
-      }
-      .admin-section-title {
-        font-family:'Cinzel',serif; font-size:.9rem;
-        color:rgba(255,255,255,.4); letter-spacing:.2em; text-transform:uppercase;
-        margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,.08); padding-bottom:8px;
-      }
-      .admin-input {
-        background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
-        border-radius:8px; padding:10px 14px; color:#fff;
-        font-family:'VT323',monospace; font-size:1.1rem;
-        width:100%; outline:none; transition:border-color .2s;
-      }
-      .admin-input:focus { border-color:rgba(255,58,0,.5); }
-      .admin-textarea {
-        background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
-        border-radius:8px; padding:10px 14px; color:#fff;
-        font-family:'VT323',monospace; font-size:1.1rem;
-        width:100%; outline:none; resize:vertical; min-height:80px; transition:border-color .2s;
-      }
-      .admin-textarea:focus { border-color:rgba(255,58,0,.5); }
-      .admin-comment-row {
-        background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
-        border-radius:10px; padding:14px 16px;
-        display:flex; gap:12px; align-items:flex-start;
-      }
-      .admin-comment-body { flex:1; display:flex; flex-direction:column; gap:4px; }
-      .admin-comment-name { font-family:'Cinzel',serif; font-size:.9rem; color:#ffd700; }
-      .admin-comment-msg  { font-size:.95rem; color:rgba(255,255,255,.7); line-height:1.5; word-break:break-word; }
-      .admin-comment-meta { font-size:.75rem; color:rgba(255,255,255,.3); }
-      .admin-delete-btn {
-        background:rgba(255,58,0,.1); border:1px solid rgba(255,58,0,.3);
-        color:#ff3a00; padding:6px 12px; border-radius:6px; cursor:pointer;
-        font-family:'VT323',monospace; font-size:1rem; letter-spacing:.05em;
-        flex-shrink:0; transition:background .2s;
-      }
-      .admin-delete-btn:hover { background:rgba(255,58,0,.25); }
-      #admin-login {
-        display:flex; flex-direction:column; align-items:center;
-        justify-content:center; min-height:100vh; gap:20px; padding:40px 24px;
-      }
-      .admin-login-box {
-        background:rgba(255,255,255,.05); border:1px solid rgba(255,58,0,.2);
-        border-radius:16px; padding:36px 32px;
-        display:flex; flex-direction:column; gap:16px;
-        width:100%; max-width:360px;
-      }
-      .admin-login-title {
-        font-family:'Cinzel',serif; font-size:1.2rem; color:#ff3a00;
-        letter-spacing:.2em; text-align:center;
-      }
-    </style>
-
-    <!-- GUESTBOOK SCRIPT -->
-    <script>
-      var gbFont  = 'VT323';
-      var gbColor = '#ffd700';
-      var gbRating = 5;
-
-      // Font buttons
-      document.querySelectorAll('.gb-font-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.gb-font-btn').forEach(function(b){ b.classList.remove('active'); });
-          btn.classList.add('active');
-          gbFont = btn.dataset.font;
-        });
-      });
-
-      // Color buttons
-      document.querySelectorAll('.gb-color-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.gb-color-btn').forEach(function(b){ b.classList.remove('active'); });
-          btn.classList.add('active');
-          gbColor = btn.dataset.color;
-        });
-      });
-
-      // Star rating
-      var stars = document.querySelectorAll('.gb-star');
-      stars.forEach(function(star) {
-        star.addEventListener('click', function() {
-          gbRating = parseInt(star.dataset.val);
-          stars.forEach(function(s) {
-            s.classList.toggle('active', parseInt(s.dataset.val) <= gbRating);
-          });
-        });
-      });
-
-      // Char counter
-      document.getElementById('gb-msg').addEventListener('input', function() {
-        document.getElementById('gb-charcount').textContent = this.value.length + ' / 400';
-      });
-
-      function relTime(ts) {
-        var diff = Math.floor((Date.now() - ts) / 1000);
-        if (diff < 60)  return 'just now';
-        if (diff < 3600) return Math.floor(diff/60) + 'm ago';
-        if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
-        return Math.floor(diff/86400) + 'd ago';
-      }
-
-      function renderEntry(e) {
-        var stars = '';
-        for (var i = 0; i < 5; i++) stars += i < e.rating ? '★' : '☆';
-        var fontStack = e.font === 'VT323' ? "'VT323',monospace"
-          : e.font === 'Cinzel' ? "'Cinzel',serif"
-          : e.font === 'UnifrakturMaguntia' ? "'UnifrakturMaguntia',cursive"
-          : e.font === 'Orbitron' ? "'Orbitron',sans-serif"
-          : "'Press Start 2P',monospace";
-        var div = document.createElement('div');
-        div.className = 'gb-entry';
-        div.innerHTML =
-          '<div class="gb-entry-stars">' + stars + '</div>' +
-          '<div class="gb-entry-msg" style="font-family:' + fontStack + ';color:' + e.color + '">' +
-            e.message.replace(/</g,'&lt;').replace(/>/g,'&gt;') +
-          '</div>' +
-          '<div class="gb-entry-meta">' + e.name.replace(/</g,'&lt;') + ' &nbsp;&middot;&nbsp; ' + relTime(e.ts) + '</div>';
-        return div;
-      }
-
-      function gbLoad() {
-        var profileP = fetch('/api/admin?action=profile')
-          .then(function(r){ return r.ok ? r.json() : null; })
-          .catch(function(){ return null; });
-        var entriesP = fetch('/api/guestbook')
-          .then(function(r){ return r.json(); })
-          .catch(function(){ return []; });
-
-        Promise.all([profileP, entriesP]).then(function(res) {
-          var profile = res[0];
-          var entries = res[1];
-          var el = document.getElementById('gb-entries');
-          var countEl = document.getElementById('gb-count');
-          el.innerHTML = '';
-
-          // Host card if profile has content
-          if (profile && (profile.pinned || profile.bio || profile.name)) {
-            var hostCard = document.createElement('div');
-            hostCard.className = 'gb-host-card';
-            var h = '<div class="gb-host-badge">HOST</div>';
-            if (profile.name) h += '<div class="gb-host-name">' + profile.name.replace(/</g,'&lt;') + '</div>';
-            if (profile.bio)  h += '<div class="gb-host-bio">'  + profile.bio.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '</div>';
-            if (profile.pinned) h += '<div class="gb-host-pinned">&ldquo;' + profile.pinned.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '&rdquo;</div>';
-            hostCard.innerHTML = h;
-            el.appendChild(hostCard);
-          }
-
-          if (countEl) countEl.textContent = entries.length ? entries.length + ' comment' + (entries.length !== 1 ? 's' : '') : '';
-
-          if (!entries.length) {
-            var empty = document.createElement('p');
-            empty.style.cssText = 'color:rgba(255,255,255,.3);text-align:center;letter-spacing:.15em;padding:20px 0';
-            empty.textContent = 'BE THE FIRST TO SIGN.';
-            el.appendChild(empty);
-            return;
-          }
-          entries.forEach(function(e){ el.appendChild(renderEntry(e)); });
-        });
-      }
-
-      function gbSubmit() {
-        var name = document.getElementById('gb-name').value.trim();
-        var msg  = document.getElementById('gb-msg').value.trim();
-        if (!name || !msg) { alert('Name and message required.'); return; }
-        var btn = document.getElementById('gb-submit');
-        btn.textContent = 'SIGNING...';
-        btn.disabled = true;
-        fetch('/api/guestbook', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name, message: msg, font: gbFont, color: gbColor, rating: gbRating })
-        })
-        .then(function(r){ return r.json(); })
-        .then(function(d) {
-          if (d.ok) {
-            document.getElementById('gb-name').value = '';
-            document.getElementById('gb-msg').value  = '';
-            document.getElementById('gb-charcount').textContent = '0 / 400';
-            document.getElementById('gb-msg-status').style.display = 'block';
-            setTimeout(function(){ document.getElementById('gb-msg-status').style.display = 'none'; }, 3000);
-            gbLoad();
-          } else {
-            alert(d.error || 'Something went wrong.');
-          }
-        })
-        .catch(function(){ alert('Failed to submit. Try again.'); })
-        .finally(function(){ btn.textContent = 'SIGN IT →'; btn.disabled = false; });
-      }
-
-      // Load on page ready
-      document.addEventListener('DOMContentLoaded', gbLoad);
-
-      // ── ADMIN PANEL ──────────────────────────────────
-      var ADMIN_SESS_KEY = 'stsola_admin_tok';
-
-      function adminToggle() {
-        var overlay = document.getElementById('admin-overlay');
-        if (overlay.classList.contains('open')) {
-          overlay.classList.remove('open');
-          document.getElementById('tip-bar').style.display = 'flex';
-        } else {
-          overlay.classList.add('open');
-          document.getElementById('tip-bar').style.display = 'none';
-          var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
-          if (tok) {
-            document.getElementById('admin-login').style.display = 'none';
-            document.getElementById('admin-dashboard').style.display = 'flex';
-            adminLoadProfile();
-            adminLoadTips();
-            adminLoadComments();
-          } else {
-            document.getElementById('admin-login').style.display = 'flex';
-            document.getElementById('admin-dashboard').style.display = 'none';
-          }
-        }
-      }
-
-      function adminClose() {
-        document.getElementById('admin-overlay').classList.remove('open');
-        document.getElementById('tip-bar').style.display = 'flex';
-      }
-
-      function adminLogin() {
-        var code = document.getElementById('admin-code-input').value.trim();
-        if (!code) return;
-        // Validate by calling a protected endpoint
-        fetch('/api/admin', { headers: { 'Authorization': 'Bearer ' + code } })
-          .then(function(r) {
-            if (r.status === 401) {
-              document.getElementById('admin-login-err').style.display = 'block';
-              return null;
-            }
-            return r.json();
-          })
-          .then(function(data) {
-            if (!data) return;
-            document.getElementById('admin-login-err').style.display = 'none';
-            sessionStorage.setItem(ADMIN_SESS_KEY, code);
-            document.getElementById('admin-login').style.display = 'none';
-            document.getElementById('admin-dashboard').style.display = 'flex';
-            adminRenderComments(data);
-            adminLoadProfile();
-          })
-          .catch(function() {
-            document.getElementById('admin-login-err').style.display = 'block';
-          });
-      }
-
-      function adminLogout() {
-        sessionStorage.removeItem(ADMIN_SESS_KEY);
-        document.getElementById('admin-dashboard').style.display = 'none';
-        document.getElementById('admin-login').style.display = 'flex';
-        document.getElementById('admin-code-input').value = '';
-      }
-
-      function adminLoadProfile() {
-        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
-        fetch('/api/admin?action=profile', { headers: { 'Authorization': 'Bearer ' + tok } })
-          .then(function(r){ return r.json(); })
-          .then(function(p) {
-            document.getElementById('admin-profile-name').value   = p.name   || '';
-            document.getElementById('admin-profile-bio').value    = p.bio    || '';
-            document.getElementById('admin-profile-pinned').value = p.pinned || '';
-          })
-          .catch(function(){});
-      }
-
-      function adminLoadComments() {
-        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
-        fetch('/api/admin', { headers: { 'Authorization': 'Bearer ' + tok } })
-          .then(function(r){ return r.json(); })
-          .then(adminRenderComments)
-          .catch(function(){
-            document.getElementById('admin-comments-list').innerHTML =
-              '<p style="color:#ff3a00;font-size:.9rem">Failed to load comments.</p>';
-          });
-      }
-
-      function adminRenderComments(entries) {
-        var list = document.getElementById('admin-comments-list');
-        document.getElementById('admin-comment-count').textContent = entries.length;
-        list.innerHTML = '';
-        if (!entries.length) {
-          list.innerHTML = '<p style="color:rgba(255,255,255,.3);letter-spacing:.1em;font-size:.9rem">No comments yet.</p>';
-          return;
-        }
-        entries.forEach(function(e) {
-          var stars = '';
-          for (var i = 0; i < 5; i++) stars += i < e.rating ? '★' : '☆';
-          var date = new Date(e.ts).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-          var row = document.createElement('div');
-          row.className = 'admin-comment-row';
-          row.dataset.key = e._key;
-          row.innerHTML =
-            '<div class="admin-comment-body">' +
-              '<div class="admin-comment-name">' + e.name.replace(/</g,'&lt;') +
-                ' &nbsp;<span style="color:#ffd700;font-size:.8rem">' + stars + '</span></div>' +
-              '<div class="admin-comment-msg">' + e.message.replace(/</g,'&lt;').replace(/\n/g,'<br>') + '</div>' +
-              '<div class="admin-comment-meta">' + date + '</div>' +
-            '</div>' +
-            '<button class="admin-delete-btn" onclick="adminDelete(this)">DEL</button>';
-          list.appendChild(row);
-        });
-      }
-
-      function adminDelete(btn) {
-        var row = btn.closest('.admin-comment-row');
-        var key = row.dataset.key;
-        if (!confirm('Delete this comment?')) return;
-        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
-        fetch('/api/admin?key=' + encodeURIComponent(key), {
-          method: 'DELETE',
-          headers: { 'Authorization': 'Bearer ' + tok }
-        }).then(function(r){ return r.json(); })
-          .then(function(d) {
-            if (d.ok) {
-              row.remove();
-              var cnt = parseInt(document.getElementById('admin-comment-count').textContent) - 1;
-              document.getElementById('admin-comment-count').textContent = cnt;
-              gbLoad(); // refresh public view
-            }
-          })
-          .catch(function(){});
-      }
-
-      function adminLoadTips() {
-        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
-        fetch('/api/admin?action=tips', { headers: { 'Authorization': 'Bearer ' + tok } })
-          .then(function(r){ return r.json(); })
-          .then(function(d) {
-            document.getElementById('admin-tip-sol').value = d.sol || '';
-            document.getElementById('admin-tip-eth').value = d.eth || '';
-          })
-          .catch(function(){});
-      }
-
-      function adminSaveTips() {
-        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
-        var tips = {
-          sol: document.getElementById('admin-tip-sol').value.trim(),
-          eth: document.getElementById('admin-tip-eth').value.trim(),
-        };
-        fetch('/api/admin?action=tips', {
-          method: 'POST',
-          headers: { 'Authorization': 'Bearer ' + tok, 'Content-Type': 'application/json' },
-          body: JSON.stringify(tips)
-        }).then(function(r){ return r.json(); })
-          .then(function(d) {
-            if (d.ok) {
-              // Update live tip modal addresses without reload
-              if (tips.sol) TIP_ADDRS.sol.addr = tips.sol;
-              if (tips.eth) TIP_ADDRS.eth.addr = tips.eth;
-              var s = document.getElementById('admin-tips-status');
-              s.style.display = 'block';
-              setTimeout(function(){ s.style.display = 'none'; }, 2500);
-            }
-          })
-          .catch(function(){});
-      }
-
-      function adminSaveProfile() {
-        var tok = sessionStorage.getItem(ADMIN_SESS_KEY);
-        var profile = {
-          name:   document.getElementById('admin-profile-name').value.trim(),
-          bio:    document.getElementById('admin-profile-bio').value.trim(),
-          pinned: document.getElementById('admin-profile-pinned').value.trim(),
-        };
-        fetch('/api/admin?action=profile', {
-          method: 'POST',
-          headers: { 'Authorization': 'Bearer ' + tok, 'Content-Type': 'application/json' },
-          body: JSON.stringify(profile)
-        }).then(function(r){ return r.json(); })
-          .then(function(d) {
-            if (d.ok) {
-              var s = document.getElementById('admin-profile-status');
-              s.style.display = 'block';
-              setTimeout(function(){ s.style.display = 'none'; }, 2500);
-              gbLoad(); // refresh public guestbook with new profile
-            }
-          })
-          .catch(function(){});
-      }
-
-      // Enter key on login input
-      document.getElementById('admin-code-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') adminLogin();
-      });
-    </script>
-
-    <!-- ══ HOMIES ══ -->
-    <div class="section" id="homies">
-      <h2 class="section-title">St Sola's Homies</h2>
-      <div class="homie-grid">
-
-        <!-- ROMAN BLAT -->
-        <div class="homie-card">
-          <div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:#000;position:relative">
-            <img src="assets/rabid-roman-blat.jpg" alt="Rabid Artwork by Roman Blat" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .4s ease" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
-          </div>
-          <div class="homie-info">
-            <div class="homie-name">Roman Blat</div>
-            <div class="homie-handle">RabidArtWork &nbsp;&bull;&nbsp; Actor &nbsp;&bull;&nbsp; Art Brut Creator</div>
-            <div class="homie-desc">Latvian-born. Played Uncle Sam in <em>The Purge: Election Year</em>. Been in <em>The Americans</em>. On screen he brings the heat — off screen he's building the RAW Universe. Art Brut with cinematic energy. Canvases, NFTs, prints, gear. No filter. No restraint. Pure expression. Art is Vibes San!</div>
-            <div class="homie-links">
-              <a class="card-link" href="https://www.rabidartwork.com" target="_blank" rel="noopener">RABIDARTWORK.COM →</a>
-              <a class="card-link" href="https://www.imdb.com/name/nm4815384/" target="_blank" rel="noopener">IMDB →</a>
-              <a class="card-link" href="https://www.rabidartwork.com/rabidartwork-nft" target="_blank" rel="noopener">NFT SHOP →</a>
-              <a class="card-link" href="https://x.com/RabidArtWorkRIP" target="_blank" rel="noopener">𝕏 @RabidArtWorkRIP →</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- DJ vAPED -->
-        <div class="homie-card">
-          <div class="homie-video">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/1SuSH9oc5b4?rel=0&modestbranding=1"
-              title="DJ vAPED"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
-          </div>
-          <div class="homie-info">
-            <div class="homie-name">DJ vAPED</div>
-            <div class="homie-handle">@DJvAPED &nbsp;&bull;&nbsp; Los Angeles</div>
-            <div class="homie-desc">Dope DJ based out of LA. Mixes that hit different. West Coast energy, global reach. This is what a real set sounds like.</div>
-            <div class="homie-links">
-              <a class="card-link" href="https://www.youtube.com/@djvaped" target="_blank" rel="noopener">YOUTUBE →</a>
-              <a class="card-link" href="https://x.com/DJvAPED" target="_blank" rel="noopener">𝕏 @DJvAPED →</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ══ ON MY RADAR ══ -->
-    <div class="section" id="radar">
-      <h2 class="section-title">On My Radar</h2>
-      <div class="homie-grid">
-
-        <!-- HOLOTAG -->
-        <div class="homie-card">
-          <div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:#0a0a14;position:relative;display:flex;align-items:center;justify-content:center">
-            <img src="assets/holotag-app.jpg" alt="HOLO — Holotag App" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .4s ease" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
-          </div>
-          <div class="homie-info">
-            <div class="homie-name">HOLO</div>
-            <div class="homie-handle">@holo_app &nbsp;&bull;&nbsp; Founded by Reed Hartke</div>
-            <div class="homie-desc">All-in-one platform for collectors. Catalog, verify, showcase, and manage your trading cards and collectibles. Digital binder. Community built around the culture. If you collect anything, this is your home base.</div>
-            <div class="homie-links">
-              <a class="card-link" href="https://holotag.app" target="_blank" rel="noopener">HOLOTAG.APP →</a>
-              <a class="card-link" href="https://x.com/holo_app" target="_blank" rel="noopener">𝕏 @holo_app →</a>
-              <a class="card-link" href="https://x.com/0xJuiceddd" target="_blank" rel="noopener">𝕏 @0xJuiceddd →</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
     <!-- ══ FOOTER ══ -->
-    <footer id="footer">
-      <div class="footer-name">St Sola</div>
-      <p class="footer-tagline">LOYALTY OVER BULLSHIT 🧠📡</p>
-      <a href="https://x.com/StSola" target="_blank" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s" onmouseover="this.style.borderColor='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'">𝕏 @StSola</a>
-      <a href="https://t.me/St_Sola" target="_blank" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s;display:inline-flex;align-items:center;gap:8px" onmouseover="this.style.borderColor='#29b6f6'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>@St_Sola</a>
-      <a href="https://instagram.com/s.t.sola" target="_blank" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s;display:inline-flex;align-items:center;gap:8px" onmouseover="this.style.borderColor='#e1306c'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@s.t.sola</a>
-      <a href="https://youtube.com/@St_Sola" target="_blank" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s;display:inline-flex;align-items:center;gap:8px" onmouseover="this.style.borderColor='#ff0000'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>@St_Sola</a>
-      <a href="mailto:info@stsola.us" style="font-size:1.2rem;color:#ffd700;letter-spacing:.15em;border-bottom:1px solid rgba(255,215,0,.3);transition:border-color .2s" onmouseover="this.style.borderColor='#ffd700'" onmouseout="this.style.borderColor='rgba(255,215,0,.3)'">info@stsola.us</a>
-      <a href="https://madebuilt.io" target="_blank" rel="noopener" style="font-size:1rem;color:rgba(255,255,255,.35);letter-spacing:.2em;margin-top:8px;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">madebuilt.io @stsola</a>
-      <button onclick="adminToggle()" style="background:none;border:none;color:rgba(255,255,255,.1);font-size:.7rem;letter-spacing:.2em;cursor:pointer;padding:4px 8px;transition:color .2s;font-family:'VT323',monospace;margin-top:4px" onmouseover="this.style.color='rgba(255,58,0,.35)'" onmouseout="this.style.color='rgba(255,255,255,.1)'">[ admin ]</button>
-    </footer>
-
-  </div><!-- /scroll-root -->
+    <footer id="footer"><div class="tip-row footer-tips" id="tip-bar"><button class="tip-btn tip-btn-sol" onclick="tipCopy('sol')" title="Tip with SOL">
+<!-- Solana logo -->
+<svg fill="none" height="13" viewbox="0 0 128 128" width="13" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.7 94.6a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3.1L105.9 115a3.6 3.6 0 0 1-2.5 1H4.6a1.8 1.8 0 0 1-1.3-3.1l18.4-18.3ZM21.7 13a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3L105.9 33.4a3.6 3.6 0 0 1-2.5 1H4.6A1.8 1.8 0 0 1 3.3 31L21.7 13ZM105.9 53.6a3.6 3.6 0 0 0-2.5-1H4.6a1.8 1.8 0 0 0-1.3 3.1L21.7 74a3.6 3.6 0 0 0 2.5 1H123a1.8 1.8 0 0 0 1.3-3.1L105.9 53.6Z" fill="#14f195"></path>
+</svg>
+      TIP SOL
+    </button><button class="tip-btn tip-btn-eth" onclick="tipCopy('eth')" title="Tip with ETH">
+<svg fill="none" height="13" viewbox="0 0 32 52" width="11" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 0L0 26.5l16 9.5 16-9.5L16 0Z" fill="#a8b4f8"></path>
+<path d="M16 39.5L0 30l16 22 16-22-16 9.5Z" fill="#a8b4f8" opacity=".7"></path>
+</svg>
+      TIP ETH
+    </button><a class="tip-btn tip-btn-cash" href="https://cash.app/$StSola" rel="noopener" target="_blank" title="Tip with Cash App">
+<!-- Cash App $ -->
+<svg fill="none" height="13" viewbox="0 0 24 24" width="12" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15.93V19h-2v-1.07A4.01 4.01 0 0 1 8 14h2c0 1.1.9 2 2 2s2-.9 2-2c0-1.1-.9-2-2-2a4 4 0 0 1 0-8V3h2v1.07A4.01 4.01 0 0 1 16 8h-2c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2a4 4 0 0 1 0 8Z" fill="#00d46e"></path>
+</svg>
+      CASH APP
+    </a></div>
+<div class="footer-name">St Sola</div>
+<p class="footer-tagline">LOYALTY OVER BULLSHIT 🧠📡</p>
+<a href="https://x.com/StSola" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'" onmouseover="this.style.borderColor='#fff'" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s" target="_blank">𝕏 @StSola</a>
+<a href="https://t.me/St_Sola" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'" onmouseover="this.style.borderColor='#29b6f6'" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s;display:inline-flex;align-items:center;gap:8px" target="_blank"><svg fill="currentColor" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"></path></svg>@St_Sola</a>
+<a href="https://instagram.com/s.t.sola" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'" onmouseover="this.style.borderColor='#e1306c'" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s;display:inline-flex;align-items:center;gap:8px" target="_blank"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" fill="currentColor" r="1" stroke="none"></circle></svg>@s.t.sola</a>
+<a href="https://youtube.com/@St_Sola" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'" onmouseover="this.style.borderColor='#ff0000'" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s;display:inline-flex;align-items:center;gap:8px" target="_blank"><svg fill="currentColor" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>@St_Sola</a>
+<a href="mailto:info@stsola.us" onmouseout="this.style.borderColor='rgba(255,215,0,.3)'" onmouseover="this.style.borderColor='#ffd700'" style="font-size:1.2rem;color:#ffd700;letter-spacing:.15em;border-bottom:1px solid rgba(255,215,0,.3);transition:border-color .2s">info@stsola.us</a>
+<a href="https://madebuilt.io" onmouseout="this.style.color='rgba(255,255,255,.35)'" onmouseover="this.style.color='rgba(255,255,255,.7)'" rel="noopener" style="font-size:1rem;color:rgba(255,255,255,.35);letter-spacing:.2em;margin-top:8px;transition:color .2s" target="_blank">madebuilt.io @stsola</a>
+<button onclick="adminToggle()" onmouseout="this.style.color='rgba(255,255,255,.1)'" onmouseover="this.style.color='rgba(255,58,0,.35)'" style="background:none;border:none;color:rgba(255,255,255,.1);font-size:.7rem;letter-spacing:.2em;cursor:pointer;padding:4px 8px;transition:color .2s;font-family:'VT323',monospace;margin-top:4px">[ admin ]</button>
+</footer>
+  </main><!-- /scroll-root -->
 
   <!-- TIP MODAL -->
   <div id="tip-modal" onclick="if(event.target===this)tipModalClose()">
-    <div class="tip-modal-box">
-      <div class="tip-modal-title" id="tip-modal-title"></div>
-      <div class="tip-modal-addr" id="tip-modal-addr"></div>
-      <button class="tip-modal-copy" id="tip-modal-copy" onclick="tipModalCopy()">COPY ADDRESS</button>
-      <button class="tip-modal-close" onclick="tipModalClose()">close</button>
-    </div>
-  </div>
+<div class="tip-modal-box">
+<div class="tip-modal-title" id="tip-modal-title"></div>
+<div class="tip-modal-addr" id="tip-modal-addr"></div>
+<button class="tip-modal-copy" id="tip-modal-copy" onclick="tipModalCopy()">COPY ADDRESS</button>
+<button class="tip-modal-close" onclick="tipModalClose()">close</button>
+</div>
+</div>
 
   <!-- ══ ADMIN OVERLAY ══ -->
   <div id="admin-overlay">
+<!-- Login screen -->
+<div id="admin-login">
+<div class="admin-login-box">
+<div class="admin-login-title">ADMIN ACCESS</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<label style="font-size:.8rem;color:rgba(255,255,255,.35);letter-spacing:.15em">ACCESS CODE</label>
+<input autocomplete="off" class="admin-input" id="admin-code-input" placeholder="enter code..." type="password"/>
+</div>
+<button class="card-link" onclick="adminLogin()" style="align-self:center;cursor:pointer;border:none;font-size:1.1rem;padding:10px 28px">ENTER →</button>
+<div id="admin-login-err" style="color:#ff3a00;text-align:center;font-size:.9rem;display:none">wrong code.</div>
+<button onclick="adminClose()" style="background:none;border:none;color:rgba(255,255,255,.25);font-size:.9rem;cursor:pointer;text-align:center;font-family:'VT323',monospace;letter-spacing:.1em">cancel</button>
+</div>
+</div>
+<!-- Dashboard (shown after login) -->
+<div id="admin-dashboard" style="display:none;flex-direction:column;flex:1">
+<div class="admin-header">
+<div class="admin-title">ADMIN PANEL</div>
+<div style="display:flex;gap:10px">
+<button class="admin-close" onclick="adminLogout()">LOGOUT</button>
+<button class="admin-close" onclick="adminClose()">CLOSE ✕</button>
+</div>
+</div>
+<div class="admin-body">
+<!-- Profile -->
+<div>
+<div class="admin-section-title">Your Profile</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:column;gap:6px">
+<label style="font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.15em">DISPLAY NAME</label>
+<input class="admin-input" id="admin-profile-name" maxlength="50" placeholder="St Sola" type="text"/>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<label style="font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.15em">BIO (shows on guestbook)</label>
+<textarea class="admin-textarea" id="admin-profile-bio" maxlength="300" placeholder="Builder. Saint. Creator."></textarea>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<label style="font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.15em">PINNED MESSAGE (pinned at top of guestbook)</label>
+<textarea class="admin-textarea" id="admin-profile-pinned" maxlength="300" placeholder="Welcome to the guestbook. Leave your mark."></textarea>
+</div>
+<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+<button class="card-link" onclick="adminSaveProfile()" style="cursor:pointer;border:none;font-size:1.1rem;padding:10px 24px">SAVE PROFILE →</button>
+<span id="admin-profile-status" style="color:#2bff9e;font-size:.9rem;display:none">saved ✓</span>
+</div>
+</div>
+</div>
+<!-- Tip Addresses -->
+<div>
+<div class="admin-section-title">Tip Addresses</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-direction:column;gap:6px">
+<label style="font-size:.8rem;color:rgba(20,241,149,.6);letter-spacing:.15em">SOL ADDRESS</label>
+<input class="admin-input" id="admin-tip-sol" maxlength="100" placeholder="Solana wallet address..." type="text"/>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<label style="font-size:.8rem;color:rgba(168,180,248,.6);letter-spacing:.15em">ETH ADDRESS</label>
+<input class="admin-input" id="admin-tip-eth" maxlength="100" placeholder="Ethereum wallet address..." type="text"/>
+</div>
+<div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+<button class="card-link" onclick="adminSaveTips()" style="cursor:pointer;border:none;font-size:1.1rem;padding:10px 24px">SAVE ADDRESSES →</button>
+<span id="admin-tips-status" style="color:#2bff9e;font-size:.9rem;display:none">saved ✓</span>
+</div>
+</div>
+</div>
+<!-- Comments -->
+<div>
+<div class="admin-section-title">Comments (<span id="admin-comment-count">0</span>)</div>
+<div id="admin-comments-list" style="display:flex;flex-direction:column;gap:10px"></div>
+</div>
+</div>
+</div>
+</div>
 
-    <!-- Login screen -->
-    <div id="admin-login">
-      <div class="admin-login-box">
-        <div class="admin-login-title">ADMIN ACCESS</div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <label style="font-size:.8rem;color:rgba(255,255,255,.35);letter-spacing:.15em">ACCESS CODE</label>
-          <input id="admin-code-input" class="admin-input" type="password" placeholder="enter code..." autocomplete="off" />
-        </div>
-        <button class="card-link" style="align-self:center;cursor:pointer;border:none;font-size:1.1rem;padding:10px 28px" onclick="adminLogin()">ENTER →</button>
-        <div id="admin-login-err" style="color:#ff3a00;text-align:center;font-size:.9rem;display:none">wrong code.</div>
-        <button onclick="adminClose()" style="background:none;border:none;color:rgba(255,255,255,.25);font-size:.9rem;cursor:pointer;text-align:center;font-family:'VT323',monospace;letter-spacing:.1em">cancel</button>
-      </div>
-    </div>
-
-    <!-- Dashboard (shown after login) -->
-    <div id="admin-dashboard" style="display:none;flex-direction:column;flex:1">
-      <div class="admin-header">
-        <div class="admin-title">ADMIN PANEL</div>
-        <div style="display:flex;gap:10px">
-          <button class="admin-close" onclick="adminLogout()">LOGOUT</button>
-          <button class="admin-close" onclick="adminClose()">CLOSE ✕</button>
-        </div>
-      </div>
-      <div class="admin-body">
-
-        <!-- Profile -->
-        <div>
-          <div class="admin-section-title">Your Profile</div>
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <div style="display:flex;flex-direction:column;gap:6px">
-              <label style="font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.15em">DISPLAY NAME</label>
-              <input id="admin-profile-name" class="admin-input" type="text" maxlength="50" placeholder="St Sola" />
-            </div>
-            <div style="display:flex;flex-direction:column;gap:6px">
-              <label style="font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.15em">BIO (shows on guestbook)</label>
-              <textarea id="admin-profile-bio" class="admin-textarea" maxlength="300" placeholder="Builder. Saint. Creator."></textarea>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:6px">
-              <label style="font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.15em">PINNED MESSAGE (pinned at top of guestbook)</label>
-              <textarea id="admin-profile-pinned" class="admin-textarea" maxlength="300" placeholder="Welcome to the guestbook. Leave your mark."></textarea>
-            </div>
-            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-              <button class="card-link" style="cursor:pointer;border:none;font-size:1.1rem;padding:10px 24px" onclick="adminSaveProfile()">SAVE PROFILE →</button>
-              <span id="admin-profile-status" style="color:#2bff9e;font-size:.9rem;display:none">saved ✓</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tip Addresses -->
-        <div>
-          <div class="admin-section-title">Tip Addresses</div>
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <div style="display:flex;flex-direction:column;gap:6px">
-              <label style="font-size:.8rem;color:rgba(20,241,149,.6);letter-spacing:.15em">SOL ADDRESS</label>
-              <input id="admin-tip-sol" class="admin-input" type="text" maxlength="100" placeholder="Solana wallet address..." />
-            </div>
-            <div style="display:flex;flex-direction:column;gap:6px">
-              <label style="font-size:.8rem;color:rgba(168,180,248,.6);letter-spacing:.15em">ETH ADDRESS</label>
-              <input id="admin-tip-eth" class="admin-input" type="text" maxlength="100" placeholder="Ethereum wallet address..." />
-            </div>
-            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-              <button class="card-link" style="cursor:pointer;border:none;font-size:1.1rem;padding:10px 24px" onclick="adminSaveTips()">SAVE ADDRESSES →</button>
-              <span id="admin-tips-status" style="color:#2bff9e;font-size:.9rem;display:none">saved ✓</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Comments -->
-        <div>
-          <div class="admin-section-title">Comments (<span id="admin-comment-count">0</span>)</div>
-          <div id="admin-comments-list" style="display:flex;flex-direction:column;gap:10px"></div>
-        </div>
-
-      </div>
-    </div>
-
-  </div><!-- /admin-overlay -->
-
-  <!-- TIP MODAL SCRIPT -->
-  <script>
-    var TIP_ADDRS = {
-      sol: { addr: '3Cj7KhrmVg1tRBHyLhwGAW8Cr4xyosFzxPDhVDk98XVL', label: 'SOL ADDRESS', color: '#14f195' },
-      eth: { addr: '0x90677f29D8026E60E03A1597FE228F15fCc79D69',    label: 'ETH ADDRESS', color: '#a8b4f8' }
-    };
-
-    // Load tip addresses from KV (overrides hardcoded defaults if set)
-    fetch('/api/admin?action=tips')
-      .then(function(r) { return r.json(); })
-      .then(function(d) {
-        if (d.sol) TIP_ADDRS.sol.addr = d.sol;
-        if (d.eth) TIP_ADDRS.eth.addr = d.eth;
-      })
-      .catch(function() {});
-
-    function tipCopy(chain) {
-      var t = TIP_ADDRS[chain];
-      document.getElementById('tip-modal-title').textContent = 'TIP WITH ' + chain.toUpperCase();
-      document.getElementById('tip-modal-title').style.color = t.color;
-      document.getElementById('tip-modal-addr').textContent  = t.addr;
-      var btn = document.getElementById('tip-modal-copy');
-      btn.style.background = t.color;
-      btn.style.color = '#000';
-      btn.textContent = 'COPY ADDRESS';
-      btn.dataset.chain = chain;
-      document.getElementById('tip-modal').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function tipModalCopy() {
-      var btn   = document.getElementById('tip-modal-copy');
-      var chain = btn.dataset.chain;
-      var addr  = TIP_ADDRS[chain].addr;
-      // Try clipboard API first, fallback to select+copy
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(addr).catch(function() { tipFallbackCopy(addr); });
-      } else {
-        tipFallbackCopy(addr);
-      }
-      btn.textContent = 'COPIED ✓';
-      setTimeout(function() { btn.textContent = 'COPY ADDRESS'; }, 2000);
-    }
-
-    function tipFallbackCopy(text) {
-      var el = document.getElementById('tip-modal-addr');
-      var range = document.createRange();
-      range.selectNodeContents(el);
-      var sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-      try { document.execCommand('copy'); } catch(e) {}
-      sel.removeAllRanges();
-    }
-
-    function tipModalClose() {
-      document.getElementById('tip-modal').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    // Close on Escape
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') tipModalClose();
-    });
-  </script>
-
-  <!-- CRYPTO TICKER SCRIPT -->
-  <script>
-    (function() {
-      var COINS = [
-        'bitcoin','ethereum','solana','dogecoin','pepe','tezos',
-        'tether','binancecoin','ripple','usd-coin','cardano','avalanche-2',
-        'shiba-inu','chainlink','polkadot','uniswap','litecoin','bitcoin-cash',
-        'stellar','near'
-      ];
-
-      function fmt(n) {
-        if (n >= 1000) return '$' + n.toLocaleString('en-US', {maximumFractionDigits:0});
-        if (n >= 1)    return '$' + n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
-        if (n >= 0.01) return '$' + n.toFixed(4);
-        return '$' + n.toFixed(6);
-      }
-
-      function buildTrack(coins) {
-        // Double the items so seamless loop works
-        var items = coins.map(function(c) {
-          var pct = c.price_change_percentage_24h || 0;
-          var arrow = pct >= 0 ? '▲' : '▼';
-          var cls   = pct >= 0 ? 'ticker-up' : 'ticker-down';
-          return '<span class="ticker-item">' +
-            '<span class="ticker-sym">' + c.symbol.toUpperCase() + '</span>' +
-            '<span class="ticker-price">' + fmt(c.current_price) + '</span>' +
-            '<span class="' + cls + '">' + arrow + ' ' + Math.abs(pct).toFixed(2) + '%</span>' +
-            '</span>';
-        }).join('');
-        return items + items; // duplicate for seamless scroll
-      }
-
-      function fetchTicker() {
-        var ids = COINS.join(',');
-        fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + ids + '&order=market_cap_desc&per_page=20&page=1&price_change_percentage=24h')
-          .then(function(r) { return r.json(); })
-          .then(function(data) {
-            var track = document.getElementById('ticker-track');
-            if (!track || !data.length) return;
-            track.innerHTML = buildTrack(data);
-          })
-          .catch(function() { /* silently fail */ });
-      }
-
-      // Initial load + refresh every 60s
-      fetchTicker();
-      setInterval(fetchTicker, 60000);
-    })();
-  </script>
-
-  <!-- PARTICLE TRAIL CANVAS -->
-  <canvas id="particle-trail"></canvas>
-
-  <!-- TIER 1 ENHANCEMENTS -->
-  <script>
-    // ────────────────────────────────────────────────
-    // 1. CURSOR PARTICLE TRAIL
-    // ────────────────────────────────────────────────
-    (function() {
-      var canvas = document.getElementById('particle-trail');
-      var ctx = canvas.getContext('2d');
-      var W, H;
-
-      function resize() {
-        W = canvas.width  = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      var particles = [];
-      var PALETTE = ['#ff3a00','#ff5500','#ff6600','#ffd700','#ff8800','#ff2200'];
-
-      document.addEventListener('mousemove', function(e) {
-        var count = 3;
-        for (var i = 0; i < count; i++) {
-          particles.push({
-            x:     e.clientX + (Math.random() - 0.5) * 6,
-            y:     e.clientY + (Math.random() - 0.5) * 6,
-            vx:    (Math.random() - 0.5) * 1.8,
-            vy:    -(Math.random() * 2.2 + 0.4),
-            life:  1.0,
-            decay: Math.random() * 0.028 + 0.018,
-            size:  Math.random() * 3.5 + 1,
-            color: PALETTE[Math.floor(Math.random() * PALETTE.length)]
-          });
-        }
-      });
-
-      function loop() {
-        ctx.clearRect(0, 0, W, H);
-        for (var i = particles.length - 1; i >= 0; i--) {
-          var p = particles[i];
-          p.x  += p.vx;
-          p.y  += p.vy;
-          p.vy += 0.06;  // gravity pulls embers down
-          p.vx *= 0.98;  // air resistance
-          p.life -= p.decay;
-          if (p.life <= 0) { particles.splice(i, 1); continue; }
-          ctx.globalAlpha = p.life * 0.85;
-          ctx.fillStyle   = p.color;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        ctx.globalAlpha = 1;
-        requestAnimationFrame(loop);
-      }
-      loop();
-    })();
-
-
-    // ────────────────────────────────────────────────
-    // 2. GLITCH TEXT HOVER
-    // ────────────────────────────────────────────────
-    var GLITCH_CHARS = '!<>-_\/[]{}=+*^?#░▒▓|@$%&~';
-
-    function glitchElement(el) {
-      if (el._glitching) return;
-      el._glitching = true;
-      var orig = el.dataset.origText || el.textContent;
-      el.dataset.origText = orig;
-      var chars = orig.split('');
-      var iters = 0;
-      var maxIter = orig.length * 1.5;
-
-      var interval = setInterval(function() {
-        var scrambled = chars.map(function(ch, idx) {
-          if (ch === ' ') return ' ';
-          if (idx < Math.floor(iters * 0.7)) return orig[idx];
-          return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
-        }).join('');
-        el.textContent = scrambled;
-        iters++;
-        if (iters >= maxIter) {
-          clearInterval(interval);
-          el.textContent = orig;
-          el._glitching = false;
-        }
-      }, 28);
-    }
-
-    document.querySelectorAll('.section-title, .card-name, .homie-name, .amb-name').forEach(function(el) {
-      el.addEventListener('mouseenter', function() { glitchElement(el); });
-    });
-
-
-    // ────────────────────────────────────────────────
-    // 3. VISITOR COUNTER (part of guestbook)
-    // ────────────────────────────────────────────────
-    function formatCount(n) {
-      return n.toLocaleString('en-US');
-    }
-
-    // Animated count-up
-    function countUp(el, target) {
-      var start = Math.max(0, target - Math.min(target, 60));
-      var current = start;
-      var step = Math.max(1, Math.ceil((target - start) / 40));
-      var interval = setInterval(function() {
-        current = Math.min(current + step, target);
-        el.textContent = formatCount(current) + ' SAINTS CAME THROUGH';
-        if (current >= target) clearInterval(interval);
-      }, 28);
-    }
-
-    fetch('/api/visits', { method: 'POST' })
-      .then(function(r) { return r.json(); })
-      .then(function(d) {
-        var el = document.getElementById('visit-counter');
-        if (el && d.count) countUp(el, d.count);
-      })
-      .catch(function() {
-        // silently fail — counter is a nice-to-have
-      });
-  </script>
-
-  <script>
-    // ── FCKOFF RADIO ─────────────────────────────────────────
-    const STREAMS = [
-      'https://streams.90s90s.de/hiphop/mp3-128/',         // 90s90s HipHop — verified 90s rap, no ads
-      'https://streams.bigfm.de/bigfm-oldschool-128-mp3',  // bigFM Oldschool — verified 90s rap
-      'https://streams.90s90s.de/hiphop/mp3-128/',         // fallback
-    ];
-    let radioPlaying = false;
-    const radioAudio  = document.getElementById('radioAudio');
-    const radioStatus = document.getElementById('radioStatus');
-    const radioBars   = document.getElementById('radioBars');
-    const iconPlay    = document.getElementById('iconPlay');
-    const iconStop    = document.getElementById('iconStop');
-
-    let streamIdx = 0;
-
-    function setPlaying(playing) {
-      radioPlaying = playing;
-      radioStatus.textContent = playing ? 'LIVE' : '90s HIP HOP';
-      radioStatus.classList.toggle('live', playing);
-      radioBars.classList.toggle('active', playing);
-      iconPlay.style.display = playing ? 'none' : 'block';
-      iconStop.style.display = playing ? 'block' : 'none';
-      // Audio reactive hero — bg character breathes with the music
-      const bgChar = document.querySelector('.bg-char');
-      if (bgChar) bgChar.classList.toggle('radio-alive', playing);
-    }
-
-    function tryStream(idx) {
-      if (idx >= STREAMS.length) {
-        radioStatus.textContent = 'SIGNAL LOST';
-        radioStatus.classList.remove('live');
-        radioBars.classList.remove('active');
-        iconPlay.style.display = 'block';
-        iconStop.style.display = 'none';
-        return;
-      }
-      radioAudio.src = STREAMS[idx];
-      radioAudio.play()
-        .then(() => { streamIdx = idx; setPlaying(true); })
-        .catch(() => tryStream(idx + 1));
-    }
-
-    function toggleRadio() {
-      if (radioPlaying) {
-        radioAudio.pause();
-        radioAudio.src = '';
-        setPlaying(false);
-      } else {
-        radioStatus.textContent = 'LOADING...';
-        tryStream(0);
-      }
-    }
-
-    radioAudio.addEventListener('error', () => {
-      if (radioPlaying) {
-        setPlaying(false);
-        tryStream(streamIdx + 1);
-      }
-    });
-
-    // ── VOLUME SLIDER ──
-    const radioVol  = document.getElementById('radioVol');
-    const volIcon   = document.getElementById('volIcon');
-
-    // Sync track fill CSS var
-    function syncVolTrack(val) {
-      radioVol.style.setProperty('--vol-pct', val + '%');
-    }
-    syncVolTrack(80);
-    radioAudio.volume = 0.8;
-
-    radioVol.addEventListener('input', function() {
-      const v = parseInt(this.value);
-      radioAudio.volume = v / 100;
-      syncVolTrack(v);
-      // Swap icon: muted vs normal
-      volIcon.innerHTML = v === 0
-        ? '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>'
-        : v < 50
-        ? '<path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>'
-        : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
-    });
-
-    // ── RAVE UNDERGROUND ─────────────────────────────────────────
-    const RAVE_STREAMS = [
-      'http://prem4.di.fm:80/jungle',                         // DI.FM Jungle — verified live
-      'http://prem4.di.fm:80/progressive',                    // DI.FM Progressive House — verified live
-      'http://65.109.81.84:8658/stream',                      // SkellyWays Hardcore — verified live
-      'https://stream.sunshine-live.de/Hardcore/mp3-192/',    // Sunshine Live Hardcore — verified live
-      'http://prem4.di.fm:80/harddance',                      // DI.FM Hard Dance — fallback
-      'http://prem4.di.fm:80/drumandbass',                    // DI.FM Drum & Bass — fallback
-    ];
-    let ravePlaying = false;
-    let raveStreamIdx = 0;
-    const raveAudio  = document.getElementById('raveAudio');
-    const raveStatus = document.getElementById('raveStatus');
-    const raveBars   = document.getElementById('raveBars');
-    const raveIconPlay = document.getElementById('raveIconPlay');
-    const raveIconStop = document.getElementById('raveIconStop');
-
-    function setRavePlaying(playing) {
-      ravePlaying = playing;
-      raveStatus.textContent = playing ? 'LIVE' : 'JUNGLE / PROGRESSIVE';
-      raveStatus.classList.toggle('live', playing);
-      raveBars.classList.toggle('active', playing);
-      raveIconPlay.style.display = playing ? 'none' : 'block';
-      raveIconStop.style.display = playing ? 'block' : 'none';
-    }
-
-    function tryRaveStream(idx) {
-      if (idx >= RAVE_STREAMS.length) {
-        raveStatus.textContent = 'SIGNAL LOST';
-        raveStatus.classList.remove('live');
-        raveBars.classList.remove('active');
-        raveIconPlay.style.display = 'block';
-        raveIconStop.style.display = 'none';
-        return;
-      }
-      raveAudio.src = RAVE_STREAMS[idx];
-      raveAudio.play()
-        .then(() => { raveStreamIdx = idx; setRavePlaying(true); })
-        .catch(() => tryRaveStream(idx + 1));
-    }
-
-    function toggleRave() {
-      if (ravePlaying) {
-        raveAudio.pause();
-        raveAudio.src = '';
-        setRavePlaying(false);
-      } else {
-        raveStatus.textContent = 'LOADING...';
-        tryRaveStream(0);
-      }
-    }
-
-    raveAudio.addEventListener('error', () => {
-      if (ravePlaying) {
-        setRavePlaying(false);
-        tryRaveStream(raveStreamIdx + 1);
-      }
-    });
-
-    const raveVol = document.getElementById('raveVol');
-    const raveVolIcon = document.getElementById('raveVolIcon');
-    raveVol.style.setProperty('--vol-pct', '80%');
-    raveAudio.volume = 0.8;
-    raveVol.addEventListener('input', function() {
-      const v = parseInt(this.value);
-      raveAudio.volume = v / 100;
-      raveVol.style.setProperty('--vol-pct', v + '%');
-      raveVolIcon.innerHTML = v === 0
-        ? '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>'
-        : v < 50
-        ? '<path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>'
-        : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
-    });
-
-    // ── $COLORS COPY CA ───────────────────────
-    var COLORS_CA = 'DCmeU6DAdNqMNamxw4Uw4Zp6rdVwwRcJDDpbPVJCULT';
-    function copyColorsCa() {
-      navigator.clipboard.writeText(COLORS_CA).then(function() {
-        var btn = document.getElementById('colors-copy-btn');
-        if (btn) { btn.textContent = 'COPIED!'; setTimeout(function(){ btn.textContent = 'COPY CA'; }, 2000); }
-      }).catch(function(){
-        var btn = document.getElementById('colors-copy-btn');
-        if (btn) btn.textContent = 'COPY CA';
-      });
-    }
-
-    // ── $COLORS LIVE PRICE ─────────────────────
-    (function fetchColorsPrice() {
-      var PAIR = '6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty';
-      var priceEl  = document.getElementById('colors-price');
-      var changeEl = document.getElementById('colors-change');
-      var metaEl   = document.getElementById('colors-meta');
-      function update() {
-        fetch('https://api.dexscreener.com/latest/dex/pairs/solana/' + PAIR)
-          .then(function(r){ return r.json(); })
-          .then(function(d) {
-            var pair = d.pair || (d.pairs && d.pairs[0]);
-            if (!pair) return;
-            var price = parseFloat(pair.priceUsd);
-            var ch24  = parseFloat(pair.priceChange && pair.priceChange.h24);
-            var mcap  = pair.marketCap ? '$' + (pair.marketCap/1e6).toFixed(2) + 'M MCAP' : '';
-            var vol   = pair.volume && pair.volume.h24 ? 'VOL $' + Math.round(pair.volume.h24).toLocaleString() : '';
-            if (priceEl) priceEl.textContent = price < 0.01
-              ? '$' + price.toFixed(8)
-              : '$' + price.toFixed(6);
-            if (changeEl) {
-              var sign = ch24 >= 0 ? '+' : '';
-              changeEl.textContent = sign + ch24.toFixed(2) + '%';
-              changeEl.className = 'colors-change ' + (ch24 >= 0 ? 'up' : 'down');
-            }
-            if (metaEl) metaEl.textContent = 'SOL · LIVE' + (mcap ? ' · ' + mcap : '') + (vol ? ' · ' + vol : '');
-          })
-          .catch(function(){})
-      }
-      update();
-      setInterval(update, 30000); // refresh every 30s
-    })();
-
-    // ── FLUX REVEAL ───────────────────────────
-    function toggleFlux() {
-      const detail = document.getElementById('fluxDetail');
-      const teaser = document.getElementById('fluxTeaser');
-      const btn    = document.getElementById('fluxBtn');
-      const open   = detail.style.display === 'none';
-      detail.style.display = open ? 'block' : 'none';
-      teaser.style.display = open ? 'none'  : 'block';
-      btn.textContent      = open ? 'CLOSE ✕' : 'WHAT IS IT? →';
-    }
-
-    // ── CYCLING SQUARE ──────────────────────────────────────
-    const frame = document.getElementById('photoFrame');
-    const imgs = frame.querySelectorAll('img');
-    let current = 0;
-    let autoTimer;
-
-    function showImg(idx) {
-      imgs[current].classList.remove('active');
-      current = ((idx % imgs.length) + imgs.length) % imgs.length;
-      imgs[current].classList.add('active');
-    }
-
-    function startAuto() {
-      autoTimer = setInterval(() => showImg(current + 1), 3000);
-    }
-    startAuto();
-
-    // Mousemove — left→right maps to images
-    frame.addEventListener('mousemove', (e) => {
-      clearInterval(autoTimer);
-      const rect = frame.getBoundingClientRect();
-      const pct = (e.clientX - rect.left) / rect.width;
-      const idx = Math.floor(pct * imgs.length);
-      if (idx !== current) showImg(idx);
-    });
-    frame.addEventListener('mouseleave', () => startAuto());
-
-    // Touch swipe
-    let tx = 0;
-    frame.addEventListener('touchstart', e => { tx = e.touches[0].clientX; clearInterval(autoTimer); }, {passive:true});
-    frame.addEventListener('touchend', e => {
-      const dx = e.changedTouches[0].clientX - tx;
-      if (Math.abs(dx) > 30) showImg(current + (dx < 0 ? 1 : -1));
-      startAuto();
-    }, {passive:true});
-  </script>
+  <script src="assets/legacy.js?v=revamp1"></script>
+  <script src="assets/app.js?v=revamp1" defer></script>
 </body>
 </html>
