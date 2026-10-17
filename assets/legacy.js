@@ -464,7 +464,7 @@
         // silently fail — counter is a nice-to-have
       });
   
-/* ===== verbatim legacy: FCKOFF radio, $COLORS, Flux ===== */
+/* ===== verbatim legacy: FCKOFF radio, Flux ===== */
 
     // ── FCKOFF RADIO ─────────────────────────────────────────
     const STREAMS = [
@@ -548,50 +548,6 @@
         ? '<path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM5 9v6h4l5 5V4L9 9H5z"/>'
         : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
     });
-
-    // ── $COLORS COPY CA ───────────────────────
-    var COLORS_CA = 'DCmeU6DAdNqMNamxw4Uw4Zp6rdVwwRcJDDpbPVJCULT';
-    function copyColorsCa() {
-      navigator.clipboard.writeText(COLORS_CA).then(function() {
-        var btn = document.getElementById('colors-copy-btn');
-        if (btn) { btn.textContent = 'COPIED!'; setTimeout(function(){ btn.textContent = 'COPY CA'; }, 2000); }
-      }).catch(function(){
-        var btn = document.getElementById('colors-copy-btn');
-        if (btn) btn.textContent = 'COPY CA';
-      });
-    }
-
-    // ── $COLORS LIVE PRICE ─────────────────────
-    (function fetchColorsPrice() {
-      var PAIR = '6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty';
-      var priceEl  = document.getElementById('colors-price');
-      var changeEl = document.getElementById('colors-change');
-      var metaEl   = document.getElementById('colors-meta');
-      function update() {
-        fetch('https://api.dexscreener.com/latest/dex/pairs/solana/' + PAIR)
-          .then(function(r){ return r.json(); })
-          .then(function(d) {
-            var pair = d.pair || (d.pairs && d.pairs[0]);
-            if (!pair) return;
-            var price = parseFloat(pair.priceUsd);
-            var ch24  = parseFloat(pair.priceChange && pair.priceChange.h24);
-            var mcap  = pair.marketCap ? '$' + (pair.marketCap/1e6).toFixed(2) + 'M MCAP' : '';
-            var vol   = pair.volume && pair.volume.h24 ? 'VOL $' + Math.round(pair.volume.h24).toLocaleString() : '';
-            if (priceEl) priceEl.textContent = price < 0.01
-              ? '$' + price.toFixed(8)
-              : '$' + price.toFixed(6);
-            if (changeEl) {
-              var sign = ch24 >= 0 ? '+' : '';
-              changeEl.textContent = sign + ch24.toFixed(2) + '%';
-              changeEl.className = 'colors-change ' + (ch24 >= 0 ? 'up' : 'down');
-            }
-            if (metaEl) metaEl.textContent = 'SOL · LIVE' + (mcap ? ' · ' + mcap : '') + (vol ? ' · ' + vol : '');
-          })
-          .catch(function(){})
-      }
-      update();
-      setInterval(update, 30000); // refresh every 30s
-    })();
 
     // ── FLUX REVEAL ───────────────────────────
     function toggleFlux() {

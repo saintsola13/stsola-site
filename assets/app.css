@@ -1171,3 +1171,6 @@ body.menu-open .edge-hint{opacity:0!important;animation:none}
 }
 #visit-counter{color:rgba(255,215,0,.62)}
 .guestroom-inner label{color:rgba(255,255,255,.62)!important}
+
+/* lofi card: local Saint art underneath the YouTube thumbnail, so the card is never blank */
+.yt-facade{background:#000 url('/assets/saint-losangeles.jpg') center/cover no-repeat}

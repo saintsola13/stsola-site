@@ -73,7 +73,7 @@
   function menuWidth(side) { return menus[side] ? menus[side].getBoundingClientRect().width || 360 : 360; }
   function blockedTarget(t) {
     if (!t || !t.closest) return false;
-    return !!t.closest('input,textarea,select,[type=range],.m-chips,.gb-scroll,#admin-overlay,#tip-modal,.colors-chart,.video-shell,.homie-video');
+    return !!t.closest('input,textarea,select,[type=range],.m-chips,.gb-scroll,#admin-overlay,#tip-modal,.video-shell,.homie-video');
   }
   function modalOpen() {
     var a = doc.getElementById('admin-overlay'), tm = doc.getElementById('tip-modal');
@@ -191,8 +191,6 @@
     var CORE = ['solana', 'ethereum', 'bitcoin'];
     var SYM = { solana: 'SOL', ethereum: 'ETH', bitcoin: 'BTC' };
     var CACHE = 'stsola_ticker_v1';
-    var COLORS_PAIR = '6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty';
-    var extra = null; // $COLORS
     function fmt(n) {
       if (n == null || isNaN(n)) return '—';
       if (n >= 1000) return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
@@ -208,10 +206,9 @@
     }
     function render(rows, note) {
       var html = rows.map(function (r) { return item(r.sym, r.price, r.pct, r.core); }).join('');
-      if (extra) html += item('$COLORS', extra.price, extra.pct, false);
       if (note) html += '<span class="ticker-item"><span class="ticker-note">' + note + '</span></span>';
       track.innerHTML = html + html; // duplicate for seamless loop
-      track.style.setProperty('--ticker-dur', Math.max(20, (rows.length + (extra ? 1 : 0)) * 3.2) + 's');
+      track.style.setProperty('--ticker-dur', Math.max(20, rows.length * 3.2) + 's');
     }
     function fromMarkets(data) {
       var by = {}; data.forEach(function (c) { by[c.id] = c; });
@@ -240,15 +237,9 @@
             });
         });
     }
-    function loadColors() {
-      getJSON('https://api.dexscreener.com/latest/dex/pairs/solana/' + COLORS_PAIR).then(function (d) {
-        var p = d.pair || (d.pairs && d.pairs[0]); if (!p) return;
-        extra = { price: parseFloat(p.priceUsd), pct: parseFloat(p.priceChange && p.priceChange.h24) };
-      }).catch(function () {}).then(load);
-    }
     var c0 = cached(); if (c0) render(c0.rows);
-    loadColors();
-    var iv = setInterval(function () { if (!doc.hidden) loadColors(); }, 60000);
+    load();
+    setInterval(function () { if (!doc.hidden) load(); }, 60000);
   })();
 
   /* ═════════════ CINEMATIC CAROUSEL ═════════════ */

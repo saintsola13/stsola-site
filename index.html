@@ -316,7 +316,6 @@
       <section class="r-group"><h3 class="m-group-title">On This Site</h3><div class="r-list r-jump">
         <a class="r-link" href="#hero" data-close-menu>Hero · Saint Art</a>
         <a class="r-link" href="#radio" data-close-menu>FCKOFF Radio</a>
-        <a class="r-link" href="#tickers" data-close-menu>$COLORS Chart</a>
         <a class="r-link" href="#lofi" data-close-menu>StSola Lofi Live</a>
         <a class="r-link" href="#djvaped" data-close-menu>DJ vAPED</a>
         <a class="r-link" href="#guestbook" data-close-menu>GuestRoom</a>
@@ -385,40 +384,23 @@
       <a class="card-link" href="https://fckoff-radio.pages.dev/" target="_blank" rel="noopener">FULL STATION →</a>
     </section>
 
-    <!-- ══ TICKERS ($COLORS chart) ══ -->
-    <section class="section reveal" id="tickers">
-      <h2 class="section-title">Tickers</h2>
-      <div class="card" style="max-width:560px;display:flex;flex-direction:column;gap:16px;padding:20px 22px;">
-<div class="colors-header">
-<img alt="$COLORS" class="colors-mascot" src="assets/colors-mascot.jpg"/>
-<div>
-<div class="colors-title">$COLORS</div>
-<div class="colors-price-row">
-<span class="colors-price" id="colors-price">--</span>
-<span class="colors-change" id="colors-change">—</span>
-</div>
-<div class="colors-meta" id="colors-meta">SOL · LIVE</div>
-</div>
-</div>
-<div class="colors-chart">
-<iframe allow="clipboard-write" class="lazy-embed" data-src="https://dexscreener.com/solana/6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty?embed=1&amp;theme=dark&amp;trades=0&amp;info=0" loading="lazy" title="$COLORS chart"></iframe>
-</div>
-<div class="colors-links">
-<button class="colors-link" id="colors-copy-btn" onclick="copyColorsCa()">COPY CA</button>
-<a class="colors-link" href="https://dexscreener.com/solana/6f8fu4mvvz3js5qnkv1tdnicgscfjcgvlkwqxeuchoty" rel="noopener" target="_blank">DEXSCREENER →</a>
-<a class="colors-link" href="https://colors.fluxinc.io/" rel="noopener" target="_blank">WEBSITE →</a>
-<a class="colors-link" href="https://x.com/SOLxColors" rel="noopener" target="_blank">X →</a>
-</div>
-</div>
-    </section>
-
     <!-- ══ STSOLA LOFI (live) ══ -->
     <section class="section reveal" id="lofi">
       <h2 class="section-title">StSola Lofi</h2>
       <div class="embed-col">
+        <script>
+          /* Lofi preview image: maxresdefault -> hqdefault -> local Saint art. YouTube serves a 120x90 grey placeholder for missing sizes, so treat that as a miss too. */
+          function lofiThumbFallback(img) {
+            var s = img.getAttribute('src') || '';
+            if (s.indexOf('maxresdefault') !== -1) img.src = 'https://i.ytimg.com/vi/b6ZlGXjKqjI/hqdefault.jpg';
+            else if (s.indexOf('i.ytimg.com') !== -1) img.src = 'assets/saint-losangeles.jpg';
+            else { img.onerror = null; img.style.visibility = 'hidden'; }
+          }
+          function lofiThumbCheck(img) { if (img.naturalWidth && img.naturalWidth <= 120 && (img.getAttribute('src') || '').indexOf('i.ytimg.com') !== -1) lofiThumbFallback(img); }
+        </script>
         <div class="video-shell live-shell" id="lofiShell" data-embed="b6ZlGXjKqjI">
           <a class="yt-facade" href="https://www.youtube.com/live/b6ZlGXjKqjI" target="_blank" rel="noopener" aria-label="StSola Lofi — Live Stream on YouTube">
-            <img src="https://i.ytimg.com/vi/b6ZlGXjKqjI/maxresdefault.jpg" alt="StSola Lofi — Live Stream" loading="lazy" decoding="async" />
+            <img src="https://i.ytimg.com/vi/b6ZlGXjKqjI/maxresdefault.jpg" alt="StSola Lofi — Live Stream" loading="lazy" decoding="async" onerror="lofiThumbFallback(this)" onload="lofiThumbCheck(this)" />
             <span class="yt-play"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
           </a>
           <span class="live-badge"><span class="live-dot"></span>LIVE</span>
