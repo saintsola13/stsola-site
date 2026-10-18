@@ -40,7 +40,7 @@
     modal.id = 'payModal'; modal.className = 'pay-modal'; modal.hidden = true;
     modal.innerHTML = '<div class="pay-box card" role="dialog" aria-modal="true" aria-labelledby="payTitle">' +
       '<button type="button" class="pay-x" data-pay-close aria-label="Close">✕</button>' +
-      '<div class="svc-kicker">ST SOLA // PAY</div><h3 class="card-name pay-title" id="payTitle">Pay with crypto</h3>' +
+      '<h3 class="card-name pay-title" id="payTitle">Pay with crypto</h3>' +
       '<p class="card-desc pay-note">Send to one of these addresses. <strong>Put your project name or email in the memo/message</strong> (or DM me the tx link) so I can match the payment to your project.</p>' +
       row('sol', 'SOL · Solana', ADDR.sol, 'pay-sol') + row('eth', 'ETH · Ethereum', ADDR.eth, 'pay-eth') +
       '<div class="pay-row pay-cash"><div class="pay-row-head"><span class="pay-chain">Cash App</span>' +

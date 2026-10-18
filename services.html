@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=VT323&family=Cinzel:wght@700;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=VT323&family=Cinzel:wght@700;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="/assets/app.css?v=svc1" />
+  <link rel="stylesheet" href="/assets/app.css?v=svc2" />
 </head>
 <body class="svc-page">
   <div class="svc-bg" aria-hidden="true"></div>
@@ -25,11 +25,10 @@
     <a class="svc-mark" href="/" aria-label="St Sola home">ST SOLA</a>
   </header>
   <main class="svc-main">
-    <div class="svc-kicker">WORK WITH ST SOLA</div>
-    <h1 class="svc-h1">Start a Project</h1>
-    <p class="svc-lead">Apps, bots, media, web3. Tell me what you're building and where you're trying to take it. The more detail you drop, the sharper my answer. Every request comes straight to me.</p>
+    <h1 class="m-group-title svc-h1">Start a Project</h1>
 
     <form class="card svc-form" id="svcForm" novalidate>
+      <p class="card-desc svc-intro">Apps, bots, media, web3. Tell me what you're building.</p>
       <div class="svc-row">
         <label class="svc-field"><span>Name *</span><input name="name" required maxlength="80" autocomplete="name" /></label>
         <label class="svc-field"><span>Email *</span><input name="email" type="email" required maxlength="120" autocomplete="email" /></label>
@@ -66,20 +65,20 @@
       <label class="svc-field"><span>Link <em>(optional)</em></span><input name="link" type="url" maxlength="300" placeholder="https:// (site, deck, repo, reference)" /></label>
       <div class="svc-hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off" /></label></div>
       <input type="hidden" name="t" value="" />
-      <button class="card-link svc-primary svc-submit" type="submit">SEND IT →</button>
+      <button class="card-link svc-submit" type="submit">SEND IT →</button>
       <p class="svc-status" id="svcStatus" role="status" aria-live="polite"></p>
     </form>
 
-    <section class="svc-pay" aria-labelledby="svc-pay-title">
-      <h2 class="svc-h2" id="svc-pay-title">Already locked in? Pay here</h2>
-      <p class="svc-note">Only pay once we've agreed on scope and price.</p>
-      <div class="svc-ctas">
-        <a class="card-link svc-stripe" data-stripe href="https://buy.stripe.com/9B628k85aaaBcQ725Y2cg03" target="_blank" rel="noopener">PAY WITH CARD →</a>
+    <section class="card svc-pay" aria-labelledby="svc-pay-title">
+      <h2 class="card-name" id="svc-pay-title">Pay</h2>
+      <p class="card-desc">Only pay once we've agreed on scope and price.</p>
+      <div class="svc-pay-btns">
+        <a class="card-link" data-stripe href="https://buy.stripe.com/9B628k85aaaBcQ725Y2cg03" target="_blank" rel="noopener">PAY WITH CARD →</a>
         <button class="card-link svc-crypto" type="button" data-pay-crypto>PAY WITH CRYPTO</button>
       </div>
     </section>
   </main>
-  <footer class="svc-foot"><a href="/">← Back to stsola.com</a><span>·</span><a href="mailto:info@stsola.us">info@stsola.us</a></footer>
-  <script src="/assets/services.js?v=svc1" defer></script>
+  <footer class="svc-foot"><a href="mailto:info@stsola.us">info@stsola.us</a></footer>
+  <script src="/assets/services.js?v=svc2" defer></script>
 </body>
 </html>

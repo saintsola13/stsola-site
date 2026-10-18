@@ -34,7 +34,7 @@
 <link as="style" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&amp;family=VT323&amp;family=Cinzel:wght@700;900&amp;family=Orbitron:wght@700;900&amp;family=Press+Start+2P&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="preload"/>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&amp;family=VT323&amp;family=Cinzel:wght@700;900&amp;family=Orbitron:wght@700;900&amp;family=Press+Start+2P&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&amp;family=VT323&amp;family=Cinzel:wght@700;900&amp;family=Orbitron:wght@700;900&amp;family=Press+Start+2P&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/></noscript>
-<link href="assets/app.css?v=revamp1" rel="stylesheet"/>
+<link href="assets/app.css?v=svc2" rel="stylesheet"/>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -83,7 +83,7 @@
 <div class="menu-scroll" id="menuLeftScroll">
 <section aria-labelledby="mg-tips" class="m-group" data-group="tips">
 <h3 class="m-group-title" id="mg-tips">Tip Jar</h3>
-<div class="m-items"><div class="card m-item m-tips" data-cat="tips"><div class="card-name">Tip Jar</div><div class="card-desc">Show love. SOL, ETH or Cash App.</div><div class="tip-row"><button class="tip-btn tip-btn-sol" onclick="tipCopy('sol')" title="Tip with SOL">
+<div class="m-items"><div class="card m-item m-tips" data-cat="tips"><div class="card-name">Tip Jar</div><div class="card-desc">Show love. SOL, ETH, Cash App or card.</div><div class="tip-row"><button class="tip-btn tip-btn-sol" onclick="tipCopy('sol')" title="Tip with SOL">
 <!-- Solana logo -->
 <svg fill="none" height="13" viewbox="0 0 128 128" width="13" xmlns="http://www.w3.org/2000/svg">
 <path d="M21.7 94.6a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3.1L105.9 115a3.6 3.6 0 0 1-2.5 1H4.6a1.8 1.8 0 0 1-1.3-3.1l18.4-18.3ZM21.7 13a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3L105.9 33.4a3.6 3.6 0 0 1-2.5 1H4.6A1.8 1.8 0 0 1 3.3 31L21.7 13ZM105.9 53.6a3.6 3.6 0 0 0-2.5-1H4.6a1.8 1.8 0 0 0-1.3 3.1L21.7 74a3.6 3.6 0 0 0 2.5 1H123a1.8 1.8 0 0 0 1.3-3.1L105.9 53.6Z" fill="#14f195"></path>
@@ -101,6 +101,12 @@
 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15.93V19h-2v-1.07A4.01 4.01 0 0 1 8 14h2c0 1.1.9 2 2 2s2-.9 2-2c0-1.1-.9-2-2-2a4 4 0 0 1 0-8V3h2v1.07A4.01 4.01 0 0 1 16 8h-2c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2a4 4 0 0 1 0 8Z" fill="#00d46e"></path>
 </svg>
       CASH APP
+    </a><a class="tip-btn tip-btn-card" data-stripe="" href="https://buy.stripe.com/9B628k85aaaBcQ725Y2cg03" rel="noopener" target="_blank" title="Pay with card (Stripe)">
+<!-- card -->
+<svg fill="none" height="13" viewbox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm-1 4v2h20V9H2Zm3 6v1.5h5V15H5Z" fill="#a78bff"></path>
+</svg>
+      CARD
     </a></div></div></div>
 </section>
 <section aria-labelledby="mg-security" class="m-group" data-group="security">
@@ -288,23 +294,15 @@
 </section>
 <!-- ══ SERVICES ══ -->
 <section aria-labelledby="svc-title" class="section reveal" id="services">
-<div class="svc-kicker">WORK WITH ST SOLA</div>
-<h2 class="section-title" id="svc-title">Services</h2>
-<p class="svc-lead">Straight out the East Side with a keyboard. I build the apps, bots, media and web3 tools you see on this site, and I can build yours. You bring the vision, I bring it to life: clean code, sharp design, shipped fast. No fluff, no runaround.</p>
-<div class="svc-grid">
-<div class="card svc-card"><div aria-hidden="true" class="svc-ic">⌘</div><div class="card-name">Apps</div><div class="card-desc">Web apps, PWAs, games and tools. Mobile-first, fast, and built to actually get used.</div></div>
-<div class="card svc-card"><div aria-hidden="true" class="svc-ic">⚙</div><div class="card-name">Bots</div><div class="card-desc">Telegram, Discord and X bots. Trading and community bots, holder verification and automations that run 24/7 while you sleep.</div></div>
-<div class="card svc-card"><div aria-hidden="true" class="svc-ic">▶</div><div class="card-name">Media</div><div class="card-desc">Music videos, promo videos, Blender/3D, motion graphics and art drops that hit as hard as the product.</div></div>
-<div class="card svc-card"><div aria-hidden="true" class="svc-ic">◈</div><div class="card-name">Web3</div><div class="card-desc">NFT and token sites, wallet tools, and the security tooling that keeps your holders safe.</div></div>
-</div>
-<div aria-label="Proof of work" class="svc-proof">
-<span class="svc-proof-label">Built it before:</span>
-<span class="svc-chip">Sainthood Bot</span><span class="svc-chip">NFTstack</span><span class="svc-chip">Saint Watch</span><span class="svc-chip">Saint Shield</span><span class="svc-chip">HangMeng</span><span class="svc-chip">Vibeulizer</span><span class="svc-chip">ClipFish</span><span class="svc-chip">ITIA videos</span>
-</div>
-<div class="svc-ctas">
-<a class="card-link svc-primary" href="/services">START A PROJECT →</a>
-<a class="card-link svc-stripe" data-stripe="" href="https://buy.stripe.com/9B628k85aaaBcQ725Y2cg03" rel="noopener" target="_blank">PAY WITH CARD →</a>
-<button class="card-link svc-crypto" data-pay-crypto="" type="button">PAY WITH CRYPTO</button>
+<div class="card svc-tile">
+<h2 class="card-name svc-tile-title" id="svc-title">Dev Services</h2>
+<ul class="svc-list">
+<li><strong>Apps</strong> web apps, PWAs, games, tools</li>
+<li><strong>Bots</strong> Telegram, Discord and X bots</li>
+<li><strong>Media</strong> music videos, promos, 3D</li>
+<li><strong>Web3</strong> NFT and token sites, wallet tools</li>
+</ul>
+<a class="card-link svc-start" href="/services">START A PROJECT →</a>
 </div>
 </section>
 <!-- ══ STSOLA LOFI (live) ══ -->
@@ -536,6 +534,6 @@
 </div>
 <script src="assets/legacy.js?v=revamp1"></script>
 <script defer="" src="assets/app.js?v=revamp1"></script>
-<script defer="" src="assets/services.js?v=svc1"></script>
+<script defer="" src="assets/services.js?v=svc2"></script>
 </body>
 </html>
