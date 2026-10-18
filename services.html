@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Start a Project — St Sola Services</title>
+  <meta name="description" content="Apps, bots, media and web3, built by St Sola. Tell me what you're building." />
+  <meta name="theme-color" content="#07030a" />
+  <meta property="og:title" content="Start a Project — St Sola Services" />
+  <meta property="og:description" content="Apps, bots, media and web3, built by St Sola. Tell me what you're building." />
+  <meta property="og:image" content="https://stsola.com/assets/hero-bg.jpg" />
+  <meta property="og:url" content="https://stsola.com/services" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/stsola-logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Cinzel:wght@700;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=VT323&family=Cinzel:wght@700;900&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="/assets/app.css?v=svc1" />
+</head>
+<body class="svc-page">
+  <div class="svc-bg" aria-hidden="true"></div>
+  <header class="svc-top">
+    <a class="svc-back" href="/">← stsola.com</a>
+    <a class="svc-mark" href="/" aria-label="St Sola home">ST SOLA</a>
+  </header>
+  <main class="svc-main">
+    <div class="svc-kicker">WORK WITH ST SOLA</div>
+    <h1 class="svc-h1">Start a Project</h1>
+    <p class="svc-lead">Apps, bots, media, web3. Tell me what you're building and where you're trying to take it. The more detail you drop, the sharper my answer. Every request comes straight to me.</p>
+
+    <form class="card svc-form" id="svcForm" novalidate>
+      <div class="svc-row">
+        <label class="svc-field"><span>Name *</span><input name="name" required maxlength="80" autocomplete="name" /></label>
+        <label class="svc-field"><span>Email *</span><input name="email" type="email" required maxlength="120" autocomplete="email" /></label>
+      </div>
+      <label class="svc-field"><span>X or Telegram handle <em>(optional)</em></span><input name="handle" maxlength="60" placeholder="@yourhandle" /></label>
+      <fieldset class="svc-field svc-types">
+        <legend>What do you need? * <em>(pick any)</em></legend>
+        <label class="svc-check"><input type="checkbox" name="services" value="Apps" /><span>Apps</span></label>
+        <label class="svc-check"><input type="checkbox" name="services" value="Bots" /><span>Bots</span></label>
+        <label class="svc-check"><input type="checkbox" name="services" value="Media" /><span>Media</span></label>
+        <label class="svc-check"><input type="checkbox" name="services" value="Web3" /><span>Web3</span></label>
+        <label class="svc-check"><input type="checkbox" name="services" value="Other" /><span>Other</span></label>
+      </fieldset>
+      <div class="svc-row">
+        <label class="svc-field"><span>Budget <em>(optional)</em></span>
+          <select name="budget">
+            <option value="">Prefer not to say</option>
+            <option>Small: a quick build or fix</option>
+            <option>Medium: a full feature or project</option>
+            <option>Large: a big build or ongoing work</option>
+            <option>Not sure yet: let's talk</option>
+          </select></label>
+        <label class="svc-field"><span>Timeline *</span>
+          <select name="timeline" required>
+            <option value="">Pick one</option>
+            <option>ASAP</option>
+            <option>Within 2 weeks</option>
+            <option>Within a month</option>
+            <option>1 to 3 months</option>
+            <option>Flexible</option>
+          </select></label>
+      </div>
+      <label class="svc-field"><span>Project details *</span><textarea name="details" required minlength="20" maxlength="5000" rows="7" placeholder="What are you building, who is it for, and what does done look like?"></textarea></label>
+      <label class="svc-field"><span>Link <em>(optional)</em></span><input name="link" type="url" maxlength="300" placeholder="https:// (site, deck, repo, reference)" /></label>
+      <div class="svc-hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off" /></label></div>
+      <input type="hidden" name="t" value="" />
+      <button class="card-link svc-primary svc-submit" type="submit">SEND IT →</button>
+      <p class="svc-status" id="svcStatus" role="status" aria-live="polite"></p>
+    </form>
+
+    <section class="svc-pay" aria-labelledby="svc-pay-title">
+      <h2 class="svc-h2" id="svc-pay-title">Already locked in? Pay here</h2>
+      <p class="svc-note">Only pay once we've agreed on scope and price.</p>
+      <div class="svc-ctas">
+        <a class="card-link svc-stripe" data-stripe href="https://buy.stripe.com/9B628k85aaaBcQ725Y2cg03" target="_blank" rel="noopener">PAY WITH CARD →</a>
+        <button class="card-link svc-crypto" type="button" data-pay-crypto>PAY WITH CRYPTO</button>
+      </div>
+    </section>
+  </main>
+  <footer class="svc-foot"><a href="/">← Back to stsola.com</a><span>·</span><a href="mailto:info@stsola.us">info@stsola.us</a></footer>
+  <script src="/assets/services.js?v=svc1" defer></script>
+</body>
+</html>
