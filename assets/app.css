@@ -1174,3 +1174,7 @@ body.menu-open .edge-hint{opacity:0!important;animation:none}
 
 /* lofi card: local Saint art underneath the YouTube thumbnail, so the card is never blank */
 .yt-facade{background:#000 url('/assets/saint-losangeles.jpg') center/cover no-repeat}
+/* socials sub-groups (right menu) */
+.r-sub{margin:14px 4px 6px;font-size:.9rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.r-link-sm{font-size:1.05rem;padding:9px 12px}
+.r-plat{flex-shrink:0;min-width:74px;font-size:.85rem;letter-spacing:.12em;color:var(--cyan);opacity:.8}

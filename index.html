@@ -1,98 +1,89 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>St Sola — Loyalty Over Bullshit</title>
-  <meta name="description" content="Builder. Saint. Creator. Security tools, degen plays, bots & more." />
-  <meta name="theme-color" content="#07030a" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="St Sola — Loyalty Over Bullshit" />
-  <meta property="og:description" content="Builder. Saint. Creator. Security tools, degen plays, bots & more." />
-  <meta property="og:image" content="https://stsola.com/assets/hero-bg.jpg" />
-  <meta property="og:url" content="https://stsola.com/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter / X Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="St Sola — Loyalty Over Bullshit" />
-  <meta name="twitter:description" content="Builder. Saint. Creator. Security tools, degen plays, bots & more." />
-  <meta name="twitter:image" content="https://stsola.com/assets/hero-bg.jpg" />
-
-  <!-- Google Analytics -->
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QTEKXNP9S3"></script>
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>St Sola — Loyalty Over Bullshit</title>
+<meta content="Builder. Saint. Creator. Security tools, degen plays, bots &amp; more." name="description"/>
+<meta content="#07030a" name="theme-color"/>
+<!-- Open Graph -->
+<meta content="St Sola — Loyalty Over Bullshit" property="og:title"/>
+<meta content="Builder. Saint. Creator. Security tools, degen plays, bots &amp; more." property="og:description"/>
+<meta content="https://stsola.com/assets/hero-bg.jpg" property="og:image"/>
+<meta content="https://stsola.com/" property="og:url"/>
+<meta content="website" property="og:type"/>
+<!-- Twitter / X Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="St Sola — Loyalty Over Bullshit" name="twitter:title"/>
+<meta content="Builder. Saint. Creator. Security tools, degen plays, bots &amp; more." name="twitter:description"/>
+<meta content="https://stsola.com/assets/hero-bg.jpg" name="twitter:image"/>
+<!-- Google Analytics -->
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QTEKXNP9S3"></script>
+<script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-QTEKXNP9S3');
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://api.coingecko.com" crossorigin />
-  <link rel="preload" as="image" href="assets/saint-pool.jpg" />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600&display=swap" />
-  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript><link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=VT323&family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="assets/app.css?v=revamp1" />
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link crossorigin="" href="https://api.coingecko.com" rel="preconnect"/>
+<link as="image" href="assets/saint-pool.jpg" rel="preload"/>
+<link as="style" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&amp;family=VT323&amp;family=Cinzel:wght@700;900&amp;family=Orbitron:wght@700;900&amp;family=Press+Start+2P&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="preload"/>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&amp;family=VT323&amp;family=Cinzel:wght@700;900&amp;family=Orbitron:wght@700;900&amp;family=Press+Start+2P&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&amp;family=VT323&amp;family=Cinzel:wght@700;900&amp;family=Orbitron:wght@700;900&amp;family=Press+Start+2P&amp;family=Space+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/></noscript>
+<link href="assets/app.css?v=revamp1" rel="stylesheet"/>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <!-- CRYPTO TICKER -->
-  <div id="crypto-ticker" role="marquee" aria-label="Live crypto prices">
-    <div class="ticker-track" id="ticker-track">
-      <span class="ticker-item"><span class="ticker-sym">SOL</span><span class="ticker-price">…</span></span>
-      <span class="ticker-item"><span class="ticker-sym">ETH</span><span class="ticker-price">…</span></span>
-      <span class="ticker-item"><span class="ticker-sym">BTC</span><span class="ticker-price">…</span></span>
-    </div>
-  </div>
-
-  <!-- TOP BAR -->
-  <header class="topbar" id="topbar">
-    <button class="menu-btn menu-btn-left" id="openLeft" aria-controls="menuLeft" aria-expanded="false" aria-label="Open apps and projects menu">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-      <span>APPS</span>
-    </button>
-    <a class="topbar-logo" href="#hero" aria-label="St Sola home">St Sola</a>
-    <button class="menu-btn menu-btn-right" id="openRight" aria-controls="menuRight" aria-expanded="false" aria-label="Open links, socials and dev login menu">
-      <span>LINKS</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M10 17h10"/></svg>
-    </button>
-  </header>
-
-  <!-- FIXED CHARACTER BACKGROUND -->
-  <img src="assets/hero-bg.jpg" alt="" class="bg-char" fetchpriority="low" />
-  <div class="bg-overlay"></div>
-  <canvas id="neon-field" aria-hidden="true"></canvas>
-  <div class="grain" aria-hidden="true"></div>
-
-  <!-- SWIPE HINT EDGES -->
-  <div class="edge-hint edge-hint-left" aria-hidden="true"></div>
-  <div class="edge-hint edge-hint-right" aria-hidden="true"></div>
-
-  <!-- MENU OVERLAY -->
-  <div class="menu-overlay" id="menuOverlay" aria-hidden="true"></div>
-
-  <!-- ══ LEFT MENU: APPS / TOOLS / PROJECTS ══ -->
-  <aside class="side-menu side-left" id="menuLeft" role="dialog" aria-modal="true" aria-label="Apps, tools and projects" aria-hidden="true" tabindex="-1">
-    <div class="menu-head">
-      <div class="menu-kicker">ST SOLA // BUILT</div>
-      <div class="menu-title">Apps &amp; Projects</div>
-      <button class="menu-close" data-close-menu aria-label="Close menu">✕</button>
-    </div>
-    <div class="menu-tools">
-      <label class="m-search-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="menuSearch" type="search" placeholder="search apps, tools, homies…" autocomplete="off" aria-label="Search apps and projects" /></label>
-      <div class="m-chips" id="menuChips"><button class="m-chip active" data-filter="all" type="button">All</button><button class="m-chip" data-filter="tips" type="button">Tips</button><button class="m-chip" data-filter="security" type="button">Security</button><button class="m-chip" data-filter="degen" type="button">Degen</button><button class="m-chip" data-filter="bots" type="button">Bots</button><button class="m-chip" data-filter="randoms" type="button">Built</button><button class="m-chip" data-filter="art" type="button">Art</button><button class="m-chip" data-filter="code" type="button">Code</button><button class="m-chip" data-filter="community" type="button">Community</button><button class="m-chip" data-filter="homies" type="button">Homies</button><button class="m-chip" data-filter="radar" type="button">Radar</button></div>
-    </div>
-    <div class="menu-scroll" id="menuLeftScroll">
-      
-      <section class="m-group " data-group="tips" aria-labelledby="mg-tips">
-        <h3 class="m-group-title" id="mg-tips">Tip Jar</h3>
-        <div class="m-items"><div class="card m-item m-tips" data-cat="tips"><div class="card-name">Tip Jar</div><div class="card-desc">Show love. SOL, ETH or Cash App.</div><div class="tip-row"><button class="tip-btn tip-btn-sol" onclick="tipCopy('sol')" title="Tip with SOL">
+<a class="skip-link" href="#main">Skip to content</a>
+<!-- CRYPTO TICKER -->
+<div aria-label="Live crypto prices" id="crypto-ticker" role="marquee">
+<div class="ticker-track" id="ticker-track">
+<span class="ticker-item"><span class="ticker-sym">SOL</span><span class="ticker-price">…</span></span>
+<span class="ticker-item"><span class="ticker-sym">ETH</span><span class="ticker-price">…</span></span>
+<span class="ticker-item"><span class="ticker-sym">BTC</span><span class="ticker-price">…</span></span>
+</div>
+</div>
+<!-- TOP BAR -->
+<header class="topbar" id="topbar">
+<button aria-controls="menuLeft" aria-expanded="false" aria-label="Open apps and projects menu" class="menu-btn menu-btn-left" id="openLeft">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="7" rx="1.5" width="7" x="3" y="3"></rect><rect height="7" rx="1.5" width="7" x="14" y="3"></rect><rect height="7" rx="1.5" width="7" x="3" y="14"></rect><rect height="7" rx="1.5" width="7" x="14" y="14"></rect></svg>
+<span>APPS</span>
+</button>
+<a aria-label="St Sola home" class="topbar-logo" href="#hero">St Sola</a>
+<button aria-controls="menuRight" aria-expanded="false" aria-label="Open links, socials and dev login menu" class="menu-btn menu-btn-right" id="openRight">
+<span>LINKS</span>
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M4 7h16M4 12h16M10 17h10"></path></svg>
+</button>
+</header>
+<!-- FIXED CHARACTER BACKGROUND -->
+<img alt="" class="bg-char" fetchpriority="low" src="assets/hero-bg.jpg"/>
+<div class="bg-overlay"></div>
+<canvas aria-hidden="true" id="neon-field"></canvas>
+<div aria-hidden="true" class="grain"></div>
+<!-- SWIPE HINT EDGES -->
+<div aria-hidden="true" class="edge-hint edge-hint-left"></div>
+<div aria-hidden="true" class="edge-hint edge-hint-right"></div>
+<!-- MENU OVERLAY -->
+<div aria-hidden="true" class="menu-overlay" id="menuOverlay"></div>
+<!-- ══ LEFT MENU: APPS / TOOLS / PROJECTS ══ -->
+<aside aria-hidden="true" aria-label="Apps, tools and projects" aria-modal="true" class="side-menu side-left" id="menuLeft" role="dialog" tabindex="-1">
+<div class="menu-head">
+<div class="menu-kicker">ST SOLA // APPS</div>
+<div class="menu-title">Apps &amp; Projects</div>
+<button aria-label="Close menu" class="menu-close" data-close-menu="">✕</button>
+</div>
+<div class="menu-tools">
+<label class="m-search-wrap"><svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+<input aria-label="Search apps and projects" autocomplete="off" id="menuSearch" placeholder="search apps, tools, homies…" type="search"/></label>
+<div class="m-chips" id="menuChips"><button class="m-chip active" data-filter="all" type="button">All</button><button class="m-chip" data-filter="tips" type="button">Tips</button><button class="m-chip" data-filter="security" type="button">Security</button><button class="m-chip" data-filter="degen" type="button">Degen</button><button class="m-chip" data-filter="tools" type="button">Tools</button><button class="m-chip" data-filter="bots" type="button">Bots</button><button class="m-chip" data-filter="art" type="button">Art</button><button class="m-chip" data-filter="code" type="button">Code</button><button class="m-chip" data-filter="homies" type="button">Homies</button><button class="m-chip" data-filter="radar" type="button">Radar</button></div>
+</div>
+<div class="menu-scroll" id="menuLeftScroll">
+<section aria-labelledby="mg-tips" class="m-group" data-group="tips">
+<h3 class="m-group-title" id="mg-tips">Tip Jar</h3>
+<div class="m-items"><div class="card m-item m-tips" data-cat="tips"><div class="card-name">Tip Jar</div><div class="card-desc">Show love. SOL, ETH or Cash App.</div><div class="tip-row"><button class="tip-btn tip-btn-sol" onclick="tipCopy('sol')" title="Tip with SOL">
 <!-- Solana logo -->
 <svg fill="none" height="13" viewbox="0 0 128 128" width="13" xmlns="http://www.w3.org/2000/svg">
 <path d="M21.7 94.6a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3.1L105.9 115a3.6 3.6 0 0 1-2.5 1H4.6a1.8 1.8 0 0 1-1.3-3.1l18.4-18.3ZM21.7 13a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3L105.9 33.4a3.6 3.6 0 0 1-2.5 1H4.6A1.8 1.8 0 0 1 3.3 31L21.7 13ZM105.9 53.6a3.6 3.6 0 0 0-2.5-1H4.6a1.8 1.8 0 0 0-1.3 3.1L21.7 74a3.6 3.6 0 0 0 2.5 1H123a1.8 1.8 0 0 0 1.3-3.1L105.9 53.6Z" fill="#14f195"></path>
@@ -111,10 +102,10 @@
 </svg>
       CASH APP
     </a></div></div></div>
-      </section>
-      <section class="m-group " data-group="security" aria-labelledby="mg-security">
-        <h3 class="m-group-title" id="mg-security">Security Tools</h3>
-        <div class="m-items"><div class="card m-item" data-cat="apps">
+</section>
+<section aria-labelledby="mg-security" class="m-group" data-group="security">
+<h3 class="m-group-title" id="mg-security">Security Tools</h3>
+<div class="m-items"><div class="card m-item" data-cat="apps">
 <div class="card-name">NFTstack</div>
 <div class="card-desc">Free directory of every NFT tool. Updated daily. nftstack.net</div>
 <a class="card-link" href="https://nftstack.net" rel="noopener" target="_blank">NFTSTACK.NET →</a>
@@ -131,10 +122,10 @@
 <div class="card-desc">Real wallet P&amp;L tracker. Ethereum and Solana. Crypto and NFTs. Any timeframe. No account, no signature, no cost. Paste any address and see the real numbers.</div>
 <a class="card-link" href="https://pnl3.saintsola13.workers.dev" rel="noopener" target="_blank">LAUNCH →</a>
 </div></div>
-      </section>
-      <section class="m-group " data-group="degen" aria-labelledby="mg-degen">
-        <h3 class="m-group-title" id="mg-degen">Degen Plays &amp; Entertainment</h3>
-        <div class="m-items"><div class="card m-item" data-cat="degen">
+</section>
+<section aria-labelledby="mg-degen" class="m-group" data-group="degen">
+<h3 class="m-group-title" id="mg-degen">Degen Plays &amp; Entertainment</h3>
+<div class="m-items"><div class="card m-item" data-cat="degen">
 <div class="card-name">Trap Wars</div>
 <div class="card-desc">PVP trading battles on Solana. Best trader wins the pot. Squads Protocol escrow. No mercy.</div>
 <a class="card-link" href="https://trapwars.win" rel="noopener" target="_blank">ENTER →</a>
@@ -158,63 +149,63 @@
 <div class="card-name">M4SK</div>
 <div class="card-desc">Web face-mask studio. Drop any photo on your face in real time. Mouth moves. Eyes blink. Record and save. No app needed.</div>
 <a class="card-link" href="https://masklab.saintsola13.workers.dev" rel="noopener" target="_blank">LAUNCH →</a>
-</div></div>
-      </section>
-      <section class="m-group " data-group="bots" aria-labelledby="mg-bots">
-        <h3 class="m-group-title" id="mg-bots">Bots &amp; Automation</h3>
-        <div class="m-items"><div class="card m-item" data-cat="bots">
-<div class="card-name">Telegram Bot Suite</div>
-<div class="card-desc">6 live bots running 24/7. Daily briefings, astrology, recipes, word definitions, spiritual teachings, and Saints community management. All automated.</div>
-<a class="card-link" href="https://t.me/Saint_hood_bot" rel="noopener" target="_blank">@Saint_hood_bot →</a>
-</div><div class="card m-item" data-cat="bots">
-<div class="card-name">X / Twitter Bot</div>
-<div class="card-desc">@StCyph3r — automated Saints of LA NFT sales alerts and daily posts. Runs on the VPS, fires every sale in real time.</div>
-<a class="card-link" href="https://twitter.com/StCyph3r" rel="noopener" target="_blank">@StCyph3r →</a>
-</div></div>
-      </section>
-      <section class="m-group " data-group="randoms" aria-labelledby="mg-randoms">
-        <h3 class="m-group-title" id="mg-randoms">Other Shit I Built</h3>
-        <div class="m-items"><div class="card m-item" data-cat="randoms">
-<div class="card-name">NFT F3TCH</div>
-<div class="card-desc">Wallet NFT viewer. Connect or paste any address and see your full NFT collection across chains. Clean. Fast. Free.</div>
-<a class="card-link" href="https://nft-f3tch.pages.dev" rel="noopener" target="_blank">VIEW →</a>
-</div><div class="card m-item" data-cat="randoms">
-<div class="card-name">NFT Grid</div>
-<div class="card-desc">Photo collage tool. Upload up to 100 photos and choose your center pic.</div>
-<a class="card-link" href="https://grid.saintsola13.workers.dev/" rel="noopener" target="_blank">VIEW →</a>
-</div><div class="card m-item" data-cat="randoms">
+</div><div class="card m-item" data-cat="degen">
 <div class="card-name">FCKOFF Radio</div>
 <div class="card-desc">90s hip hop internet radio. West Coast. Old school. No ads. No German news.</div>
 <a class="card-link" href="https://fckoff-radio.pages.dev/" rel="noopener" target="_blank">TUNE IN →</a>
-</div><div class="card m-item" data-cat="randoms">
+</div><div class="card m-item" data-cat="degen">
 <div class="card-name">It Couldn't Be</div>
 <div class="card-desc">Mystery game. You'll see.</div>
 <a class="card-link" href="https://it-couldnt-be.netlify.app/" rel="noopener" target="_blank">PLAY →</a>
-</div><div class="card m-item" data-cat="randoms">
-<div class="card-name">QR Studio</div>
-<div class="card-desc">Custom QR code generator. Style it, brand it, download it.</div>
-<a class="card-link" href="https://qrstudiov2.netlify.app/" rel="noopener" target="_blank">USE IT →</a>
-</div><div class="card m-item" data-cat="randoms">
-<div class="card-name">Saints Relic Generator</div>
-<div class="card-desc">Generate your Saints relic. On-chain energy, off-chain vibes.</div>
-<a class="card-link" href="https://saints-relic-generator.netlify.app/" rel="noopener" target="_blank">GENERATE →</a>
-</div><div class="card m-item" data-cat="randoms">
+</div><div class="card m-item" data-cat="degen">
 <div class="card-name">Vibeulizer</div>
 <div class="card-desc">Visual effects generator. Turn the vibe up.</div>
 <a class="card-link" href="https://vibeulizer.netlify.app/" rel="noopener" target="_blank">VIBE →</a>
-</div><div class="card m-item" data-cat="randoms">
+</div><div class="card m-item" data-cat="degen">
 <div class="card-name">The Lower Left</div>
 <div class="card-desc">Screen saver. Hypnotic. Just let it run.</div>
 <a class="card-link" href="https://thelowerleft.netlify.app/" rel="noopener" target="_blank">WATCH →</a>
 </div></div>
-      </section>
-      <section class="m-group " data-group="art" aria-labelledby="mg-art">
-        <h3 class="m-group-title" id="mg-art">St Sola Art</h3>
-        <div class="m-items"><div class="card m-item" data-cat="art"><div class="card-name">OBJKT</div><div class="card-desc">St Sola art on OBJKT (Tezos).</div><a class="card-link" href="https://objkt.com/profile/tz1i6JL2r2cpwq2gf23RrCdGaqobbj4KYGY1" rel="noopener" style="font-size:1.2rem;padding:12px 32px;letter-spacing:0.15em" target="_blank">OBJKT →</a></div></div>
-      </section>
-      <section class="m-group " data-group="code" aria-labelledby="mg-code">
-        <h3 class="m-group-title" id="mg-code">Code for Sale</h3>
-        <div class="m-items"><div class="card m-item" data-cat="code" style="border-color:rgba(255,215,0,0.18);">
+</section>
+<section aria-labelledby="mg-tools" class="m-group" data-group="tools">
+<h3 class="m-group-title" id="mg-tools">Creative Tools</h3>
+<div class="m-items"><div class="card m-item" data-cat="tools">
+<div class="card-name">NFT F3TCH</div>
+<div class="card-desc">Wallet NFT viewer. Connect or paste any address and see your full NFT collection across chains. Clean. Fast. Free.</div>
+<a class="card-link" href="https://nft-f3tch.pages.dev" rel="noopener" target="_blank">VIEW →</a>
+</div><div class="card m-item" data-cat="tools">
+<div class="card-name">NFT Grid</div>
+<div class="card-desc">Photo collage tool. Upload up to 100 photos and choose your center pic.</div>
+<a class="card-link" href="https://grid.saintsola13.workers.dev/" rel="noopener" target="_blank">VIEW →</a>
+</div><div class="card m-item" data-cat="tools">
+<div class="card-name">QR Studio</div>
+<div class="card-desc">Custom QR code generator. Style it, brand it, download it.</div>
+<a class="card-link" href="https://qrstudiov2.netlify.app/" rel="noopener" target="_blank">USE IT →</a>
+</div><div class="card m-item" data-cat="tools">
+<div class="card-name">Saints Relic Generator</div>
+<div class="card-desc">Generate your Saints relic. On-chain energy, off-chain vibes.</div>
+<a class="card-link" href="https://saints-relic-generator.netlify.app/" rel="noopener" target="_blank">GENERATE →</a>
+</div></div>
+</section>
+<section aria-labelledby="mg-bots" class="m-group" data-group="bots">
+<h3 class="m-group-title" id="mg-bots">Bots &amp; Automation</h3>
+<div class="m-items"><div class="card m-item" data-cat="bots">
+<div class="card-name">Telegram Bot Suite</div>
+<div class="card-desc">6 live bots running 24/7. Daily briefings, astrology, recipes, word definitions, spiritual teachings, and Saints community management. All automated.</div>
+
+</div><div class="card m-item" data-cat="bots">
+<div class="card-name">X / Twitter Bot</div>
+<div class="card-desc">@StCyph3r — automated Saints of LA NFT sales alerts and daily posts. Runs on the VPS, fires every sale in real time.</div>
+
+</div></div>
+</section>
+<section aria-labelledby="mg-art" class="m-group" data-group="art">
+<h3 class="m-group-title" id="mg-art">St Sola Art</h3>
+<div class="m-items"><div class="card m-item" data-cat="art"><div class="card-name">OBJKT</div><div class="card-desc">St Sola art on OBJKT (Tezos).</div><a class="card-link" href="https://objkt.com/profile/tz1i6JL2r2cpwq2gf23RrCdGaqobbj4KYGY1" rel="noopener" style="font-size:1.2rem;padding:12px 32px;letter-spacing:0.15em" target="_blank">OBJKT →</a></div></div>
+</section>
+<section aria-labelledby="mg-code" class="m-group" data-group="code">
+<h3 class="m-group-title" id="mg-code">Code for Sale</h3>
+<div class="m-items"><div class="card m-item" data-cat="code" style="border-color:rgba(255,215,0,0.18);">
 <div class="card-name" style="color:#ffd700">Flux Protocol</div>
 <div class="card-desc" id="fluxTeaser">NFT collateral infrastructure. Production-ready Solidity. Click to learn what it does.</div>
 <div id="fluxDetail" style="display:none;color:rgba(255,255,255,0.75);font-size:1rem;line-height:1.7">
@@ -227,29 +218,11 @@
 <a class="card-link" href="mailto:info@stsola.us?subject=Flux Protocol" style="background:rgba(255,58,0,0.1)">INQUIRE →</a>
 </div>
 </div></div>
-      </section>
-      <section class="m-group " data-group="community" aria-labelledby="mg-community">
-        <h3 class="m-group-title" id="mg-community">In the Community</h3>
-        <div class="m-items"><div class="amb-grid m-item m-item-flat" data-cat="community"><a class="amb-card" href="https://x.com/saintsoflanft" rel="noopener" target="_blank">
-<div class="amb-role">Socials</div>
-<div class="amb-name">Saints of LA</div>
-</a><a class="amb-card" href="https://x.com/Stzyapegang" rel="noopener" target="_blank">
-<div class="amb-role">Socials</div>
-<div class="amb-name">STZY Ape Gang</div>
-</a><a class="amb-card" href="https://x.com/HMN5_NFT" rel="noopener" target="_blank">
-<div class="amb-role">Socials</div>
-<div class="amb-name">HMN5</div>
-</a><a class="amb-card" href="https://x.com/Chumpzonape" rel="noopener" target="_blank">
-<div class="amb-role">Socials</div>
-<div class="amb-name">Chumpz on Ape</div>
-</a><a class="amb-card" href="https://x.com/ithinkitsart" rel="noopener" target="_blank">
-<div class="amb-role">Affiliate</div>
-<div class="amb-name">ITIA</div>
-</a></div></div>
-      </section>
-      <section class="m-group " data-group="homies" aria-labelledby="mg-homies">
-        <h3 class="m-group-title" id="mg-homies">St Sola's Homies</h3>
-        <div class="m-items"><div class="homie-card m-item" data-cat="homies">
+</section>
+
+<section aria-labelledby="mg-homies" class="m-group" data-group="homies">
+<h3 class="m-group-title" id="mg-homies">St Sola's Homies</h3>
+<div class="m-items"><div class="homie-card m-item" data-cat="homies">
 <div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:#000;position:relative">
 <img alt="Rabid Artwork by Roman Blat" loading="lazy" onmouseout="this.style.transform='scale(1)'" onmouseover="this.style.transform='scale(1.04)'" src="assets/rabid-roman-blat.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .4s ease"/>
 </div>
@@ -261,14 +234,14 @@
 <a class="card-link" href="https://www.rabidartwork.com" rel="noopener" target="_blank">RABIDARTWORK.COM →</a>
 <a class="card-link" href="https://www.imdb.com/name/nm4815384/" rel="noopener" target="_blank">IMDB →</a>
 <a class="card-link" href="https://www.rabidartwork.com/rabidartwork-nft" rel="noopener" target="_blank">NFT SHOP →</a>
-<a class="card-link" href="https://x.com/RabidArtWorkRIP" rel="noopener" target="_blank">𝕏 @RabidArtWorkRIP →</a>
+
 </div>
 </div>
-</div><div class="card m-item" data-cat="homies"><div class="card-name">DJ vAPED</div><div class="card-desc">Dope DJ based out of LA. Set embedded on the main page.</div><div class="homie-links"><a class="card-link" href="#djvaped" data-close-menu>WATCH SET ↓</a><a class="card-link" href="https://www.youtube.com/@djvaped" target="_blank" rel="noopener">YOUTUBE →</a><a class="card-link" href="https://x.com/DJvAPED" target="_blank" rel="noopener">𝕏 @DJvAPED →</a></div></div></div>
-      </section>
-      <section class="m-group " data-group="radar" aria-labelledby="mg-radar">
-        <h3 class="m-group-title" id="mg-radar">On My Radar</h3>
-        <div class="m-items"><div class="homie-card m-item" data-cat="radar">
+</div><div class="card m-item" data-cat="homies"><div class="card-name">DJ vAPED</div><div class="card-desc">Dope DJ based out of LA. Set embedded on the main page.</div><div class="homie-links"><a class="card-link" data-close-menu="" href="#djvaped">WATCH SET ↓</a></div></div></div>
+</section>
+<section aria-labelledby="mg-radar" class="m-group" data-group="radar">
+<h3 class="m-group-title" id="mg-radar">On My Radar</h3>
+<div class="m-items"><div class="homie-card m-item" data-cat="radar">
 <div style="width:100%;aspect-ratio:4/3;overflow:hidden;background:#0a0a14;position:relative;display:flex;align-items:center;justify-content:center">
 <img alt="HOLO — Holotag App" loading="lazy" onmouseout="this.style.transform='scale(1)'" onmouseover="this.style.transform='scale(1.04)'" src="assets/holotag-app.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .4s ease"/>
 </div>
@@ -278,86 +251,82 @@
 <div class="homie-desc">All-in-one platform for collectors. Catalog, verify, showcase, and manage your trading cards and collectibles. Digital binder. Community built around the culture. If you collect anything, this is your home base.</div>
 <div class="homie-links">
 <a class="card-link" href="https://holotag.app" rel="noopener" target="_blank">HOLOTAG.APP →</a>
-<a class="card-link" href="https://x.com/holo_app" rel="noopener" target="_blank">𝕏 @holo_app →</a>
-<a class="card-link" href="https://x.com/0xJuiceddd" rel="noopener" target="_blank">𝕏 @0xJuiceddd →</a>
+
+
 </div>
 </div>
 </div></div>
-      </section>
-      <p class="m-empty" id="menuEmpty" hidden>Nothing matches. Try another word.</p>
-    </div>
-  </aside>
+</section>
+<p class="m-empty" hidden="" id="menuEmpty">Nothing matches. Try another word.</p>
+</div>
+</aside>
+<!-- ══ RIGHT MENU: DEV LOGIN / SOCIALS / LINKS / CONTACT ══ -->
+<aside aria-hidden="true" aria-label="Dev login, socials, links and contact" aria-modal="true" class="side-menu side-right" id="menuRight" role="dialog" tabindex="-1">
+<div class="menu-head">
+<div class="menu-kicker">ST SOLA // CONNECT</div>
+<div class="menu-title">Links</div>
+<button aria-label="Close menu" class="menu-close" data-close-menu="">✕</button>
+</div>
+<div class="menu-scroll">
+<button class="dev-login" onclick="menuCloseAll();adminToggle()" type="button">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="11" rx="2" width="16" x="4" y="10"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+<span>DEV LOGIN</span><small>admin panel</small>
+</button>
+<section class="r-group r-socials" id="socials"><h3 class="m-group-title">Socials</h3>
+<div class="r-list"><a class="r-link" href="https://x.com/StSola" rel="noopener" target="_blank">𝕏 @StSola</a><a class="r-link" href="https://t.me/St_Sola" rel="noopener" target="_blank"><svg fill="currentColor" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"></path></svg>@St_Sola</a><a class="r-link" href="https://instagram.com/s.t.sola" rel="noopener" target="_blank"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" fill="currentColor" r="1" stroke="none"></circle></svg>@s.t.sola</a><a class="r-link" href="https://youtube.com/@St_Sola" rel="noopener" target="_blank"><svg fill="currentColor" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>@St_Sola</a></div>
+<div class="r-sub">Bots</div><div class="r-list"><a class="r-link r-link-sm" href="https://t.me/Saint_hood_bot" rel="noopener" target="_blank"><span class="r-plat">Telegram</span>Telegram Bot Suite · @Saint_hood_bot</a><a class="r-link r-link-sm" href="https://twitter.com/StCyph3r" rel="noopener" target="_blank"><span class="r-plat">X</span>X / Twitter Bot · @StCyph3r</a></div>
+<div class="r-sub">Homies &amp; Community</div><div class="r-list"><a class="r-link r-link-sm" href="https://x.com/saintsoflanft" rel="noopener" target="_blank"><span class="r-plat">X</span>Saints of LA</a><a class="r-link r-link-sm" href="https://x.com/Stzyapegang" rel="noopener" target="_blank"><span class="r-plat">X</span>STZY Ape Gang</a><a class="r-link r-link-sm" href="https://x.com/HMN5_NFT" rel="noopener" target="_blank"><span class="r-plat">X</span>HMN5</a><a class="r-link r-link-sm" href="https://x.com/Chumpzonape" rel="noopener" target="_blank"><span class="r-plat">X</span>Chumpz on Ape</a><a class="r-link r-link-sm" href="https://x.com/ithinkitsart" rel="noopener" target="_blank"><span class="r-plat">X</span>ITIA</a><a class="r-link r-link-sm" href="https://x.com/RabidArtWorkRIP" rel="noopener" target="_blank"><span class="r-plat">X</span>Roman Blat · @RabidArtWorkRIP</a><a class="r-link r-link-sm" href="https://www.youtube.com/@djvaped" rel="noopener" target="_blank"><span class="r-plat">YouTube</span>DJ vAPED · @djvaped</a><a class="r-link r-link-sm" href="https://x.com/DJvAPED" rel="noopener" target="_blank"><span class="r-plat">X</span>DJ vAPED · @DJvAPED</a><a class="r-link r-link-sm" href="https://x.com/holo_app" rel="noopener" target="_blank"><span class="r-plat">X</span>HOLO · @holo_app</a><a class="r-link r-link-sm" href="https://x.com/0xJuiceddd" rel="noopener" target="_blank"><span class="r-plat">X</span>HOLO · @0xJuiceddd</a></div></section>
+<section class="r-group"><h3 class="m-group-title">Links</h3><div class="r-list">
 
-  <!-- ══ RIGHT MENU: DEV LOGIN / SOCIALS / LINKS / CONTACT ══ -->
-  <aside class="side-menu side-right" id="menuRight" role="dialog" aria-modal="true" aria-label="Dev login, socials, links and contact" aria-hidden="true" tabindex="-1">
-    <div class="menu-head">
-      <div class="menu-kicker">ST SOLA // CONNECT</div>
-      <div class="menu-title">Links</div>
-      <button class="menu-close" data-close-menu aria-label="Close menu">✕</button>
-    </div>
-    <div class="menu-scroll">
-      <button class="dev-login" onclick="menuCloseAll();adminToggle()" type="button">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-        <span>DEV LOGIN</span><small>admin panel</small>
-      </button>
-      <section class="r-group"><h3 class="m-group-title">Socials</h3><div class="r-list"><a class="r-link" href="https://x.com/StSola" rel="noopener" target="_blank">𝕏 @StSola</a><a class="r-link" href="https://t.me/St_Sola" rel="noopener" target="_blank"><svg fill="currentColor" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"></path></svg>@St_Sola</a><a class="r-link" href="https://instagram.com/s.t.sola" rel="noopener" target="_blank"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" fill="currentColor" r="1" stroke="none"></circle></svg>@s.t.sola</a><a class="r-link" href="https://youtube.com/@St_Sola" rel="noopener" target="_blank"><svg fill="currentColor" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>@St_Sola</a></div></section>
-      <section class="r-group"><h3 class="m-group-title">Links</h3><div class="r-list">
-        <a class="r-link" href="https://madebuilt.io" rel="noopener" target="_blank">madebuilt.io @stsola</a>
-        <a class="r-link" href="https://objkt.com/profile/tz1i6JL2r2cpwq2gf23RrCdGaqobbj4KYGY1" target="_blank" rel="noopener">OBJKT · St Sola Art</a>
-        <a class="r-link" href="https://www.youtube.com/live/b6ZlGXjKqjI" target="_blank" rel="noopener">StSola Lofi · Live 24/7</a>
-        <a class="r-link" href="https://fckoff-radio.pages.dev/" target="_blank" rel="noopener">FCKOFF Radio</a>
-        <a class="r-link" href="https://nftstack.net" target="_blank" rel="noopener">NFTstack · nftstack.net</a>
-      </div></section>
-      <section class="r-group"><h3 class="m-group-title">Contact</h3><div class="r-list">
-        <a class="r-link" href="mailto:info@stsola.us">info@stsola.us</a>
-        <a class="r-link" href="https://t.me/St_Sola" target="_blank" rel="noopener">DM on Telegram · @St_Sola</a>
-        <p class="r-note">Collab info: hit the email or a DM. Code for Sale inquiries: Flux Protocol in the Apps menu.</p>
-      </div></section>
-      <section class="r-group"><h3 class="m-group-title">On This Site</h3><div class="r-list r-jump">
-        <a class="r-link" href="#hero" data-close-menu>Hero · Saint Art</a>
-        <a class="r-link" href="#radio" data-close-menu>FCKOFF Radio</a>
-        <a class="r-link" href="#lofi" data-close-menu>StSola Lofi Live</a>
-        <a class="r-link" href="#djvaped" data-close-menu>DJ vAPED</a>
-        <a class="r-link" href="#guestbook" data-close-menu>GuestRoom</a>
-      </div></section>
-    </div>
-  </aside>
+<a class="r-link" href="https://objkt.com/profile/tz1i6JL2r2cpwq2gf23RrCdGaqobbj4KYGY1" rel="noopener" target="_blank">OBJKT · St Sola Art</a>
+<a class="r-link" href="https://www.youtube.com/live/b6ZlGXjKqjI" rel="noopener" target="_blank">StSola Lofi · Live 24/7</a>
+<a class="r-link" href="https://fckoff-radio.pages.dev/" rel="noopener" target="_blank">FCKOFF Radio</a>
+<a class="r-link" href="https://nftstack.net" rel="noopener" target="_blank">NFTstack · nftstack.net</a>
+</div></section>
+<section class="r-group"><h3 class="m-group-title">Contact</h3><div class="r-list">
+<a class="r-link" href="mailto:info@stsola.us">info@stsola.us</a>
 
-  <!-- ALL CONTENT SCROLLS OVER CHARACTER -->
-  <main class="scroll-root" id="main">
-
-    <!-- ══ HERO ══ -->
-    <section id="hero">
-      <h1 class="name-cutout">St Sola</h1>
-
-      <div class="stage" id="stage">
-        <div class="photo-frame" id="photoFrame" aria-roledescription="carousel" aria-label="Saint art">
-          <figure class="slide active"><img src="assets/saint-pool.jpg" alt="Saint art" decoding="async" fetchpriority="high" /></figure><figure class="slide"><img data-src="assets/saint-tia.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/saint-losangeles.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/saint-skater.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img1.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img2.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img3.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img4.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img5.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/img6.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/photo1.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/photo2.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/photo3.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/photo4.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/photo5.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/saint-lowrider.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/saint-toast.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/saint-tacos.jpg" alt="Saint art" decoding="async" /></figure><figure class="slide"><img data-src="assets/hero-bar.jpg" alt="Saint art" decoding="async" /></figure>
-          <div class="frame-vignette" aria-hidden="true"></div>
-          <div class="frame-grain" aria-hidden="true"></div>
-          <div class="frame-glare" aria-hidden="true"></div>
-          <button class="frame-nav frame-prev" id="framePrev" aria-label="Previous image">‹</button>
-          <button class="frame-nav frame-next" id="frameNext" aria-label="Next image">›</button>
-        </div>
-        <div class="frame-dots" id="frameDots"><button class="dot active" data-i="0" aria-label="Show image 1"></button><button class="dot" data-i="1" aria-label="Show image 2"></button><button class="dot" data-i="2" aria-label="Show image 3"></button><button class="dot" data-i="3" aria-label="Show image 4"></button><button class="dot" data-i="4" aria-label="Show image 5"></button><button class="dot" data-i="5" aria-label="Show image 6"></button><button class="dot" data-i="6" aria-label="Show image 7"></button><button class="dot" data-i="7" aria-label="Show image 8"></button><button class="dot" data-i="8" aria-label="Show image 9"></button><button class="dot" data-i="9" aria-label="Show image 10"></button><button class="dot" data-i="10" aria-label="Show image 11"></button><button class="dot" data-i="11" aria-label="Show image 12"></button><button class="dot" data-i="12" aria-label="Show image 13"></button><button class="dot" data-i="13" aria-label="Show image 14"></button><button class="dot" data-i="14" aria-label="Show image 15"></button><button class="dot" data-i="15" aria-label="Show image 16"></button><button class="dot" data-i="16" aria-label="Show image 17"></button><button class="dot" data-i="17" aria-label="Show image 18"></button><button class="dot" data-i="18" aria-label="Show image 19"></button></div>
-      </div>
-
-      <p class="hero-tagline">Builder.&nbsp; Saint.&nbsp; Creator.</p>
-
-      <div class="hero-ctas">
-        <button class="card-link cta" type="button" onclick="menuOpen('left')">APPS &amp; PROJECTS →</button>
-        <button class="card-link cta cta-ghost" onclick="document.getElementById('guestbook').scrollIntoView({behavior:'smooth'})">GUEST ROOM →</button>
-      </div>
-      <p class="swipe-tip" aria-hidden="true"><span>⟵ swipe for links</span><span>swipe for apps ⟶</span></p>
-      <div class="scroll-arrow" onclick="document.getElementById('radio').scrollIntoView({behavior:'smooth'})" style="margin-top:4px">
-        <span></span><span></span><span></span>
-      </div>
-    </section>
-
-    <!-- ══ FCKOFF RADIO ══ -->
-    <section class="section reveal" id="radio">
-      <h2 class="section-title">FCKOFF Radio</h2>
-      <div class="radio-player" id="radioPlayer">
+<p class="r-note">Collab info: hit the email or a DM. Code for Sale inquiries: Flux Protocol in the Apps menu.</p>
+</div></section>
+<section class="r-group"><h3 class="m-group-title">On This Site</h3><div class="r-list r-jump">
+<a class="r-link" data-close-menu="" href="#hero">Hero · Saint Art</a>
+<a class="r-link" data-close-menu="" href="#radio">FCKOFF Radio</a>
+<a class="r-link" data-close-menu="" href="#lofi">StSola Lofi Live</a>
+<a class="r-link" data-close-menu="" href="#djvaped">DJ vAPED</a>
+<a class="r-link" data-close-menu="" href="#guestbook">GuestRoom</a>
+</div></section>
+</div>
+</aside>
+<!-- ALL CONTENT SCROLLS OVER CHARACTER -->
+<main class="scroll-root" id="main">
+<!-- ══ HERO ══ -->
+<section id="hero">
+<h1 class="name-cutout">St Sola</h1>
+<div class="stage" id="stage">
+<div aria-label="Saint art" aria-roledescription="carousel" class="photo-frame" id="photoFrame">
+<figure class="slide active"><img alt="Saint art" decoding="async" fetchpriority="high" src="assets/saint-pool.jpg"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/saint-tia.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/saint-losangeles.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/saint-skater.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/img1.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/img2.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/img3.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/img4.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/img5.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/img6.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/photo1.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/photo2.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/photo3.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/photo4.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/photo5.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/saint-lowrider.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/saint-toast.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/saint-tacos.jpg" decoding="async"/></figure><figure class="slide"><img alt="Saint art" data-src="assets/hero-bar.jpg" decoding="async"/></figure>
+<div aria-hidden="true" class="frame-vignette"></div>
+<div aria-hidden="true" class="frame-grain"></div>
+<div aria-hidden="true" class="frame-glare"></div>
+<button aria-label="Previous image" class="frame-nav frame-prev" id="framePrev">‹</button>
+<button aria-label="Next image" class="frame-nav frame-next" id="frameNext">›</button>
+</div>
+<div class="frame-dots" id="frameDots"><button aria-label="Show image 1" class="dot active" data-i="0"></button><button aria-label="Show image 2" class="dot" data-i="1"></button><button aria-label="Show image 3" class="dot" data-i="2"></button><button aria-label="Show image 4" class="dot" data-i="3"></button><button aria-label="Show image 5" class="dot" data-i="4"></button><button aria-label="Show image 6" class="dot" data-i="5"></button><button aria-label="Show image 7" class="dot" data-i="6"></button><button aria-label="Show image 8" class="dot" data-i="7"></button><button aria-label="Show image 9" class="dot" data-i="8"></button><button aria-label="Show image 10" class="dot" data-i="9"></button><button aria-label="Show image 11" class="dot" data-i="10"></button><button aria-label="Show image 12" class="dot" data-i="11"></button><button aria-label="Show image 13" class="dot" data-i="12"></button><button aria-label="Show image 14" class="dot" data-i="13"></button><button aria-label="Show image 15" class="dot" data-i="14"></button><button aria-label="Show image 16" class="dot" data-i="15"></button><button aria-label="Show image 17" class="dot" data-i="16"></button><button aria-label="Show image 18" class="dot" data-i="17"></button><button aria-label="Show image 19" class="dot" data-i="18"></button></div>
+</div>
+<p class="hero-tagline">Builder.  Saint.  Creator.</p>
+<div class="hero-ctas">
+<button class="card-link cta" onclick="menuOpen('left')" type="button">APPS &amp; PROJECTS →</button>
+<button class="card-link cta cta-ghost" onclick="document.getElementById('guestbook').scrollIntoView({behavior:'smooth'})">GUEST ROOM →</button>
+</div>
+<p aria-hidden="true" class="swipe-tip"><span>⟵ swipe for links</span><span>swipe for apps ⟶</span></p>
+<div class="scroll-arrow" onclick="document.getElementById('radio').scrollIntoView({behavior:'smooth'})" style="margin-top:4px">
+<span></span><span></span><span></span>
+</div>
+</section>
+<!-- ══ FCKOFF RADIO ══ -->
+<section class="section reveal" id="radio">
+<h2 class="section-title">FCKOFF Radio</h2>
+<div class="radio-player" id="radioPlayer">
 <button aria-label="Play/Stop" class="radio-play-btn" id="radioBtn" onclick="toggleRadio()">
 <!-- Play icon -->
 <svg fill="currentColor" height="16" id="iconPlay" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"></path></svg>
@@ -380,15 +349,14 @@
 <input aria-label="Volume" class="radio-vol" id="radioVol" max="100" min="0" type="range" value="80"/>
 </div>
 </div>
-      <audio id="radioAudio" preload="none"></audio>
-      <a class="card-link" href="https://fckoff-radio.pages.dev/" target="_blank" rel="noopener">FULL STATION →</a>
-    </section>
-
-    <!-- ══ STSOLA LOFI (live) ══ -->
-    <section class="section reveal" id="lofi">
-      <h2 class="section-title">StSola Lofi</h2>
-      <div class="embed-col">
-        <script>
+<audio id="radioAudio" preload="none"></audio>
+<a class="card-link" href="https://fckoff-radio.pages.dev/" rel="noopener" target="_blank">FULL STATION →</a>
+</section>
+<!-- ══ STSOLA LOFI (live) ══ -->
+<section class="section reveal" id="lofi">
+<h2 class="section-title">StSola Lofi</h2>
+<div class="embed-col">
+<script>
           /* Lofi preview image: maxresdefault -> hqdefault -> local Saint art. YouTube serves a 120x90 grey placeholder for missing sizes, so treat that as a miss too. */
           function lofiThumbFallback(img) {
             var s = img.getAttribute('src') || '';
@@ -398,26 +366,25 @@
           }
           function lofiThumbCheck(img) { if (img.naturalWidth && img.naturalWidth <= 120 && (img.getAttribute('src') || '').indexOf('i.ytimg.com') !== -1) lofiThumbFallback(img); }
         </script>
-        <div class="video-shell live-shell" id="lofiShell" data-embed="b6ZlGXjKqjI">
-          <a class="yt-facade" href="https://www.youtube.com/live/b6ZlGXjKqjI" target="_blank" rel="noopener" aria-label="StSola Lofi — Live Stream on YouTube">
-            <img src="https://i.ytimg.com/vi/b6ZlGXjKqjI/maxresdefault.jpg" alt="StSola Lofi — Live Stream" loading="lazy" decoding="async" onerror="lofiThumbFallback(this)" onload="lofiThumbCheck(this)" />
-            <span class="yt-play"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
-          </a>
-          <span class="live-badge"><span class="live-dot"></span>LIVE</span>
-        </div>
-        <div class="live-meta">
-          <span class="live-dot"></span>
-          <span>LIVE 24/7 &nbsp;·&nbsp; ORIGINAL BEATS &nbsp;·&nbsp; NO ADS</span>
-        </div>
-        <a class="card-link" href="https://www.youtube.com/live/b6ZlGXjKqjI" target="_blank" rel="noopener" style="font-size:1.1rem;padding:10px 28px;letter-spacing:0.15em">WATCH ON YOUTUBE →</a>
-      </div>
-    </section>
-
-    <!-- ══ DJ vAPED ══ -->
-    <section class="section reveal" id="djvaped">
-      <h2 class="section-title">DJ vAPED</h2>
-      <div class="homie-grid homie-grid-single">
-        <div class="homie-card">
+<div class="video-shell live-shell" data-embed="b6ZlGXjKqjI" id="lofiShell">
+<a aria-label="StSola Lofi — Live Stream on YouTube" class="yt-facade" href="https://www.youtube.com/live/b6ZlGXjKqjI" rel="noopener" target="_blank">
+<img alt="StSola Lofi — Live Stream" decoding="async" loading="lazy" onerror="lofiThumbFallback(this)" onload="lofiThumbCheck(this)" src="https://i.ytimg.com/vi/b6ZlGXjKqjI/maxresdefault.jpg"/>
+<span class="yt-play"><svg fill="#fff" height="30" viewbox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"></path></svg></span>
+</a>
+<span class="live-badge"><span class="live-dot"></span>LIVE</span>
+</div>
+<div class="live-meta">
+<span class="live-dot"></span>
+<span>LIVE 24/7  ·  ORIGINAL BEATS  ·  NO ADS</span>
+</div>
+<a class="card-link" href="https://www.youtube.com/live/b6ZlGXjKqjI" rel="noopener" style="font-size:1.1rem;padding:10px 28px;letter-spacing:0.15em" target="_blank">WATCH ON YOUTUBE →</a>
+</div>
+</section>
+<!-- ══ DJ vAPED ══ -->
+<section class="section reveal" id="djvaped">
+<h2 class="section-title">DJ vAPED</h2>
+<div class="homie-grid homie-grid-single">
+<div class="homie-card">
 <div class="homie-video">
 <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="lazy-embed" data-src="https://www.youtube-nocookie.com/embed/1SuSH9oc5b4?rel=0&amp;modestbranding=1" loading="lazy" title="DJ vAPED"></iframe>
 </div>
@@ -425,21 +392,16 @@
 <div class="homie-name">DJ vAPED</div>
 <div class="homie-handle">@DJvAPED  •  Los Angeles</div>
 <div class="homie-desc">Dope DJ based out of LA. Mixes that hit different. West Coast energy, global reach. This is what a real set sounds like.</div>
-<div class="homie-links">
-<a class="card-link" href="https://www.youtube.com/@djvaped" rel="noopener" target="_blank">YOUTUBE →</a>
-<a class="card-link" href="https://x.com/DJvAPED" rel="noopener" target="_blank">𝕏 @DJvAPED →</a>
-</div>
-</div>
-</div>
-      </div>
-    </section>
 
-    <!-- ══ GUESTROOM ══ -->
-    <div id="guestbook" class="guestroom-outer">
-      <div class="guestroom-bg"></div>
-      <div class="guestroom-overlay"></div>
-      <div class="section guestroom-inner" style="gap:32px;position:relative;z-index:2">
-      
+</div>
+</div>
+</div>
+</section>
+<!-- ══ GUESTROOM ══ -->
+<div class="guestroom-outer" id="guestbook">
+<div class="guestroom-bg"></div>
+<div class="guestroom-overlay"></div>
+<div class="section guestroom-inner" style="gap:32px;position:relative;z-index:2">
 <h2 class="section-title">GuestRoom</h2>
 <div id="visit-counter"></div>
 <!-- SUBMIT FORM -->
@@ -508,12 +470,10 @@
 <div id="gb-count" style="font-size:.8rem;color:rgba(255,255,255,.22);letter-spacing:.15em;text-align:right;margin-bottom:4px"></div>
 <div class="gb-scroll" id="gb-entries"></div>
 </div>
-
-      </div><!-- /guestroom-inner -->
-    </div><!-- /guestroom-outer -->
-
-    <!-- ══ FOOTER ══ -->
-    <footer id="footer"><div class="tip-row footer-tips" id="tip-bar"><button class="tip-btn tip-btn-sol" onclick="tipCopy('sol')" title="Tip with SOL">
+</div><!-- /guestroom-inner -->
+</div><!-- /guestroom-outer -->
+<!-- ══ FOOTER ══ -->
+<footer id="footer"><div class="tip-row footer-tips" id="tip-bar"><button class="tip-btn tip-btn-sol" onclick="tipCopy('sol')" title="Tip with SOL">
 <!-- Solana logo -->
 <svg fill="none" height="13" viewbox="0 0 128 128" width="13" xmlns="http://www.w3.org/2000/svg">
 <path d="M21.7 94.6a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3.1L105.9 115a3.6 3.6 0 0 1-2.5 1H4.6a1.8 1.8 0 0 1-1.3-3.1l18.4-18.3ZM21.7 13a3.6 3.6 0 0 1 2.5-1H123a1.8 1.8 0 0 1 1.3 3L105.9 33.4a3.6 3.6 0 0 1-2.5 1H4.6A1.8 1.8 0 0 1 3.3 31L21.7 13ZM105.9 53.6a3.6 3.6 0 0 0-2.5-1H4.6a1.8 1.8 0 0 0-1.3 3.1L21.7 74a3.6 3.6 0 0 0 2.5 1H123a1.8 1.8 0 0 0 1.3-3.1L105.9 53.6Z" fill="#14f195"></path>
@@ -534,18 +494,17 @@
     </a></div>
 <div class="footer-name">St Sola</div>
 <p class="footer-tagline">LOYALTY OVER BULLSHIT 🧠📡</p>
-<a href="https://x.com/StSola" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'" onmouseover="this.style.borderColor='#fff'" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s" target="_blank">𝕏 @StSola</a>
-<a href="https://t.me/St_Sola" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'" onmouseover="this.style.borderColor='#29b6f6'" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s;display:inline-flex;align-items:center;gap:8px" target="_blank"><svg fill="currentColor" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 14.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"></path></svg>@St_Sola</a>
-<a href="https://instagram.com/s.t.sola" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'" onmouseover="this.style.borderColor='#e1306c'" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s;display:inline-flex;align-items:center;gap:8px" target="_blank"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" fill="currentColor" r="1" stroke="none"></circle></svg>@s.t.sola</a>
-<a href="https://youtube.com/@St_Sola" onmouseout="this.style.borderColor='rgba(255,255,255,.2)'" onmouseover="this.style.borderColor='#ff0000'" rel="noopener" style="font-size:1.3rem;color:#fff;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .2s;display:inline-flex;align-items:center;gap:8px" target="_blank"><svg fill="currentColor" height="22" viewbox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>@St_Sola</a>
+
+
+
+
 <a href="mailto:info@stsola.us" onmouseout="this.style.borderColor='rgba(255,215,0,.3)'" onmouseover="this.style.borderColor='#ffd700'" style="font-size:1.2rem;color:#ffd700;letter-spacing:.15em;border-bottom:1px solid rgba(255,215,0,.3);transition:border-color .2s">info@stsola.us</a>
-<a href="https://madebuilt.io" onmouseout="this.style.color='rgba(255,255,255,.35)'" onmouseover="this.style.color='rgba(255,255,255,.7)'" rel="noopener" style="font-size:1rem;color:rgba(255,255,255,.35);letter-spacing:.2em;margin-top:8px;transition:color .2s" target="_blank">madebuilt.io @stsola</a>
+
 <button onclick="adminToggle()" onmouseout="this.style.color='rgba(255,255,255,.1)'" onmouseover="this.style.color='rgba(255,58,0,.35)'" style="background:none;border:none;color:rgba(255,255,255,.1);font-size:.7rem;letter-spacing:.2em;cursor:pointer;padding:4px 8px;transition:color .2s;font-family:'VT323',monospace;margin-top:4px">[ admin ]</button>
 </footer>
-  </main><!-- /scroll-root -->
-
-  <!-- TIP MODAL -->
-  <div id="tip-modal" onclick="if(event.target===this)tipModalClose()">
+</main><!-- /scroll-root -->
+<!-- TIP MODAL -->
+<div id="tip-modal" onclick="if(event.target===this)tipModalClose()">
 <div class="tip-modal-box">
 <div class="tip-modal-title" id="tip-modal-title"></div>
 <div class="tip-modal-addr" id="tip-modal-addr"></div>
@@ -553,9 +512,8 @@
 <button class="tip-modal-close" onclick="tipModalClose()">close</button>
 </div>
 </div>
-
-  <!-- ══ ADMIN OVERLAY ══ -->
-  <div id="admin-overlay">
+<!-- ══ ADMIN OVERLAY ══ -->
+<div id="admin-overlay">
 <!-- Login screen -->
 <div id="admin-login">
 <div class="admin-login-box">
@@ -627,8 +585,7 @@
 </div>
 </div>
 </div>
-
-  <script src="assets/legacy.js?v=revamp1"></script>
-  <script src="assets/app.js?v=revamp1" defer></script>
+<script src="assets/legacy.js?v=revamp1"></script>
+<script defer="" src="assets/app.js?v=revamp1"></script>
 </body>
 </html>
