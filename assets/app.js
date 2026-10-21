@@ -308,7 +308,7 @@
   /* ═════════════ LOFI LIVE: auto-embed when the owner allows embedding ═════════════ */
   (function lofi() {
     var shell = $('#lofiShell'); if (!shell) return;
-    var id = shell.getAttribute('data-embed'), done = false;
+    var id = shell.getAttribute('data-embed'), ch = shell.getAttribute('data-channel'), done = false;
     function tryEmbed() {
       if (done) return; done = true;
       // YouTube oEmbed answers 401 when "allow embedding" is off; noembed proxies it with CORS.
@@ -317,7 +317,9 @@
         .then(function (d) {
           if (!d || d.error) return; // keep the thumbnail facade (links out to YouTube)
           var f = doc.createElement('iframe');
-          f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&modestbranding=1';
+          // Channel live embed follows whatever broadcast is live now (survives new stream keys / broadcasts).
+          f.src = ch ? 'https://www.youtube.com/embed/live_stream?channel=' + ch + '&rel=0&modestbranding=1'
+                     : 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&modestbranding=1';
           f.title = 'StSola Lofi — Live Stream';
           f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
           f.allowFullscreen = true; f.loading = 'lazy';
