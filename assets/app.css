@@ -65,7 +65,7 @@
       font-size: clamp(72px, 18vw, 180px);
       line-height: 1;
       /* Clip the red bg image through the text */
-      background: url('/assets/hero-bg.jpg?v=r1027') center top / cover;
+      background: url('/assets/hero-bg.jpg?v=r1030') center top / cover;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -261,7 +261,7 @@
     .footer-name {
       font-family: 'UnifrakturMaguntia', cursive;
       font-size: clamp(2rem, 8vw, 4rem);
-      background: url('/assets/hero-bg.jpg?v=r1027') center top / cover;
+      background: url('/assets/hero-bg.jpg?v=r1030') center top / cover;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -747,7 +747,7 @@
       .guestroom-bg {
         position: absolute;
         inset: 0;
-        background: url('/assets/guestroom-bg.jpg?v=r1027') center center / cover no-repeat;
+        background: url('/assets/guestroom-bg.jpg?v=r1030') center center / cover no-repeat;
         z-index: 0;
       }
       .guestroom-overlay {
@@ -1182,7 +1182,7 @@ body:has(#menuRight.open) .menu-overlay,body:has(#menuRight.dragging) .menu-over
 @keyframes ytPulse{0%{box-shadow:0 0 0 0 rgba(255,58,0,.55),0 0 36px rgba(255,58,0,.6)}70%{box-shadow:0 0 0 22px rgba(255,58,0,0),0 0 36px rgba(255,58,0,.6)}100%{box-shadow:0 0 0 0 rgba(255,58,0,0),0 0 36px rgba(255,58,0,.6)}}
 /* lazy guestroom background */
 .guestroom-bg{background-image:none}
-.guestroom-outer.bg-in .guestroom-bg{background-image:url('/assets/guestroom-bg.jpg?v=r1027')}
+.guestroom-outer.bg-in .guestroom-bg{background-image:url('/assets/guestroom-bg.jpg?v=r1030')}
 @media (min-width:900px){
   .name-cutout{font-size:clamp(72px,9vw,140px)}
   .photo-frame{width:min(700px,56vw,calc((100svh - 400px) * 1.25))}
@@ -1192,7 +1192,7 @@ body:has(#menuRight.open) .menu-overlay,body:has(#menuRight.dragging) .menu-over
 .guestroom-inner label{color:rgba(255,255,255,.62)!important}
 
 /* lofi card: local Saint art underneath the YouTube thumbnail, so the card is never blank */
-.yt-facade{background:#000 url('/assets/saint-losangeles.jpg?v=r1027') center/cover no-repeat}
+.yt-facade{background:#000 url('/assets/saint-losangeles.jpg?v=r1030') center/cover no-repeat}
 /* socials sub-groups (right menu) */
 
 /* ── SERVICES (main page tile) ── */
@@ -1230,7 +1230,7 @@ body:has(#menuRight.open) .menu-overlay,body:has(#menuRight.dragging) .menu-over
 
 /* ── /services page ── */
 body.svc-page{min-height:100svh;display:flex;flex-direction:column;color:#fff;touch-action:auto}
-.svc-bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(90% 60% at 50% -10%,rgba(255,58,0,.28),transparent 60%),radial-gradient(60% 50% at 100% 100%,rgba(255,45,85,.14),transparent 60%),linear-gradient(180deg,rgba(7,3,10,.86),rgba(7,3,10,.97)),url('/assets/hero-bg.jpg?v=r1027') center/cover no-repeat;}
+.svc-bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(90% 60% at 50% -10%,rgba(255,58,0,.28),transparent 60%),radial-gradient(60% 50% at 100% 100%,rgba(255,45,85,.14),transparent 60%),linear-gradient(180deg,rgba(7,3,10,.86),rgba(7,3,10,.97)),url('/assets/hero-bg.jpg?v=r1030') center/cover no-repeat;}
 .svc-top{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;max-width:880px;width:100%;margin:0 auto}
 .svc-back,.svc-foot a{font-family:'VT323',monospace;font-size:1.15rem;letter-spacing:.12em;color:rgba(255,255,255,.7)}
 .svc-back:hover,.svc-foot a:hover{color:var(--red)}
@@ -1286,3 +1286,9 @@ body.svc-page{min-height:100svh;display:flex;flex-direction:column;color:#fff;to
 .card-link.ns-join{display:inline-flex;align-items:center;gap:8px;margin-top:4px;color:#fff;border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.06)}
 .card-link.ns-join:hover{background:#fff;color:#000}
 @media (prefers-reduced-motion:reduce){.ns-cursor{animation:none}}
+
+/* ── DESKTOP CRISPNESS (r1030) ── desktop-only: HD (AI-upscaled) backgrounds so wide screens don't stretch the 1024px art; mobile untouched */
+.bg-pic{display:contents}
+@media (min-width:900px){
+  .guestroom-outer.bg-in .guestroom-bg{background-image:url('/assets/guestroom-bg-hd.jpg?v=r1030')}
+}
